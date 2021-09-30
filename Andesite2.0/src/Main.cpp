@@ -157,8 +157,8 @@ SDL_Texture* LoadTexture(std::string id, std::string filename) {
 
 void render(std::vector<Box*> boxes,float dt)
 {
-	int velocityIterations = 10;
-	int positionIterations = 10;
+	int velocityIterations = 6;
+	int positionIterations = 2;
 
 	physicsWorld->Step(dt, velocityIterations, positionIterations);
 
