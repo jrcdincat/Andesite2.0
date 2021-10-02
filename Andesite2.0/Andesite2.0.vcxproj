@@ -19,13 +19,53 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\dependencies\TinyXML\tinystr.cpp" />
+    <ClCompile Include="..\dependencies\TinyXML\tinyxml.cpp" />
+    <ClCompile Include="..\dependencies\TinyXML\tinyxmlerror.cpp" />
+    <ClCompile Include="..\dependencies\TinyXML\tinyxmlparser.cpp" />
+    <ClCompile Include="src\Game.cpp" />
+    <ClCompile Include="src\Graphics\Animation.cpp" />
+    <ClCompile Include="src\Graphics\TextureManager.cpp" />
+    <ClCompile Include="src\Input\Command.cpp" />
+    <ClCompile Include="src\Input\InputManager.cpp" />
     <ClCompile Include="src\Main.cpp" />
+    <ClCompile Include="src\Map\GameMap.cpp" />
+    <ClCompile Include="src\Map\MapParser.cpp" />
+    <ClCompile Include="src\Map\TileLayer.cpp" />
+    <ClCompile Include="src\Math\Vector2D.cpp" />
+    <ClCompile Include="src\Objects\Actor.cpp" />
+    <ClCompile Include="src\Objects\Entity.cpp" />
+    <ClCompile Include="src\Objects\GameObject.cpp" />
+    <ClCompile Include="src\Objects\IObject.cpp" />
+    <ClCompile Include="src\Objects\Player.cpp" />
+    <ClCompile Include="src\pch.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
+    </ClCompile>
     <ClCompile Include="src\Time\Timer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="src\Assets\images\Background.png" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Game.h" />
+    <ClInclude Include="src\Graphics\Animation.h" />
+    <ClInclude Include="src\Graphics\TextureManager.h" />
+    <ClInclude Include="src\Input\Command.h" />
+    <ClInclude Include="src\Input\InputManager.h" />
+    <ClInclude Include="src\Map\GameMap.h" />
+    <ClInclude Include="src\Map\Layer.h" />
+    <ClInclude Include="src\Map\MapParser.h" />
+    <ClInclude Include="src\Map\TileLayer.h" />
+    <ClInclude Include="src\Math\Vector2D.h" />
+    <ClInclude Include="src\Objects\Actor.h" />
+    <ClInclude Include="src\Objects\Entity.h" />
+    <ClInclude Include="src\Objects\GameObject.h" />
+    <ClInclude Include="src\Objects\IObject.h" />
+    <ClInclude Include="src\Objects\Player.h" />
+    <ClInclude Include="src\pch.h" />
     <ClInclude Include="src\Time\Timer.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
@@ -107,6 +147,9 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)dependencies/Box2d/include/box2d;$(SolutionDir)dependencies/SDL2/include;$(SolutionDir)dependencies/TinyXML</AdditionalIncludeDirectories>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <ForcedIncludeFiles>%(ForcedIncludeFiles)</ForcedIncludeFiles>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -124,6 +167,9 @@
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)dependencies/Box2d/include/box2d;$(SolutionDir)dependencies/SDL2/include;$(SolutionDir)dependencies/TinyXML</AdditionalIncludeDirectories>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <ForcedIncludeFiles>%(ForcedIncludeFiles)</ForcedIncludeFiles>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -141,6 +187,9 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)dependencies/Box2d/include/box2d;$(SolutionDir)dependencies/SDL2/include;$(SolutionDir)dependencies/TinyXML</AdditionalIncludeDirectories>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <ForcedIncludeFiles>pch.h</ForcedIncludeFiles>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -158,6 +207,9 @@
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)dependencies/Box2d/include/box2d;$(SolutionDir)dependencies/SDL2/include;$(SolutionDir)dependencies/TinyXML</AdditionalIncludeDirectories>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <ForcedIncludeFiles>pch.h</ForcedIncludeFiles>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

@@ -1,4 +1,4 @@
-#include "SDL.h"
+#include "../pch.h"
 #include "Timer.h"
 
 Timer* Timer::instance = nullptr;
