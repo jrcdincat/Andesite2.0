@@ -72,6 +72,9 @@
     <ClInclude Include="src\pch.h" />
     <ClInclude Include="src\Time\Timer.h" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="src\Assets\map.tmx" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
