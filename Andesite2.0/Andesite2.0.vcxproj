@@ -51,6 +51,7 @@
     <Image Include="src\Assets\images\Spritesheet_tileset.png" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Constants.h" />
     <ClInclude Include="src\Game.h" />
     <ClInclude Include="src\Graphics\Animation.h" />
     <ClInclude Include="src\Graphics\TextureManager.h" />
