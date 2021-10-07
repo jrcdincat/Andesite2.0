@@ -44,7 +44,19 @@ bool MapParser::Parse(std::string id, std::string src) {
 	for (TiXmlElement* element = root->FirstChildElement(); element != nullptr; element = element->NextSiblingElement()) {
 		if (element->Value() == std::string("layer")) {
 			TileLayer* tileLayer = ParseTileLayer(element, tileSets, tileSize, numRow, numCol);
+			std::string name = element->Attribute("name");
+
+			if (name == "CollisionLayer1" || name =="CollisionLayer2")
+			{
+				std::cout << "col:" << name << std::endl;
+			}
+
 			gameMap->mapLayers.push_back(tileLayer);
+		}
+
+		if (element->Value() == std::string("objectgroup"))
+		{
+			std::cout << "obj:" << std::endl;
 		}
 	}
 
