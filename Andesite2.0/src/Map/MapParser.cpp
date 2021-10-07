@@ -32,7 +32,7 @@ bool MapParser::Parse(std::string id, std::string src) {
 	root->Attribute("height", &numRow);
 	root->Attribute("tilewidth", &tileSize);
 
-	// Loop through all xml tile sets inside the .tmx file and ad them into a TileSetList
+	// Loop through all xml tile sets inside the .tmx file and add them into a TileSetList
 	TileSetList tileSets;
 	for (TiXmlElement* element = root->FirstChildElement(); element != nullptr; element = element->NextSiblingElement()) {
 		if (element->Value() == std::string("tileset")) {
