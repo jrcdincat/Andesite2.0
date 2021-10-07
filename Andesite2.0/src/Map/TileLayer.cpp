@@ -6,7 +6,7 @@ TileLayer::TileLayer(int tSize, int rowCnt, int colCnt, TileMap tMap, TileSetLis
 	tileSize(tSize), numRow(rowCnt), numCol(colCnt), tileMap(tMap), tileSets(tSets) {
 
 	for (unsigned int i = 0; i < tileSets.size(); i++) {
-		TextureManager::GetInstance()->LoadTexture(tileSets[i].name, "src/assets/map/" + tileSets[i].source);
+		TextureManager::GetInstance()->LoadTexture(tileSets[i].name, "src/assets/" + tileSets[i].source);
 	}
 }
 
