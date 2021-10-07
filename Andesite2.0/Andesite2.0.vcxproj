@@ -23,6 +23,7 @@
     <ClCompile Include="..\dependencies\TinyXML\tinyxml.cpp" />
     <ClCompile Include="..\dependencies\TinyXML\tinyxmlerror.cpp" />
     <ClCompile Include="..\dependencies\TinyXML\tinyxmlparser.cpp" />
+    <ClCompile Include="src\Camera\Camera.cpp" />
     <ClCompile Include="src\Game.cpp" />
     <ClCompile Include="src\Graphics\Animation.cpp" />
     <ClCompile Include="src\Graphics\TextureManager.cpp" />
@@ -51,6 +52,7 @@
     <Image Include="src\Assets\images\Spritesheet_tileset.png" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Camera\Camera.h" />
     <ClInclude Include="src\Constants.h" />
     <ClInclude Include="src\Game.h" />
     <ClInclude Include="src\Graphics\Animation.h" />
