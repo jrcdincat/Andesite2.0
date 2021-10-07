@@ -48,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="src\Assets\images\Background.png" />
+    <Image Include="src\Assets\images\Spritesheet_tileset.png" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Game.h" />
