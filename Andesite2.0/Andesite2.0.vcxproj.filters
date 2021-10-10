@@ -89,6 +89,120 @@
     <Image Include="src\Assets\images\Spritesheet_tileset.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="src\Assets\images\Tile_1.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="src\Assets\images\Tile_2.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="src\Assets\images\Tile_3.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="src\Assets\images\Tile_4.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="src\Assets\images\Tile_5.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="src\Assets\images\Tile_6.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="src\Assets\images\Tile_7.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="src\Assets\images\Tile_8.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="src\Assets\images\Tile_9.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="src\Assets\images\Tile_10.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="src\Assets\images\Tile_11.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="src\Assets\images\Tile_12.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="src\Assets\images\Tile_13.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="src\Assets\images\Tile_14.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="src\Assets\images\Tile_15.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="src\Assets\images\Tile_16.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="src\Assets\images\Tile_17.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="src\Assets\images\Tile_18.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="src\Assets\images\Tile_19.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="src\Assets\images\Tile_20.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="src\Assets\images\Tile_21.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="src\Assets\images\Tile_22.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="src\Assets\images\Tile_23.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="src\Assets\images\Tile_24.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="src\Assets\images\Tile_25.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="src\Assets\images\Tile_26.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="src\Assets\images\Tile_29.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="src\Assets\images\Tile_30.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="src\Assets\images\Tile_31.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="src\Assets\images\Tile_32.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="src\Assets\images\Tile_33.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="src\Assets\images\Tile_34.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="src\Assets\images\Tile_35.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="src\Assets\images\Tile_36.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="src\Assets\images\Tile_37.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="src\Assets\images\Tile_38.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="src\Assets\images\Tile_39.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="src\Assets\images\Tile_40.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\pch.h">

@@ -46,6 +46,12 @@ void TextureManager::DrawTile(std::string tileSetID, int tileSize, int x, int y,
 	SDL_RenderCopyEx(Game::GetInstance()->GetRenderer(), textureMap[tileSetID], &srcRect, &dstRect, 0, 0, flip);
 }
 
+void TextureManager::DrawStaticTileObject(int imgWidth, int imgHeight, int x, int y, int typeID, SDL_RendererFlip flip) {
+	SDL_Rect srcRect = { 0, 0, imgWidth, imgHeight };
+	SDL_Rect dstRect = { x, y, imgWidth, imgHeight };
+	SDL_RenderCopyEx(Game::GetInstance()->GetRenderer(), textureMap[std::to_string(typeID)], &srcRect, &dstRect, 0, 0, flip);
+}
+
 void TextureManager::RemoveTexture(std::string id) {
 	SDL_DestroyTexture(textureMap[id]);
 	textureMap.erase(id);

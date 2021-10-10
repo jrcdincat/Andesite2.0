@@ -6,7 +6,6 @@
 #include "GameMap.h"
 #include "TileLayer.h"
 
-
 class MapParser {
 public:
 	inline static MapParser* GetInstance() { return instance = (instance != nullptr) ? instance : new MapParser(); }
@@ -35,6 +34,18 @@ private:
 	/// <param name="numCol"></param>
 	/// <returns></returns>
 	TileLayer* ParseTileLayer(TiXmlElement* xmlLayer, TileSetList tileSets, int tileSize, int numRow, int numCol);
+
+	/// <summary>
+	/// Parse through xml collision layer data inside of the .tmx file to store inside the TileLayer class. 
+	/// Adds Box2D static bodies
+	/// </summary>
+	/// <param name="xmlLayer"></param>
+	/// <param name="tileSets"></param>
+	/// <param name="tileSize"></param>
+	/// <param name="numRow"></param>
+	/// <param name="numCol"></param>
+	/// <returns></returns>
+	TileLayer* ParseStaticObjectCollisionLayer(TiXmlElement* xmlLayer, TileSetList tileSets, int tileSize, int numRow, int numCol);
 
 	static MapParser* instance;
 	std::map<std::string, GameMap*> gameMaps;

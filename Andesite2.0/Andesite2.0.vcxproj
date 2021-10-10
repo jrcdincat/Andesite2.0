@@ -50,6 +50,44 @@
   <ItemGroup>
     <Image Include="src\Assets\images\Background.png" />
     <Image Include="src\Assets\images\Spritesheet_tileset.png" />
+    <Image Include="src\Assets\images\Tile_1.png" />
+    <Image Include="src\Assets\images\Tile_10.png" />
+    <Image Include="src\Assets\images\Tile_11.png" />
+    <Image Include="src\Assets\images\Tile_12.png" />
+    <Image Include="src\Assets\images\Tile_13.png" />
+    <Image Include="src\Assets\images\Tile_14.png" />
+    <Image Include="src\Assets\images\Tile_15.png" />
+    <Image Include="src\Assets\images\Tile_16.png" />
+    <Image Include="src\Assets\images\Tile_17.png" />
+    <Image Include="src\Assets\images\Tile_18.png" />
+    <Image Include="src\Assets\images\Tile_19.png" />
+    <Image Include="src\Assets\images\Tile_2.png" />
+    <Image Include="src\Assets\images\Tile_20.png" />
+    <Image Include="src\Assets\images\Tile_21.png" />
+    <Image Include="src\Assets\images\Tile_22.png" />
+    <Image Include="src\Assets\images\Tile_23.png" />
+    <Image Include="src\Assets\images\Tile_24.png" />
+    <Image Include="src\Assets\images\Tile_25.png" />
+    <Image Include="src\Assets\images\Tile_26.png" />
+    <Image Include="src\Assets\images\Tile_29.png" />
+    <Image Include="src\Assets\images\Tile_3.png" />
+    <Image Include="src\Assets\images\Tile_30.png" />
+    <Image Include="src\Assets\images\Tile_31.png" />
+    <Image Include="src\Assets\images\Tile_32.png" />
+    <Image Include="src\Assets\images\Tile_33.png" />
+    <Image Include="src\Assets\images\Tile_34.png" />
+    <Image Include="src\Assets\images\Tile_35.png" />
+    <Image Include="src\Assets\images\Tile_36.png" />
+    <Image Include="src\Assets\images\Tile_37.png" />
+    <Image Include="src\Assets\images\Tile_38.png" />
+    <Image Include="src\Assets\images\Tile_39.png" />
+    <Image Include="src\Assets\images\Tile_4.png" />
+    <Image Include="src\Assets\images\Tile_40.png" />
+    <Image Include="src\Assets\images\Tile_5.png" />
+    <Image Include="src\Assets\images\Tile_6.png" />
+    <Image Include="src\Assets\images\Tile_7.png" />
+    <Image Include="src\Assets\images\Tile_8.png" />
+    <Image Include="src\Assets\images\Tile_9.png" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Camera\Camera.h" />

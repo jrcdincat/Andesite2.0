@@ -39,24 +39,20 @@ bool MapParser::Parse(std::string id, std::string src) {
 			tileSets.push_back(ParseTileSet(element));
 		}
 	}
-
+	
 	GameMap* gameMap = new GameMap();
 	for (TiXmlElement* element = root->FirstChildElement(); element != nullptr; element = element->NextSiblingElement()) {
+		TileLayer* tileLayer;
+
 		if (element->Value() == std::string("layer")) {
-			TileLayer* tileLayer = ParseTileLayer(element, tileSets, tileSize, numRow, numCol);
-			std::string name = element->Attribute("name");
-
-			if (name == "CollisionLayer1" || name =="CollisionLayer2")
-			{
-				std::cout << "col:" << name << std::endl;
-			}
-
+			tileLayer = ParseTileLayer(element, tileSets, tileSize, numRow, numCol);
 			gameMap->mapLayers.push_back(tileLayer);
 		}
-
-		if (element->Value() == std::string("objectgroup"))
+		else if (element->Value() == std::string("objectgroup"))
 		{
+			tileLayer = ParseStaticObjectCollisionLayer(element, tileSets, tileSize, numRow, numCol);
 			std::cout << "obj:" << std::endl;
+			gameMap->mapLayers.push_back(tileLayer);
 		}
 	}
 
@@ -67,16 +63,55 @@ bool MapParser::Parse(std::string id, std::string src) {
 
 TileSet MapParser::ParseTileSet(TiXmlElement* xmlTileSet) {
 	TileSet tileSet;
+
+	// Tileset information
 	tileSet.name = xmlTileSet->Attribute("name");
 	xmlTileSet->Attribute("firstgid", &tileSet.firstID);
 	xmlTileSet->Attribute("tilecount", &tileSet.numTiles);
 	tileSet.lastID = (tileSet.firstID + tileSet.numTiles) - 1;
 	xmlTileSet->Attribute("columns", &tileSet.numCol);
-	tileSet.numRow = tileSet.numTiles / tileSet.numCol;
+	tileSet.numRow = tileSet.numCol > 0 ? tileSet.numTiles / tileSet.numCol : 0;
 	xmlTileSet->Attribute("tilewidth", &tileSet.tileSize);
 
-	TiXmlElement* image = xmlTileSet->FirstChildElement();
-	tileSet.source = image->Attribute("source");
+	// Tileset with 0 columns is a collection of images with object groups
+	if (tileSet.numCol == 0)
+	{
+		// Get all tile objects
+		for (TiXmlElement* element = xmlTileSet->FirstChildElement(); element != nullptr; element = element->NextSiblingElement())
+		{
+			if (element->Value() == std::string("tile"))
+			{
+				TileObject newTileObject;
+				element->Attribute("id", &newTileObject.id);
+
+				for (TiXmlElement* nextElement = element->FirstChildElement(); nextElement != nullptr; nextElement = nextElement->NextSiblingElement())
+				{
+					if (nextElement->Value() == std::string("image"))
+					{
+						newTileObject.source = nextElement->Attribute("source");
+						nextElement->Attribute("width", &newTileObject.imageWidth);
+						nextElement->Attribute("height", &newTileObject.imageHeight);
+					}
+					else if (nextElement->Value() == std::string("objectgroup"))
+					{
+						TiXmlElement* objectElement = nextElement->FirstChildElement();
+						objectElement->Attribute("width", &newTileObject.collisionWidth);
+						objectElement->Attribute("height", &newTileObject.collisionHeight);
+						objectElement->Attribute("x", &newTileObject.x);
+						objectElement->Attribute("y", &newTileObject.y);
+					}
+				}
+				tileSet.tileObjects.push_back(newTileObject);
+			}
+		}
+	}
+	else
+	{
+		// Set image source of Tileset based on single image
+		TiXmlElement* image = xmlTileSet->FirstChildElement();
+		tileSet.source = image->Attribute("source");
+	}
+
 	return tileSet;
 }
 
@@ -113,5 +148,28 @@ TileLayer* MapParser::ParseTileLayer(TiXmlElement* xmlLayer, TileSetList tileSet
 			}
 		}
 	}
-	return new TileLayer(tileSize, numRow, numCol, tileMap, tileSets);
+	return new TileLayer(false, tileSize, numRow, numCol, tileMap, tileSets);
+}
+
+TileLayer* MapParser::ParseStaticObjectCollisionLayer(TiXmlElement* xmlLayer, TileSetList tileSets, int tileSize, int numRow, int numCol)
+{
+	TileMap tileMap(numRow, std::vector<int>(numCol, 0));
+	TileLayer* tileLayer = new TileLayer(true, tileSize, numRow, numCol, tileMap, tileSets);
+
+	for (TiXmlElement* element = xmlLayer->FirstChildElement(); element != nullptr; element = element->NextSiblingElement()) {
+		if (element->Value() == std::string("object"))
+		{
+			TileObject object;
+			element->Attribute("id", &object.id);
+			element->Attribute("type", &object.typeID);
+			element->Attribute("x", &object.x);
+			element->Attribute("y", &object.y);
+			element->Attribute("width", &object.imageWidth);
+			element->Attribute("height", &object.imageHeight);
+			object.tileSetGID = tileSets[1].firstID;
+			tileLayer->objects.push_back(object);
+		}
+	}
+
+	return tileLayer;
 }
