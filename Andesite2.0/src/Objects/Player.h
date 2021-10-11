@@ -15,6 +15,7 @@ public:
 	void MoveRight();
 	void MoveLeft();
 	void Idle();
+	void Escape();
 
 private: 
 	int row, frame, frameCount; 

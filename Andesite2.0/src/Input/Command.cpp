@@ -22,3 +22,8 @@ void BiteCommand::execute(Player* player)
 {
 	std::cout << "Bite" << std::endl;
 }
+
+void EscapeCommand::execute(Player* player)
+{
+	player->Escape();
+}

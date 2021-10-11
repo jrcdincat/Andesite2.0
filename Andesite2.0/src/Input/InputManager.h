@@ -14,5 +14,6 @@ private:
 	Command* buttonD;
 	Command* buttonW;
 	Command* buttonSpace;
+	Command* buttonEscape;
 	static InputManager* inputManagerInstance;
 };

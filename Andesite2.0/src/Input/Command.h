@@ -30,3 +30,8 @@ public:
 	virtual void execute(Player* actor);
 };
 
+class EscapeCommand : public Command
+{
+public: 
+	virtual void execute(Player* actor);
+};

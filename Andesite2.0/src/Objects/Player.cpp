@@ -41,3 +41,7 @@ void Player::MoveLeft() {
 void Player::Idle() {
 	animation->SetProperties("player_idle", 0, 8, 80, SDL_FLIP_HORIZONTAL);
 }
+
+void Player::Escape() {
+	Game::GetInstance()->SetIsRunning(false);
+}
