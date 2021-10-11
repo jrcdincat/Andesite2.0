@@ -43,6 +43,7 @@ public:
 private: 
 	int tileSize; 
 	int numRow, numCol;
+	int mapTileLayerOffset;
 	bool isObjectLayer;
 	TileMap tileMap; 
 	TileSetList tileSets;

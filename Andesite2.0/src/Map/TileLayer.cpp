@@ -4,6 +4,7 @@
 
 TileLayer::TileLayer(bool isObjLayer, int tSize, int rowCnt, int colCnt, TileMap tMap, TileSetList tSets): 
 	isObjectLayer(isObjLayer), tileSize(tSize), numRow(rowCnt), numCol(colCnt), tileMap(tMap), tileSets(tSets) {
+	mapTileLayerOffset = 256;
 
 	for (unsigned int i = 0; i < tileSets.size(); i++) {
 		TileSet tileSet = tileSets[i];
@@ -75,7 +76,7 @@ void TileLayer::Render() {
 					tCol = tSet.numCol - 1;
 				}
 
-				TextureManager::GetInstance()->DrawTile(tSet.name, tSet.tileSize, col * tSet.tileSize, row * tSet.tileSize, tRow, tCol);
+				TextureManager::GetInstance()->DrawTile(tSet.name, tSet.tileSize, col * tSet.tileSize, row * tSet.tileSize + mapTileLayerOffset, tRow, tCol);
 			}
 		}
 	}
