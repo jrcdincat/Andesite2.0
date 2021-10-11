@@ -16,7 +16,7 @@ const int YPOS = SDL_WINDOWPOS_UNDEFINED;
  
 int main(int argc, char*args[])
 {
-	bool fullscreen = false;
+	bool fullscreen = true;
 
 	// Create and Initialize Game
 	Game::GetInstance()->Init("Andesite", XPOS, YPOS, SCREENWIDTH, SCREENHEIGHT, fullscreen);
