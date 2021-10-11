@@ -50,7 +50,6 @@ bool Game::Init(const char* TITLE, int xPos, int yPos, int w, int h, bool fullsc
 			return false; 
 		}
 
-
 		if (!(IMG_Init(imgTypeFlag) & imgTypeFlag))
 		{
 			SDL_Log("Failed to initialize SDL IMG: %s", IMG_GetError());
@@ -72,7 +71,7 @@ bool Game::Init(const char* TITLE, int xPos, int yPos, int w, int h, bool fullsc
 
 	TextureManager::GetInstance()->LoadTexture("player_idle", "src/assets/images/hero/Sprites/Idle.png");
 	TextureManager::GetInstance()->LoadTexture("player_run", "src/assets/images/hero/Sprites/Run.png");
-	playerProperties = new Properties("player_idle", 100, 100, 200, 200);
+	playerProperties = new Properties("player_idle", 0, 465, 200, 200);
 	player = new Player(playerProperties);
 
 	isRunning = true;
