@@ -2,6 +2,7 @@
 #include "Game.h"
 #include "Map/MapParser.h"
 #include "Time/Timer.h"
+#include "Physics/Physics.h"
 
 Game* Game::gameInstance = nullptr;
 
@@ -125,6 +126,7 @@ void Game::Render() {
 	//TextureManager::GetInstance()->DrawFrame("player", 100, 100, 200, 200,0, 7);
 	/*TextureManager::GetInstance()->Draw("chest", 100, 100, 256, 256);*/
 	gameMap->Render();
+	Physics::GetInstance()->Render();
 	player->Draw();
 
 	//SDL_Texture* background = TextureManager::LoadTexture(img_path, renderer);
@@ -145,6 +147,7 @@ void Game::Clean() {
 	delete MapParser::GetInstance();
 	TextureManager::GetInstance()->Clean();
 	delete TextureManager::GetInstance();
+	delete Physics::GetInstance();
 	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(window);
 	IMG_Quit();

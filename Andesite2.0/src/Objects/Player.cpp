@@ -9,6 +9,9 @@ Player::Player(Properties* properties): Actor(properties) {
 	animationSpeed = 80;
 	animation = new Animation();
 	animation->SetProperties(textureID, 0, 8, 80);
+	collisionWidth = 50;
+	collisionHeight = 74;
+	physicsBody = Physics::GetInstance()->AddRect(properties->position.x, properties->position.y , collisionWidth, collisionHeight, true);
 }
 
 Player::~Player() {
@@ -16,8 +19,8 @@ Player::~Player() {
 }
 
 void Player::Draw() {
-	animation->Draw(position.x, position.y, width, height);
-	// TextureManager::GetInstance()->DrawFrame(textureID, position.x, position.y, width, height, row, frame);
+	animation->Draw(physicsBody->GetPosition().x - (width / 2 - 30) , physicsBody->GetPosition().y - (height / 2  - 40), width, height);
+
 }
 
 void Player::Update(float dt) {
@@ -32,10 +35,14 @@ void Player::Clean() {
 // Movement
 void Player::MoveRight() {
 	animation->SetProperties("player_run", 0, 8, 80);
+	b2Vec2 velocity = b2Vec2(200.0f, 0.0f);
+	physicsBody->SetLinearVelocity(velocity);
 }
 
 void Player::MoveLeft() {
 	animation->SetProperties("player_run", 0, 8, 80, SDL_FLIP_HORIZONTAL);
+	b2Vec2 velocity = b2Vec2(-55.0f, 0.0f);
+	physicsBody->SetLinearVelocity(velocity);
 }
 
 void Player::Idle() {

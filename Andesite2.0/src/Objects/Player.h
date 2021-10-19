@@ -1,6 +1,7 @@
 #pragma once
 #include "Actor.h"
 #include "../Graphics/Animation.h"
+#include "../Physics/Physics.h"
 
 class Player : Actor {
 public: 
@@ -21,4 +22,6 @@ private:
 	int row, frame, frameCount; 
 	int animationSpeed;
 	Animation* animation;
+	b2Body* physicsBody;
+	int collisionWidth, collisionHeight;
 };

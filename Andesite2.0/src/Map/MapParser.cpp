@@ -167,6 +167,19 @@ TileLayer* MapParser::ParseStaticObjectCollisionLayer(TiXmlElement* xmlLayer, Ti
 			element->Attribute("width", &object.imageWidth);
 			element->Attribute("height", &object.imageHeight);
 			object.tileSetGID = tileSets[1].firstID;
+
+			for (int i = 0; i < tileSets[1].tileObjects.size(); i++)
+			{
+				if (tileSets[1].tileObjects[i].id == object.typeID)
+				{
+					object.collisionWidth = tileSets[1].tileObjects[i].collisionWidth;
+					object.collisionHeight = tileSets[1].tileObjects[i].collisionHeight;
+					break;
+				}
+			}
+
+			object.physicsBody = Physics::GetInstance()->AddRect(object.x + 75, object.y + 150, object.collisionWidth, object.collisionHeight, false);
+			
 			tileLayer->objects.push_back(object);
 		}
 	}

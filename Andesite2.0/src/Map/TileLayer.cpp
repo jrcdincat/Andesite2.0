@@ -39,7 +39,7 @@ void TileLayer::Render() {
 					}
 				}
 			}
-
+			
 			TileSet tSet = tileSets[index]; // set object is located in
 			TextureManager::GetInstance()->DrawStaticTileObject(objects[i].imageWidth, objects[i].imageHeight, objects[i].x, objects[i].y, objects[i].typeID);
 		}

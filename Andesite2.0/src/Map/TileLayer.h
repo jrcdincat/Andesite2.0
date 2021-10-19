@@ -4,6 +4,7 @@
 #include <vector>;
 #include "Layer.h"
 #include "../Math/Vector2D.h"
+#include "../Physics/Physics.h"
 
 struct TileObject {
 	int id;
@@ -15,6 +16,7 @@ struct TileObject {
 	int collisionHeight;
 	int x, y;
 	std::string source;
+	b2Body* physicsBody;
 };
 
 struct TileSet {
