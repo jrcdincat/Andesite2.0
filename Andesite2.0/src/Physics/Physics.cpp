@@ -43,6 +43,7 @@ b2Body* Physics::AddRect(int x, int y, int w, int h, bool isDynamic) {
 	b2FixtureDef fixtureDef;
 	fixtureDef.shape = &shape;
 	fixtureDef.density = 1.0f;
+	fixtureDef.friction = 0.0f;
 	body->CreateFixture(&fixtureDef);
 	
 	return body;
