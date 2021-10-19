@@ -22,7 +22,6 @@ void Physics::Clean()
 
 void Physics::Render()
 {
-	physicsWorld->DebugDraw();
 	int dt = Timer::GetInstance()->GetDeltaTime();
 	int velocityIterations = 6;
 	int positionIterations = 2;
