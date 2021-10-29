@@ -4,6 +4,7 @@
 void JumpCommand::execute(Player* player)
 {
 	std::cout << "Jump" << std::endl;
+	player->Jump();
 }
 
 void MoveLeftCommand::execute(Player* player)
