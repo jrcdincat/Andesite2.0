@@ -115,8 +115,8 @@ void Game::HandleEvent() {
 
 void Game::Update() {
 	float deltaTime = Timer::GetInstance()->GetDeltaTime();
-	gameMap->Update();
 	player->Update(deltaTime);
+	gameMap->Update();
 }
 
 void Game::Render() {
