@@ -16,6 +16,8 @@ public:
 	void MoveRight();
 	void MoveLeft();
 	void Idle();
+	void Jump();
+	void Fall();
 	void Escape();
 
 private: 
