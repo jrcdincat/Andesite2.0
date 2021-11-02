@@ -7,8 +7,11 @@ public:
 	InputManager();
 	~InputManager();
 	Command* handleKeyInput(const Uint8* state);
+	void HandleEvent(Player* player);
 
 private: 
+	const Uint8* keyState;
+	Command* command;
 	Command* buttonA; 
 	Command* buttonS;
 	Command* buttonD;

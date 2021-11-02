@@ -4,27 +4,22 @@
 void JumpCommand::execute(Player* player)
 {
 	std::cout << "Jump" << std::endl;
-	player->Jump();
+	player->isJump = true;
 }
 
 void MoveLeftCommand::execute(Player* player)
 {
 	std::cout << "Move Left" << std::endl;
-	player->MoveLeft();
+	player->isMoveLeft = true;
 }
 
 void MoveRightCommand::execute(Player* player)
 {
 	std::cout << "Move Right" << std::endl;
-	player->MoveRight();
-}
-
-void BiteCommand::execute(Player* player)
-{
-	std::cout << "Bite" << std::endl;
+	player->isMoveRight = true;
 }
 
 void EscapeCommand::execute(Player* player)
 {
-	player->Escape();
+	player->isEscape = true;
 }
