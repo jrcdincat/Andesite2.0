@@ -335,9 +335,9 @@
   <object id="113" type="51" gid="3188" x="1888" y="1018" width="256" height="256"/>
   <object id="114" type="50" gid="3187" x="1888" y="512" width="256" height="256"/>
   <object id="115" type="51" gid="3188" x="1888" y="1280" width="256" height="256"/>
-  <object id="116" type="51" gid="3188" x="2208" y="672" width="256" height="256"/>
+  <object id="116" type="51" gid="3188" x="2208" y="736" width="256" height="256"/>
   <object id="117" type="51" gid="3188" x="2208" y="922" width="256" height="256"/>
-  <object id="118" type="50" gid="3187" x="2208" y="416" width="256" height="256"/>
+  <object id="118" type="50" gid="3187" x="2208" y="480" width="256" height="256"/>
   <object id="119" type="51" gid="3188" x="2208" y="1184" width="256" height="256"/>
   <object id="120" type="51" gid="3188" x="2624" y="1024" width="256" height="256"/>
   <object id="121" type="51" gid="3188" x="2624" y="1274" width="256" height="256"/>

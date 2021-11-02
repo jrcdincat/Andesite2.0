@@ -8,11 +8,9 @@ Game* Game::gameInstance = nullptr;
 
 Game::Game()
 {
-	keyState = nullptr;
 	isRunning = false; 
 	window = nullptr;
 	renderer = nullptr;
-	command = nullptr;
 	gameInstance = nullptr;
 	player = nullptr;
 	playerProperties = nullptr;
@@ -83,32 +81,7 @@ bool Game::Init(const char* TITLE, int xPos, int yPos, int w, int h, bool fullsc
 }
 
 void Game::HandleEvent() {
-	SDL_Event event; 
-	SDL_PollEvent(&event);
-	keyState = SDL_GetKeyboardState(NULL);
-
-	switch (event.type)
-	{
-	case SDL_QUIT:
-		isRunning = false; 
-		break;
-	case SDL_KEYDOWN: 
-
-		std::cout << InputManager::GetInstance()->handleKeyInput(keyState) <<std::endl;
-		command = InputManager::GetInstance()->handleKeyInput(keyState);
-		std::cout << command << std::endl;
-		if (command)
-		{
-			std::cout << "in command" << std::endl;
-			command->execute(player);
-		}
-		break;
-	case SDL_KEYUP:
-		player->Idle();
-		break;
-	default: 
-		break;
-	}
+	InputManager::GetInstance()->HandleEvent(player);
 }
 
 

@@ -13,12 +13,12 @@ public:
 	virtual void Update(float dt);
 	virtual void Clean();
 
-	void MoveRight();
-	void MoveLeft();
 	void Idle();
-	void Jump();
-	void Fall();
-	void Escape();
+
+	bool isMoveRight = false;
+	bool isMoveLeft = false;
+	bool isJump = false;
+	bool isEscape = false;
 
 private: 
 	int row, frame, frameCount; 
@@ -26,4 +26,11 @@ private:
 	Animation* animation;
 	b2Body* physicsBody;
 	int collisionWidth, collisionHeight;
+
+	void UpdateMovement();
+	void MoveRight();
+	void MoveLeft();
+	void Jump();
+	void Fall();
+	void Escape();
 };

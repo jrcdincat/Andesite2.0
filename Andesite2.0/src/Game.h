@@ -33,8 +33,7 @@ private:
 	SDL_Renderer* renderer;
 	Player* player;
 	Properties* playerProperties;
-	Command* command;
-	const Uint8* keyState;
+	
 	static Game* gameInstance;
 	GameMap* gameMap;
 };

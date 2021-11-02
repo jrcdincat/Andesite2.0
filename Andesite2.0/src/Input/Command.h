@@ -12,12 +12,6 @@ public:
 	virtual void execute(Player* actor);
 };
 
-class BiteCommand : public Command
-{
-public:
-	virtual void execute(Player* actor);
-};
-
 class MoveLeftCommand : public Command
 {
 public:
