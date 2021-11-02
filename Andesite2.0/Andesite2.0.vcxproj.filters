@@ -84,6 +84,9 @@
     <ClCompile Include="src\Physics\Physics.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Physics\ContactListener.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="src\Assets\images\Background.png">
@@ -266,6 +269,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Physics\Physics.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Physics\ContactListener.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
