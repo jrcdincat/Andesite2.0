@@ -16,7 +16,7 @@ Player::Player(Properties* properties): Actor(properties) {
 	collisionHeight = 74;
 	physicsBody = Physics::GetInstance()->AddRect(properties->position.x, properties->position.y, collisionWidth, collisionHeight, true);
 	physicsBody->SetGravityScale(0.1f);
-	physicsBody->SetLinearDamping(2.0f);
+	physicsBody->SetLinearDamping(1.0f);
 }
 
 Player::~Player() {
@@ -57,29 +57,26 @@ void Player::Idle() {
 }
 
 void Player::Jump() {
-	animation->SetProperties("player_jump", 0, 2, 80);
-	std::cout << "mass" << physicsBody->GetMass() << std::endl;
-	float impulse = INT_MAX * Timer::GetInstance()->GetDeltaTime();
-	b2Vec2 velocity = physicsBody->GetLinearVelocity();
-	velocity.y = 10;
-	std::cout << "impulse: " << impulse << std::endl;
-	physicsBody->ApplyLinearImpulseToCenter(b2Vec2(physicsBody->GetLinearVelocity().x, -impulse), true);
-	std::cout << "impulse:" << impulse << std::endl;
-	std::cout << "velocity" << physicsBody->GetLinearVelocity().y << std::endl;
-	std::cout << physicsBody->GetPosition().y << std::endl;
-	std::cout << "Timer: " << Timer::GetInstance()->GetDeltaTime() << std::endl;
-	
-	
-	// Apply force for specfied number of seconds for jump, use impulse to apply instantly 
-	for (b2ContactEdge* edge = physicsBody->GetContactList(); edge; edge = edge->next)
+
+	std::cout << "User Data: " << reinterpret_cast<Physics::FixtureUserData*>(physicsBody->GetFixtureList()->GetUserData().pointer)->type<< std::endl;
+	std::cout << "Feet " << Physics::GetInstance()->numFootContacts << std::endl;
+	// Jump once when in contact
+	if (Physics::GetInstance()->numFootContacts > 0)
 	{
-		std::cout << edge->contact->IsTouching() << std::endl;
-		std::cout << "edge: " << edge->contact << std::endl;
-		if (edge->contact->IsTouching())
-		{
-			b2FixtureUserData userData = edge->contact->GetFixtureA()->GetUserData();
-		}
+		animation->SetProperties("player_jump", 0, 2, 80);
+		float impulse = INT_MAX * Timer::GetInstance()->GetDeltaTime();
+		physicsBody->ApplyLinearImpulseToCenter(b2Vec2(physicsBody->GetLinearVelocity().x, -impulse), true);
 	}
+	else
+	{
+		// If no contact on floor, then fall animation.
+		Fall();
+	}
+	// Additional Jump allowed in air 
+	// Reset Additional Jump allowed in air when landing on floor
+
+
+
 }
 
 void Player::Fall() {
