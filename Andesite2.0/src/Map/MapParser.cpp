@@ -1,4 +1,5 @@
 #include "../pch.h"
+#include <unordered_set>
 #include "MapParser.h"
 
 MapParser* MapParser::instance = nullptr;
@@ -161,6 +162,12 @@ TileLayer* MapParser::ParseStaticObjectCollisionLayer(TiXmlElement* xmlLayer, Ti
 	TileMap tileMap(numRow, std::vector<int>(numCol, 0));
 	TileLayer* tileLayer = new TileLayer(true, tileSize, numRow, numCol, tileMap, tileSets);
 
+	std::unordered_set<int> typeThatisRightJustifiedSet;
+	typeThatisRightJustifiedSet.insert(38);
+	typeThatisRightJustifiedSet.insert(44);
+	typeThatisRightJustifiedSet.insert(47);
+	typeThatisRightJustifiedSet.insert(41);
+
 	for (TiXmlElement* element = xmlLayer->FirstChildElement(); element != nullptr; element = element->NextSiblingElement()) {
 		if (element->Value() == std::string("object"))
 		{
@@ -188,7 +195,13 @@ TileLayer* MapParser::ParseStaticObjectCollisionLayer(TiXmlElement* xmlLayer, Ti
 				heightOffset = object.collisionHeight;
 			}
 			
-			object.physicsBody = Physics::GetInstance()->AddRect(object.x + (object.collisionWidth / 2), object.y + heightOffset, object.collisionWidth, object.collisionHeight, false);
+			int widthOffset = (object.collisionWidth / 2);
+			if (typeThatisRightJustifiedSet.find(object.typeID) != typeThatisRightJustifiedSet.end())
+			{
+				widthOffset = object.imageWidth - (object.collisionWidth / 2);
+			}
+
+			object.physicsBody = Physics::GetInstance()->AddRect(object.x + widthOffset, object.y + heightOffset, object.collisionWidth, object.collisionHeight, false);
 			
 			tileLayer->objects.push_back(object);
 		}
