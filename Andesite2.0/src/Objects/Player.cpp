@@ -25,12 +25,13 @@ Player::~Player() {
 
 void Player::Draw() {
 	animation->Draw(physicsBody->GetPosition().x * PIXEL_PER_METER - (width / 2) , physicsBody->GetPosition().y * PIXEL_PER_METER - (height / 3), width, height);
-
 }
 
 void Player::Update(float dt) {
 	animation->Update();
 	UpdateMovement();
+	origin->x = physicsBody->GetPosition().x * PIXEL_PER_METER + width / 2;
+	origin->y = physicsBody->GetPosition().y * PIXEL_PER_METER + height / 2;
 	// frame = (SDL_GetTicks() / animationSpeed) % frameCount; 
 }
 

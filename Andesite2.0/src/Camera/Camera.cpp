@@ -6,6 +6,8 @@ Camera* Camera::instance = nullptr;
 Camera::Camera() {
 	viewBox = { 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT };
 	pointTarget = nullptr;
+	MAP_WIDTH = 0;
+	MAP_HEIGHT = 0;
 }
 
 Camera::~Camera() {
@@ -24,15 +26,18 @@ void Camera::Update(float deltaTime) {
 	{
 		viewBox.x = 0;
 	}
-	if (viewBox.y < 0) {
+	if (viewBox.y < 0)
+	{
 		viewBox.y = 0;
 	}
 
-	if (viewBox.x > (2 * SCREEN_WIDTH - viewBox.w)) {
-		viewBox.x = (2 * SCREEN_WIDTH - viewBox.w);
+	if (viewBox.x > (2 * MAP_WIDTH - viewBox.w)) 
+	{
+		viewBox.x = (2 * MAP_WIDTH - viewBox.w);
 	}
-	if (viewBox.y > (SCREEN_HEIGHT - viewBox.h)) {
-		viewBox.y = (SCREEN_HEIGHT - viewBox.h);
+	if (viewBox.y > (MAP_HEIGHT - viewBox.h)) 
+	{
+		viewBox.y = (MAP_HEIGHT - viewBox.h);
 	}
 
 	position = Vector2D(viewBox.x, viewBox.y);

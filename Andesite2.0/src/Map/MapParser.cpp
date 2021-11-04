@@ -41,6 +41,11 @@ bool MapParser::Parse(std::string id, std::string src) {
 	}
 	
 	GameMap* gameMap = new GameMap();
+	root->Attribute("width", &gameMap->MAP_WIDTH);
+	root->Attribute("height", &gameMap->MAP_HEIGHT);
+	gameMap->MAP_WIDTH *= tileSize;
+	gameMap->MAP_HEIGHT *= tileSize;
+
 	for (TiXmlElement* element = root->FirstChildElement(); element != nullptr; element = element->NextSiblingElement()) {
 		TileLayer* tileLayer;
 

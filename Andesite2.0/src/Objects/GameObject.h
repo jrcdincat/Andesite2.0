@@ -21,14 +21,22 @@ public:
 		:textureID(properties->textureID), 
 		position(properties->position),
 		width(properties->width), height(properties->height), renderFlip(properties->renderFlip) { 
+		float x = properties->position.x + properties->width / 2;
+		float y = properties->position.y + properties->height / 2;
+		origin = new Vector2D(x, y);
 	};
-	virtual ~GameObject() {};
+	virtual ~GameObject() {
+		delete origin;
+	};
+
+	inline Vector2D* GetOrigin() { return origin; }
 
 	virtual void Draw() = 0;
 	virtual void Update(float dt) = 0;
 	virtual void Clean() = 0;
 	
 protected:
+	Vector2D* origin;
 	Vector2D position; 
 	int width, height; 
 	std::string textureID; 
