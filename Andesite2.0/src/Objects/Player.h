@@ -3,7 +3,7 @@
 #include "../Graphics/Animation.h"
 #include "../Physics/Physics.h"
 
-class Player : Actor {
+class Player : public Actor {
 public: 
 	Player() = default;
 	Player(Properties* properties);

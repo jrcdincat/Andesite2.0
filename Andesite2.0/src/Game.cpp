@@ -3,6 +3,7 @@
 #include "Map/MapParser.h"
 #include "Time/Timer.h"
 #include "Physics/Physics.h"
+#include "Camera/Camera.h"
 
 Game* Game::gameInstance = nullptr;
 
@@ -75,6 +76,8 @@ bool Game::Init(const char* TITLE, int xPos, int yPos, int w, int h, bool fullsc
 
 	playerProperties = new Properties("player_idle", 50, 685, 300, 300);
 	player = new Player(playerProperties);
+	Camera::GetInstance()->SetMapSize(gameMap->GetMapWidth(), gameMap->GetMapHeight());
+	Camera::GetInstance()->SetTarget(player->GetOrigin());
 
 	isRunning = true;
 	return isRunning;
@@ -90,6 +93,7 @@ void Game::Update() {
 	float deltaTime = Timer::GetInstance()->GetDeltaTime();
 	player->Update(deltaTime);
 	gameMap->Update();
+	Camera::GetInstance()->Update(deltaTime);
 }
 
 void Game::Render() {
@@ -118,6 +122,7 @@ void Game::Render() {
 void Game::Clean() {
 	delete playerProperties; 
 	delete player;
+	delete Camera::GetInstance();
 	delete InputManager::GetInstance();
 	MapParser::GetInstance()->Clean();
 	delete MapParser::GetInstance();

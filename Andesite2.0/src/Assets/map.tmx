@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.5" tiledversion="1.5.0" orientation="orthogonal" renderorder="right-down" width="500" height="35" tilewidth="32" tileheight="32" infinite="0" nextlayerid="29" nextobjectid="135">
+<map version="1.5" tiledversion="1.5.0" orientation="orthogonal" renderorder="right-down" width="500" height="35" tilewidth="32" tileheight="32" infinite="0" nextlayerid="29" nextobjectid="139">
  <tileset firstgid="1" name="Spritesheet_tileset" tilewidth="32" tileheight="32" tilecount="3136" columns="56">
   <image source="images/Spritesheet_tileset.png" width="1792" height="1792"/>
  </tileset>
@@ -319,10 +319,10 @@
  <objectgroup id="20" name="StaticCollisionLayer2">
   <object id="58" type="39" gid="3176" x="-32" y="640" width="256" height="256"/>
   <object id="75" type="43" gid="3180" x="480" y="896" width="256" height="256"/>
-  <object id="80" type="50" gid="3187" x="776" y="648" width="256" height="256"/>
+  <object id="80" type="50" gid="3187" x="736" y="608" width="256" height="256"/>
   <object id="82" type="51" gid="3188" x="1120" y="864" width="256" height="256"/>
   <object id="81" type="51" gid="3188" x="1120" y="1120" width="256" height="256"/>
-  <object id="84" type="50" gid="3187" x="1120" y="614" width="256" height="256"/>
+  <object id="84" type="50" gid="3187" x="1120" y="608" width="256" height="256"/>
   <object id="86" type="43" gid="3180" x="-164" y="548" width="256" height="256"/>
   <object id="88" type="39" gid="3176" x="224" y="640" width="256" height="256"/>
   <object id="89" type="40" gid="3177" x="480" y="640" width="256" height="256"/>
@@ -330,15 +330,7 @@
   <object id="107" type="51" gid="3188" x="1504" y="832" width="256" height="256"/>
   <object id="108" type="51" gid="3188" x="1504" y="1082" width="256" height="256"/>
   <object id="109" type="50" gid="3187" x="1504" y="576" width="256" height="256"/>
-  <object id="111" type="51" gid="3188" x="1504" y="1344" width="256" height="256"/>
-  <object id="112" type="51" gid="3188" x="1888" y="768" width="256" height="256"/>
-  <object id="113" type="51" gid="3188" x="1888" y="1018" width="256" height="256"/>
-  <object id="114" type="50" gid="3187" x="1888" y="512" width="256" height="256"/>
-  <object id="115" type="51" gid="3188" x="1888" y="1280" width="256" height="256"/>
-  <object id="116" type="51" gid="3188" x="2208" y="736" width="256" height="256"/>
-  <object id="117" type="51" gid="3188" x="2208" y="922" width="256" height="256"/>
-  <object id="118" type="50" gid="3187" x="2208" y="480" width="256" height="256"/>
-  <object id="119" type="51" gid="3188" x="2208" y="1184" width="256" height="256"/>
+  <object id="119" type="51" gid="3188" x="2208" y="1152" width="256" height="256"/>
   <object id="120" type="51" gid="3188" x="2624" y="1024" width="256" height="256"/>
   <object id="121" type="51" gid="3188" x="2624" y="1274" width="256" height="256"/>
   <object id="122" type="50" gid="3187" x="2624" y="768" width="256" height="256"/>
@@ -353,6 +345,10 @@
   <object id="132" type="41" gid="3178" x="2976" y="1280" width="256" height="256"/>
   <object id="133" type="43" gid="3180" x="4256" y="1280" width="256" height="256"/>
   <object id="134" type="43" gid="3180" x="4256" y="1024" width="256" height="256"/>
+  <object id="135" type="51" gid="3188" x="1856" y="1050" width="256" height="256"/>
+  <object id="136" type="51" gid="3188" x="1856" y="800" width="256" height="256"/>
+  <object id="137" type="50" gid="3187" x="1856" y="544" width="256" height="256"/>
+  <object id="138" type="50" gid="3187" x="2208" y="896" width="256" height="256"/>
  </objectgroup>
  <layer id="26" name="Tile Layer 3" width="500" height="35">
   <data encoding="csv">
