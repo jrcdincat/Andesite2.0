@@ -31,9 +31,10 @@ bool TextureManager::LoadTexture(std::string id, std::string filename) {
 	return true;
 }
 
-void TextureManager::Draw(std::string id, int x, int y, int width, int height, SDL_RendererFlip flip) {
+void TextureManager::Draw(std::string id, int x, int y, int width, int height, float scaleX, float scaleY, float scrollRatio, SDL_RendererFlip flip) {
 	SDL_Rect srcRect = { 0,0, width, height };
-	SDL_Rect dstRect = { x, y, width, height };
+	Vector2D cam = Camera::GetInstance()->GetPosition() * scrollRatio;
+	SDL_Rect dstRect = { x - cam.x, y - cam.y, width * scaleX, height * scaleY };
 	SDL_RenderCopyEx(Game::GetInstance()->GetRenderer(), TextureManager::GetInstance()->textureMap[id], &srcRect, &dstRect, 0, nullptr, flip);
 }
 

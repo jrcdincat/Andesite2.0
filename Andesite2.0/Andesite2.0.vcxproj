@@ -30,6 +30,7 @@
     <ClCompile Include="src\Input\Command.cpp" />
     <ClCompile Include="src\Input\InputManager.cpp" />
     <ClCompile Include="src\Main.cpp" />
+    <ClCompile Include="src\Map\BackgroundLayer.cpp" />
     <ClCompile Include="src\Map\GameMap.cpp" />
     <ClCompile Include="src\Map\MapParser.cpp" />
     <ClCompile Include="src\Map\TileLayer.cpp" />
@@ -99,6 +100,7 @@
     <ClInclude Include="src\Graphics\TextureManager.h" />
     <ClInclude Include="src\Input\Command.h" />
     <ClInclude Include="src\Input\InputManager.h" />
+    <ClInclude Include="src\Map\BackgroundLayer.h" />
     <ClInclude Include="src\Map\GameMap.h" />
     <ClInclude Include="src\Map\Layer.h" />
     <ClInclude Include="src\Map\MapParser.h" />
