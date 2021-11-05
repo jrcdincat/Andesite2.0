@@ -69,6 +69,13 @@ bool Game::Init(const char* TITLE, int xPos, int yPos, int w, int h, bool fullsc
 
 	gameMap = MapParser::GetInstance()->GetMap("map");
 
+	// Set Map Background Layers
+	TextureManager::GetInstance()->LoadTexture("background", "src/assets/images/Background.png");
+
+	parallaxBackground.push_back(new BackgroundLayer("background", 0, -200, 0.3, 0.75,0.75));
+	parallaxBackground.push_back(new BackgroundLayer("background", 2550, -200, 0.3, 0.75, 0.75));
+
+	// Load Player Textures
 	TextureManager::GetInstance()->LoadTexture("player_idle", "src/assets/images/hero/Sprites/Idle.png");
 	TextureManager::GetInstance()->LoadTexture("player_run", "src/assets/images/hero/Sprites/Run.png");
 	TextureManager::GetInstance()->LoadTexture("player_jump", "src/assets/images/hero/Sprites/Jump.png");
@@ -103,6 +110,10 @@ void Game::Render() {
 
 	SDL_RenderClear(renderer);
 
+	for (auto backgroundLayer : parallaxBackground)
+	{
+		backgroundLayer->Render();
+	}
 	//TextureManager::GetInstance()->DrawFrame("player", 100, 100, 200, 200,0, 7);
 	/*TextureManager::GetInstance()->Draw("chest", 100, 100, 256, 256);*/
 	gameMap->Render();
@@ -122,6 +133,12 @@ void Game::Render() {
 void Game::Clean() {
 	delete playerProperties; 
 	delete player;
+
+	for (auto backgroundLayer : parallaxBackground)
+	{
+		delete backgroundLayer;
+	}
+
 	delete Camera::GetInstance();
 	delete InputManager::GetInstance();
 	MapParser::GetInstance()->Clean();

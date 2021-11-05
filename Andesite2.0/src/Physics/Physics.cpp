@@ -75,7 +75,7 @@ b2Body* Physics::AddRect(int x, int y, int w, int h, bool isDynamic) {
 		FixtureUserData* userData = new FixtureUserData();
 		userData->type = 1;
 		userDataList.push_back(userData);
-		shape.SetAsBox(0.3, 1, b2Vec2(0, 1), 0);
+		shape.SetAsBox(1, 1, b2Vec2(0, 1), 0);
 		fixtureDef.isSensor = true;
 		fixtureDef.userData.pointer = reinterpret_cast<uintptr_t>(userData);
 		body->CreateFixture(&fixtureDef);

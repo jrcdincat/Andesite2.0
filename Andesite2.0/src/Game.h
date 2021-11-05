@@ -5,6 +5,7 @@
 #include "Input/InputManager.h"
 #include "Graphics/TextureManager.h"
 #include "Map/GameMap.h"
+#include "Map/BackgroundLayer.h"
 
 class Game
 {
@@ -32,8 +33,8 @@ private:
 	SDL_Window* window; 
 	SDL_Renderer* renderer;
 	Player* player;
-	Properties* playerProperties;
-	
+	Properties* playerProperties;	
 	static Game* gameInstance;
 	GameMap* gameMap;
+	std::vector<BackgroundLayer*> parallaxBackground;
 };
