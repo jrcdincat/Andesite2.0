@@ -22,11 +22,20 @@ void BackgroundLayer::QueryImage(std::string id)
 
 void BackgroundLayer::Render()
 {
-	if (Camera::GetInstance()->GetPointTarget().x * scrollRatio > (xOffset + imageWidth * xScale) + 0.25* (xOffset + imageWidth * xScale))
-	{
-		xOffset += 2 * (imageWidth * xScale);
-	}
+	long playerPosition = Camera::GetInstance()->GetPointTarget().x * scrollRatio;
+	long scaledImageXSize = imageWidth* xScale;
+	long endOfBackgroundXPosition = xOffset + scaledImageXSize;
 
+	// Reposition background based on player position
+	if ( playerPosition > endOfBackgroundXPosition + 0.25 * endOfBackgroundXPosition)
+	{
+		xOffset += 2 * scaledImageXSize;
+	}
+	else if (playerPosition < xOffset - (scaledImageXSize * 0.75))
+	{
+		xOffset -= 2 * scaledImageXSize;
+	}
+	
 	TextureManager::GetInstance()->Draw(
 		textureID, 
 		xOffset, 

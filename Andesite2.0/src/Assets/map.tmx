@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.5" tiledversion="1.5.0" orientation="orthogonal" renderorder="right-down" width="500" height="35" tilewidth="32" tileheight="32" infinite="0" nextlayerid="30" nextobjectid="149">
+<map version="1.5" tiledversion="1.5.0" orientation="orthogonal" renderorder="right-down" width="500" height="35" tilewidth="32" tileheight="32" infinite="0" nextlayerid="30" nextobjectid="189">
  <tileset firstgid="1" name="Spritesheet_tileset" tilewidth="32" tileheight="32" tilecount="3136" columns="56">
   <image source="images/Spritesheet_tileset.png" width="1792" height="1792"/>
  </tileset>
@@ -348,6 +348,46 @@
   <object id="146" type="39" gid="3176" x="4992" y="672" width="256" height="256"/>
   <object id="147" type="39" gid="3176" x="5248" y="640" width="256" height="256"/>
   <object id="148" type="39" gid="3176" x="5504" y="640" width="256" height="256"/>
+  <object id="149" type="39" gid="3176" x="6016" y="640" width="256" height="256"/>
+  <object id="150" type="39" gid="3176" x="5760" y="640" width="256" height="256"/>
+  <object id="151" type="39" gid="3176" x="7040" y="640" width="256" height="256"/>
+  <object id="152" type="39" gid="3176" x="6784" y="640" width="256" height="256"/>
+  <object id="153" type="39" gid="3176" x="6272" y="640" width="256" height="256"/>
+  <object id="154" type="39" gid="3176" x="6528" y="640" width="256" height="256"/>
+  <object id="155" type="39" gid="3176" x="8064" y="640" width="256" height="256"/>
+  <object id="156" type="39" gid="3176" x="7808" y="640" width="256" height="256"/>
+  <object id="157" type="39" gid="3176" x="7296" y="640" width="256" height="256"/>
+  <object id="158" type="39" gid="3176" x="7552" y="640" width="256" height="256"/>
+  <object id="159" type="39" gid="3176" x="10880" y="640" width="256" height="256"/>
+  <object id="160" type="39" gid="3176" x="10624" y="640" width="256" height="256"/>
+  <object id="161" type="39" gid="3176" x="10112" y="640" width="256" height="256"/>
+  <object id="162" type="39" gid="3176" x="10368" y="640" width="256" height="256"/>
+  <object id="163" type="39" gid="3176" x="8320" y="640" width="256" height="256"/>
+  <object id="164" type="39" gid="3176" x="8576" y="640" width="256" height="256"/>
+  <object id="165" type="39" gid="3176" x="8832" y="640" width="256" height="256"/>
+  <object id="166" type="39" gid="3176" x="9088" y="640" width="256" height="256"/>
+  <object id="167" type="39" gid="3176" x="9344" y="640" width="256" height="256"/>
+  <object id="168" type="39" gid="3176" x="9856" y="640" width="256" height="256"/>
+  <object id="169" type="39" gid="3176" x="9600" y="640" width="256" height="256"/>
+  <object id="170" type="39" gid="3176" x="13696" y="640" width="256" height="256"/>
+  <object id="171" type="39" gid="3176" x="13440" y="640" width="256" height="256"/>
+  <object id="172" type="39" gid="3176" x="12928" y="640" width="256" height="256"/>
+  <object id="173" type="39" gid="3176" x="13184" y="640" width="256" height="256"/>
+  <object id="174" type="39" gid="3176" x="11136" y="640" width="256" height="256"/>
+  <object id="175" type="39" gid="3176" x="11392" y="640" width="256" height="256"/>
+  <object id="176" type="39" gid="3176" x="11648" y="640" width="256" height="256"/>
+  <object id="177" type="39" gid="3176" x="11904" y="640" width="256" height="256"/>
+  <object id="178" type="39" gid="3176" x="12160" y="640" width="256" height="256"/>
+  <object id="179" type="39" gid="3176" x="12672" y="640" width="256" height="256"/>
+  <object id="180" type="39" gid="3176" x="12416" y="640" width="256" height="256"/>
+  <object id="181" type="39" gid="3176" x="14464" y="640" width="256" height="256"/>
+  <object id="182" type="39" gid="3176" x="14720" y="640" width="256" height="256"/>
+  <object id="183" type="39" gid="3176" x="14208" y="640" width="256" height="256"/>
+  <object id="184" type="39" gid="3176" x="13952" y="640" width="256" height="256"/>
+  <object id="185" type="39" gid="3176" x="15264" y="480" width="256" height="256"/>
+  <object id="186" type="39" gid="3176" x="14976" y="640" width="256" height="256"/>
+  <object id="187" type="39" gid="3176" x="15520" y="480" width="256" height="256"/>
+  <object id="188" type="39" gid="3176" x="15752" y="480" width="256" height="256"/>
  </objectgroup>
  <layer id="26" name="Tile Layer 3" width="500" height="35">
   <data encoding="csv">
