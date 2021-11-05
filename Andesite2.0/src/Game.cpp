@@ -72,8 +72,9 @@ bool Game::Init(const char* TITLE, int xPos, int yPos, int w, int h, bool fullsc
 	// Set Map Background Layers
 	TextureManager::GetInstance()->LoadTexture("background", "src/assets/images/Background.png");
 
-	parallaxBackground.push_back(new BackgroundLayer("background", 0, -50, 0.5,0.75,0.75));
-	
+	parallaxBackground.push_back(new BackgroundLayer("background", 0, -200, 0.3, 0.75,0.75));
+	parallaxBackground.push_back(new BackgroundLayer("background", 2550, -200, 0.3, 0.75, 0.75));
+
 	// Load Player Textures
 	TextureManager::GetInstance()->LoadTexture("player_idle", "src/assets/images/hero/Sprites/Idle.png");
 	TextureManager::GetInstance()->LoadTexture("player_run", "src/assets/images/hero/Sprites/Run.png");

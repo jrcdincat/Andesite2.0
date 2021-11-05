@@ -10,6 +10,7 @@ public:
 	inline SDL_Rect GetViewBox() { return viewBox; }
 	inline Vector2D GetPosition() { return position; }
 	inline void SetTarget(Vector2D* targetPoint) { pointTarget = targetPoint; }
+	inline Vector2D GetPointTarget() { return Vector2D(pointTarget->x, pointTarget->y); }
 	inline void SetMapSize(int width, int height) { MAP_WIDTH = width; MAP_HEIGHT = height; }
 	void Update(float deltaTime); 
 

@@ -1,6 +1,7 @@
 #include "../pch.h"
 #include "BackgroundLayer.h"
 #include "../Graphics/TextureManager.h"
+#include "../Camera/Camera.h"
 
 BackgroundLayer::BackgroundLayer(std::string id, int x, int y, float ratio, float scaleX, float scaleY)
 {
@@ -21,6 +22,11 @@ void BackgroundLayer::QueryImage(std::string id)
 
 void BackgroundLayer::Render()
 {
+	if (Camera::GetInstance()->GetPointTarget().x * scrollRatio > (xOffset + imageWidth * xScale) + 0.25* (xOffset + imageWidth * xScale))
+	{
+		xOffset += 2 * (imageWidth * xScale);
+	}
+
 	TextureManager::GetInstance()->Draw(
 		textureID, 
 		xOffset, 
