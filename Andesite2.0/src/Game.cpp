@@ -90,10 +90,10 @@ bool Game::Init(const char* TITLE, int xPos, int yPos, int w, int h, bool fullsc
 	TextureManager::GetInstance()->LoadTexture("player_hit", "src/assets/images/hero/Sprites/Take Hit - white.png");
 	TextureManager::GetInstance()->LoadTexture("player_death", "src/assets/images/hero/Sprites/Death.png");
 
-	playerProperties = new Properties("player_idle", 50, 500, 300, 300); // 50, 672
+	playerProperties = new Properties("player_idle", 50, 672, 300, 300); // 50, 672
 	player = new Player(playerProperties);
 
-	enemyProperties = new Properties("golem_idle", 200, 660, 75, 75);
+	enemyProperties = new Properties("golem_idle", 200, 672, 75, 75);
 	enemyGolem = new Golem(enemyProperties); //100, 672
 
 	Camera::GetInstance()->SetMapSize(gameMap->GetMapWidth(), gameMap->GetMapHeight());
