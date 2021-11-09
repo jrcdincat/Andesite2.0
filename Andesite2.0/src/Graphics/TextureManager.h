@@ -11,6 +11,7 @@ public:
 	void DrawFrame(std::string id, int x, int y, int width, int height, int row, int frame, SDL_RendererFlip flip = SDL_FLIP_NONE);
 	void DrawTile(std::string tileSetID, int tileSize, int x, int y, int row, int frame, SDL_RendererFlip flip = SDL_FLIP_NONE);
 	void DrawStaticTileObject(int imgWidth, int imgHeight, int x, int y, int typeID, SDL_RendererFlip flip = SDL_FLIP_NONE);
+	void DrawRect(int x, int y, int w, int h);
 
 	SDL_Texture* GetTexture(std::string id) { return textureMap[id]; }
 	void RemoveTexture(std::string id);

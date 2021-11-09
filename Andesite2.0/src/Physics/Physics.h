@@ -6,6 +6,7 @@ class Physics {
 public:
 	struct FixtureUserData {
 		int type;
+		void* object;
 	};
 
 	static Physics* GetInstance() {
@@ -17,9 +18,13 @@ public:
 	void Clean();
 	void Render();
 
-	b2Body* AddRect(int x, int y, int w, int h, bool isDynamic);
+	b2Body* AddBoundaryRect(int x, int y, int w, int h, bool isDynamic, bool isPlayer);
+	b2Body* AddEnemyRect(int x, int y, int w, int h, void* object);
+	b2Body* AddPlayerRect(int x, int y, int w, int h, void* object);
 
 	int numFootContacts;
+	int numEnemyHeadContacts;
+
 private:
 	Physics();
 	static Physics* physicsInstance;

@@ -201,7 +201,7 @@ TileLayer* MapParser::ParseStaticObjectCollisionLayer(TiXmlElement* xmlLayer, Ti
 				widthOffset = object.imageWidth - (object.collisionWidth / 2);
 			}
 
-			object.physicsBody = Physics::GetInstance()->AddRect(object.x + widthOffset, object.y + heightOffset, object.collisionWidth, object.collisionHeight, false);
+			object.physicsBody = Physics::GetInstance()->AddBoundaryRect(object.x + widthOffset, object.y + heightOffset, object.collisionWidth, object.collisionHeight, false, false);
 			
 			tileLayer->objects.push_back(object);
 		}

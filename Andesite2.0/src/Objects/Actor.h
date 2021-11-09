@@ -11,6 +11,8 @@ public:
 	virtual void Draw() = 0;
 	virtual void Update(float dt) = 0;
 	virtual void Clean() = 0;
+	virtual void Idle() = 0;
+	virtual void Die() = 0;
 
 protected: 
 	std::string name; 
