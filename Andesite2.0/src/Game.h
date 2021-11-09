@@ -33,7 +33,8 @@ private:
 	SDL_Window* window; 
 	SDL_Renderer* renderer;
 	Player* player;
-	Properties* playerProperties;	
+	Properties* playerProperties;
+	Properties* enemyProperties;
 	static Game* gameInstance;
 	GameMap* gameMap;
 	std::vector<BackgroundLayer*> parallaxBackground;

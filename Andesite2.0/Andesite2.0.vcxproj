@@ -36,6 +36,7 @@
     <ClCompile Include="src\Map\TileLayer.cpp" />
     <ClCompile Include="src\Math\Vector2D.cpp" />
     <ClCompile Include="src\Objects\Actor.cpp" />
+    <ClCompile Include="src\Objects\Golem.cpp" />
     <ClCompile Include="src\Objects\Entity.cpp" />
     <ClCompile Include="src\Objects\GameObject.cpp" />
     <ClCompile Include="src\Objects\IObject.cpp" />
@@ -107,9 +108,11 @@
     <ClInclude Include="src\Map\TileLayer.h" />
     <ClInclude Include="src\Math\Vector2D.h" />
     <ClInclude Include="src\Objects\Actor.h" />
+    <ClInclude Include="src\Objects\Golem.h" />
     <ClInclude Include="src\Objects\Entity.h" />
     <ClInclude Include="src\Objects\GameObject.h" />
     <ClInclude Include="src\Objects\IObject.h" />
+    <ClInclude Include="src\Objects\Objects.h" />
     <ClInclude Include="src\Objects\Player.h" />
     <ClInclude Include="src\pch.h" />
     <ClInclude Include="src\Physics\ContactListener.h" />

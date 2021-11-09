@@ -7,14 +7,15 @@
 using namespace constants;
 
 Player::Player(Properties* properties): Actor(properties) {
+	health = PLAYER_HEALTH;
 	row = 0;
 	frameCount = 8;
 	animationSpeed = 80;
 	animation = new Animation();
-	animation->SetProperties(textureID, 0, 8, 80);
-	collisionWidth = 50;
-	collisionHeight = 74;
-	physicsBody = Physics::GetInstance()->AddRect(properties->position.x, properties->position.y, collisionWidth, collisionHeight, true);
+	animation->SetProperties(textureID, row, frameCount, animationSpeed);
+	collisionWidth = 45;
+	collisionHeight = 80;
+	physicsBody = Physics::GetInstance()->AddPlayerRect(properties->position.x, properties->position.y, collisionWidth, collisionHeight, this);
 	physicsBody->SetGravityScale(0.1f);
 	physicsBody->SetLinearDamping(1.3f);
 }
@@ -24,7 +25,9 @@ Player::~Player() {
 }
 
 void Player::Draw() {
-	animation->Draw(physicsBody->GetPosition().x * PIXEL_PER_METER - (width / 2) , physicsBody->GetPosition().y * PIXEL_PER_METER - (height / 3), width, height);
+	animation->Draw(physicsBody->GetPosition().x * PIXEL_PER_METER - PLAYER_X_OFFSET_ANIMATION, physicsBody->GetPosition().y * PIXEL_PER_METER - PLAYER_Y_OFFSET_ANIMATION, width, height);
+	// TextureManager::GetInstance()->DrawRect(physicsBody->GetPosition().x * PIXEL_PER_METER, physicsBody->GetPosition().y * PIXEL_PER_METER, collisionWidth, collisionHeight);
+	// std::cout << "x: " << physicsBody->GetPosition().x * PIXEL_PER_METER << "y: " << physicsBody->GetPosition().y * PIXEL_PER_METER << std::endl;
 }
 
 void Player::Update(float dt) {
@@ -44,18 +47,11 @@ void Player::MoveRight() {
 	animation->SetProperties("player_run", 0, 8, 80);
 	b2Vec2 velocity = b2Vec2(1.0f, physicsBody->GetLinearVelocity().y);
 	physicsBody->SetLinearVelocity(velocity);
-
 }
 
 void Player::MoveLeft() {
 	animation->SetProperties("player_run", 0, 8, 80, SDL_FLIP_HORIZONTAL);
 	b2Vec2 velocity = b2Vec2(-1.0f, physicsBody->GetLinearVelocity().y);
-	physicsBody->SetLinearVelocity(velocity);
-}
-
-void Player::Idle() {
-	animation->SetProperties("player_idle", 0, 8, 80, SDL_FLIP_HORIZONTAL);
-	b2Vec2 velocity = b2Vec2(0.0f, physicsBody->GetLinearVelocity().y);
 	physicsBody->SetLinearVelocity(velocity);
 }
 
@@ -93,6 +89,30 @@ void Player::Jump() {
 
 void Player::Fall() {
 	animation->SetProperties("player_fall", 0, 2, 80);
+}
+
+
+void Player::Idle() {
+	animation->SetProperties("player_idle", 0, 8, 80, SDL_FLIP_HORIZONTAL);
+	b2Vec2 velocity = b2Vec2(0.0f, physicsBody->GetLinearVelocity().y);
+	physicsBody->SetLinearVelocity(velocity);
+}
+
+void Player::Hit() {
+	health--;
+
+	if (health < 1)
+	{
+		Die();
+	}
+
+	std::cout << "**** Player Hit ****" << std::endl;
+	animation->SetProperties("player_hit", 0, 4, 80, SDL_FLIP_HORIZONTAL);
+}
+
+void Player::Die() {
+	std::cout << "*** Player Die ****" << std::endl;
+	animation->SetProperties("player_death", 0, 6, 80, SDL_FLIP_HORIZONTAL);
 }
 
 void Player::Escape() {

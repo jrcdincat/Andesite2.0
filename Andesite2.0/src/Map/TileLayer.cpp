@@ -1,6 +1,8 @@
 #include "../pch.h"
 #include "TileLayer.h"
 #include "../Graphics/TextureManager.h"
+#include "../Constants.h"
+using namespace constants;
 
 TileLayer::TileLayer(bool isObjLayer, int tSize, int rowCnt, int colCnt, TileMap tMap, TileSetList tSets): 
 	isObjectLayer(isObjLayer), tileSize(tSize), numRow(rowCnt), numCol(colCnt), tileMap(tMap), tileSets(tSets) {
@@ -42,6 +44,7 @@ void TileLayer::Render() {
 			
 			TileSet tSet = tileSets[index]; // set object is located in
 			TextureManager::GetInstance()->DrawStaticTileObject(objects[i].imageWidth, objects[i].imageHeight, objects[i].x, objects[i].y, objects[i].typeID);
+			// TextureManager::GetInstance()->DrawRect(objects[i].x, objects[i].y, objects[i].collisionWidth, objects[i].collisionHeight);
 		}
 	}
 	else

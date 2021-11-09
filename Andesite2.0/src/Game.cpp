@@ -4,8 +4,10 @@
 #include "Time/Timer.h"
 #include "Physics/Physics.h"
 #include "Camera/Camera.h"
+#include "Objects/Golem.h"
 
 Game* Game::gameInstance = nullptr;
+Golem* enemyGolem = nullptr;
 
 Game::Game()
 {
@@ -75,14 +77,25 @@ bool Game::Init(const char* TITLE, int xPos, int yPos, int w, int h, bool fullsc
 	parallaxBackground.push_back(new BackgroundLayer("background", 0, -200, 0.3, 0.75,0.75));
 	parallaxBackground.push_back(new BackgroundLayer("background", 2550, -200, 0.3, 0.75, 0.75));
 
+	// Load Enemy Textures
+	TextureManager::GetInstance()->LoadTexture("golem_idle", "src/assets/images/golem/Golem_Idle.png");
+	TextureManager::GetInstance()->LoadTexture("golem_walking", "src/assets/images/golem/Golem_Walking.png");
+	TextureManager::GetInstance()->LoadTexture("golem_dying", "src/assets/images/golem/Golem_Dying.png");
+
 	// Load Player Textures
 	TextureManager::GetInstance()->LoadTexture("player_idle", "src/assets/images/hero/Sprites/Idle.png");
 	TextureManager::GetInstance()->LoadTexture("player_run", "src/assets/images/hero/Sprites/Run.png");
 	TextureManager::GetInstance()->LoadTexture("player_jump", "src/assets/images/hero/Sprites/Jump.png");
 	TextureManager::GetInstance()->LoadTexture("player_fall", "src/assets/images/hero/Sprites/Fall.png");
+	TextureManager::GetInstance()->LoadTexture("player_hit", "src/assets/images/hero/Sprites/Take Hit - white.png");
+	TextureManager::GetInstance()->LoadTexture("player_death", "src/assets/images/hero/Sprites/Death.png");
 
-	playerProperties = new Properties("player_idle", 50, 685, 300, 300);
+	playerProperties = new Properties("player_idle", 50, 500, 300, 300); // 50, 672
 	player = new Player(playerProperties);
+
+	enemyProperties = new Properties("golem_idle", 200, 660, 75, 75);
+	enemyGolem = new Golem(enemyProperties); //100, 672
+
 	Camera::GetInstance()->SetMapSize(gameMap->GetMapWidth(), gameMap->GetMapHeight());
 	Camera::GetInstance()->SetTarget(player->GetOrigin());
 
@@ -99,6 +112,7 @@ void Game::HandleEvent() {
 void Game::Update() {
 	float deltaTime = Timer::GetInstance()->GetDeltaTime();
 	player->Update(deltaTime);
+	enemyGolem->Update(deltaTime);
 	gameMap->Update();
 	Camera::GetInstance()->Update(deltaTime);
 }
@@ -114,25 +128,19 @@ void Game::Render() {
 	{
 		backgroundLayer->Render();
 	}
-	//TextureManager::GetInstance()->DrawFrame("player", 100, 100, 200, 200,0, 7);
-	/*TextureManager::GetInstance()->Draw("chest", 100, 100, 256, 256);*/
+
 	gameMap->Render();
 	Physics::GetInstance()->Render();
 	player->Draw();
-
-	//SDL_Texture* background = TextureManager::LoadTexture(img_path, renderer);
-	//Entity entity(Vector2f(0.0f,0.0f), background);
-	//Entity entity1(Vector2f(20.0f,50.0f), background);
-	//SDL_RenderCopy(renderer, background, NULL, NULL);
-	//TextureManager::renderTexture(entity, renderer);
-	//TextureManager::renderTexture(entity1, renderer);
+	enemyGolem->Draw();
 	SDL_RenderPresent(renderer);
-	//SDL_DestroyTexture(background);
 }
 
 void Game::Clean() {
 	delete playerProperties; 
 	delete player;
+	delete enemyProperties;
+	delete enemyGolem;
 
 	for (auto backgroundLayer : parallaxBackground)
 	{

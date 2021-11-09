@@ -3,11 +3,11 @@
 #include "../Graphics/Animation.h"
 #include "../Physics/Physics.h"
 
-class Player : public Actor {
-public: 
-	Player() = default;
-	Player(Properties* properties);
-	~Player();
+class Golem : public Actor {
+public:
+	Golem() = default;
+	Golem(Properties* properties);
+	~Golem();
 
 	virtual void Draw();
 	virtual void Update(float dt);
@@ -15,25 +15,14 @@ public:
 
 	virtual void Idle();
 	virtual void Die();
-	void Hit();
 
-	bool isMoveRight = false;
-	bool isMoveLeft = false;
-	bool isJump = false;
-	bool isEscape = false;
-
-private: 
-	int row, frame, frameCount; 
+private:
+	int row, frameCount;
 	int animationSpeed;
 	Animation* animation;
 	b2Body* physicsBody;
-	int health;
 	int collisionWidth, collisionHeight;
 
-	void UpdateMovement();
 	void MoveRight();
 	void MoveLeft();
-	void Jump();
-	void Fall();
-	void Escape();
 };

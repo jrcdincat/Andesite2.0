@@ -90,6 +90,9 @@
     <ClCompile Include="src\Map\BackgroundLayer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Objects\Golem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="src\Assets\images\Background.png">
@@ -278,6 +281,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Map\BackgroundLayer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Objects\Golem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Objects\Objects.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

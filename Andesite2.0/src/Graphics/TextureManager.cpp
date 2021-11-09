@@ -59,6 +59,19 @@ void TextureManager::DrawStaticTileObject(int imgWidth, int imgHeight, int x, in
 	SDL_RenderCopyEx(Game::GetInstance()->GetRenderer(), textureMap[std::to_string(typeID)], &srcRect, &dstRect, 0, 0, flip);
 }
 
+void TextureManager::DrawRect(int x, int y, int w, int h)
+{
+	SDL_Rect rect;
+	rect.x = x;
+	rect.y = y;
+	rect.w = w;
+	rect.h = h, 
+	SDL_SetRenderDrawBlendMode(Game::GetInstance()->GetRenderer(), SDL_BLENDMODE_BLEND);
+
+	SDL_SetRenderDrawColor(Game::GetInstance()->GetRenderer(), 0, 0, 0, 150);
+	SDL_RenderFillRect(Game::GetInstance()->GetRenderer(), &rect);
+}
+
 void TextureManager::RemoveTexture(std::string id) {
 	SDL_DestroyTexture(textureMap[id]);
 	textureMap.erase(id);
