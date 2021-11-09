@@ -130,9 +130,9 @@ void Game::Render() {
 	}
 
 	gameMap->Render();
-	Physics::GetInstance()->Render();
 	player->Draw();
 	enemyGolem->Draw();
+	Physics::GetInstance()->Render();
 	SDL_RenderPresent(renderer);
 }
 

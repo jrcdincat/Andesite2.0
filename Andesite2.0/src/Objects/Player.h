@@ -16,6 +16,8 @@ public:
 	virtual void Idle();
 	virtual void Die();
 	void Hit();
+	void UpdateAnimationState();
+	inline int GetPlayerState() { return currentState; }
 
 	bool isMoveRight = false;
 	bool isMoveLeft = false;
@@ -29,11 +31,18 @@ private:
 	b2Body* physicsBody;
 	int health;
 	int collisionWidth, collisionHeight;
+	int currentState;
+	int previousState;
+	SDL_RendererFlip flipSprite;
+	SDL_RendererFlip previousFlipSprite;
 
 	void UpdateMovement();
-	void MoveRight();
-	void MoveLeft();
+	void RunRight();
+	void RunLeft();
+	void SetVelocityMoveRight();
+	void SetVelocityMoveLeft();
 	void Jump();
 	void Fall();
 	void Escape();
+
 };

@@ -12,7 +12,6 @@ namespace constants {
 	constexpr int PLAYER_Y_OFFSET_ANIMATION = 105.0f;
 	constexpr int PLAYER_HEALTH = 3;
 
-
 	enum userDataTypes {
 		USER_TYPE_PLAYER_FEET = 1,
 		USER_TYPE_BOUDNARY = 2,
@@ -28,5 +27,14 @@ namespace constants {
 		ENEMY_HEAD = 0x0008,
 		GEM = 0x0010,
 		PLAYER_FEET = 0x0016
+	};
+
+	enum PlayerState {
+		Idle,
+		Run,
+		Jump,
+		Fall,
+		Hit,
+		Die
 	};
 }

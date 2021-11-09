@@ -2,11 +2,10 @@
 
 class Animation {
 public:
-	Animation() = default;
+	Animation();
 	void Update(); 
 	void Draw(float x, float y, int spriteWidth, int spriteHeight); 
 	void SetProperties(std::string id, int row, int frameCnt, int animateSpeed, SDL_RendererFlip flip = SDL_FLIP_NONE);
-
 private:
 	int spriteRow;
 	int spriteFrame;
