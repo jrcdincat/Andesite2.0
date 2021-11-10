@@ -81,6 +81,7 @@ void Golem::MoveLeft()
 
 void Golem::Die()
 {
+	std::cout << "Dead" << std::endl;
 	currentState = EnemyState::Die;
 	
 	for (b2Fixture* fixture = physicsBody->GetFixtureList(); fixture; fixture = fixture->GetNext())
@@ -102,6 +103,7 @@ void Golem::UpdateAnimationState()
 			animation->SetProperties("golem_walking", true, 0, 24, 80, flipSprite);
 			break;
 		case EnemyState::Die:
+			std::cout << "DIE" << std::endl;
 			animation->SetProperties("golem_dying", false, 0, 18, 500, flipSprite);
 			break;
 	}
@@ -111,14 +113,14 @@ void Golem::UpdateAnimationState()
 
 void Golem::FollowPlayerWhenInRange()
 {
-	std::cout << "enemy: " << physicsBody->GetPosition().x << " w:" << physicsBody->GetWorldCenter().y << std::endl;
-	std::cout << "--- player: " << playerBody->GetPosition().x << " y:" << playerBody->GetWorldCenter().y << std::endl;
+	//std::cout << "enemy: " << physicsBody->GetPosition().x << " w:" << physicsBody->GetWorldCenter().y << std::endl;
+	//std::cout << "--- player: " << playerBody->GetPosition().x << " y:" << playerBody->GetWorldCenter().y << std::endl;
 	float xAxisDistance = physicsBody->GetPosition().x - playerBody->GetPosition().x;
 	float yAxisDistance = physicsBody->GetPosition().y - playerBody->GetPosition().y;
 	float distance = sqrt(xAxisDistance * xAxisDistance + yAxisDistance * yAxisDistance);
 	std::cout << "d: " << distance << std::endl;
 
-	if (distance < detectRange)
+	if (distance < detectRange && currentState != EnemyState::Die)
 	{
 		if (xAxisDistance < 0)
 		{
