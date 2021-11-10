@@ -67,6 +67,7 @@ void Golem::Idle()
 
 void Golem::MoveRight()
 {
+	flipSprite = SDL_FLIP_NONE;
 	currentState = EnemyState::Walk;
 	b2Vec2 velocity = b2Vec2(0.2f, physicsBody->GetLinearVelocity().y);
 	physicsBody->SetLinearVelocity(velocity);
@@ -75,6 +76,7 @@ void Golem::MoveRight()
 void Golem::MoveLeft()
 {
 	currentState = EnemyState::Walk;
+	flipSprite = SDL_FLIP_HORIZONTAL;
 	b2Vec2 velocity = b2Vec2(-0.2f, physicsBody->GetLinearVelocity().y);
 	physicsBody->SetLinearVelocity(velocity);
 }
