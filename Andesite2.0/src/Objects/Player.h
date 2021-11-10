@@ -16,7 +16,7 @@ public:
 	virtual inline int GetCurrentState() { return currentState; }
 	virtual void Idle();
 	virtual void Die();
-
+	b2Body* GetPlayerBody() { return physicsBody; }
 
 	bool isMoveRight = false;
 	bool isMoveLeft = false;

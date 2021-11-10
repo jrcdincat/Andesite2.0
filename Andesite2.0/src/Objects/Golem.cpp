@@ -2,6 +2,7 @@
 #include "Golem.h"
 #include "../Constants.h"
 #include "../Graphics/TextureManager.h"
+
 using namespace constants;
 using namespace EnemyStates;
 
@@ -23,6 +24,9 @@ Golem::Golem(Properties* properties): Actor(properties)
 	);
 	physicsBody->SetGravityScale(0.1f);
 	physicsBody->SetLinearDamping(1.3f);
+	playerInstance = Game::GetInstance()->GetPlayer();
+	playerBody = playerInstance->GetPlayerBody();
+	detectRange = 9.0f;
 }
 
 Golem::~Golem()
@@ -43,6 +47,7 @@ void Golem::Draw()
 
 void Golem::Update(float dt)
 {
+	FollowPlayerWhenInRange();
 	UpdateAnimationState();
 	animation->Update();
 	origin->x = physicsBody->GetPosition().x * PIXEL_PER_METER + width / 2;
@@ -63,14 +68,14 @@ void Golem::Idle()
 void Golem::MoveRight()
 {
 	currentState = EnemyState::Walk;
-	b2Vec2 velocity = b2Vec2(1.0f, physicsBody->GetLinearVelocity().y);
+	b2Vec2 velocity = b2Vec2(0.2f, physicsBody->GetLinearVelocity().y);
 	physicsBody->SetLinearVelocity(velocity);
 }
 
 void Golem::MoveLeft()
 {
 	currentState = EnemyState::Walk;
-	b2Vec2 velocity = b2Vec2(-1.0f, physicsBody->GetLinearVelocity().y);
+	b2Vec2 velocity = b2Vec2(-0.2f, physicsBody->GetLinearVelocity().y);
 	physicsBody->SetLinearVelocity(velocity);
 }
 
@@ -102,4 +107,26 @@ void Golem::UpdateAnimationState()
 	}
 	previousState = currentState;
 	previousFlipSprite = flipSprite;
+}
+
+void Golem::FollowPlayerWhenInRange()
+{
+	std::cout << "enemy: " << physicsBody->GetPosition().x << " w:" << physicsBody->GetWorldCenter().y << std::endl;
+	std::cout << "--- player: " << playerBody->GetPosition().x << " y:" << playerBody->GetWorldCenter().y << std::endl;
+	float xAxisDistance = physicsBody->GetPosition().x - playerBody->GetPosition().x;
+	float yAxisDistance = physicsBody->GetPosition().y - playerBody->GetPosition().y;
+	float distance = sqrt(xAxisDistance * xAxisDistance + yAxisDistance * yAxisDistance);
+	std::cout << "d: " << distance << std::endl;
+
+	if (distance < detectRange)
+	{
+		if (xAxisDistance < 0)
+		{
+			MoveRight();
+		}
+		else
+		{
+			MoveLeft();
+		}
+	}
 }

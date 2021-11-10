@@ -2,6 +2,7 @@
 #include "Actor.h"
 #include "../Graphics/Animation.h"
 #include "../Physics/Physics.h"
+#include "../Objects/Player.h"
 
 class Golem : public Actor {
 public:
@@ -21,4 +22,11 @@ public:
 private:
 	void MoveRight();
 	void MoveLeft();
+	void FollowPlayerWhenInRange();
+	
+	Vector2D movementBoundaryLeft;
+	Vector2D movementBoundaryRight;
+	Player* playerInstance;
+	b2Body* playerBody;
+	float detectRange;
 };
