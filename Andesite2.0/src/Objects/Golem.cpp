@@ -10,7 +10,7 @@ Golem::Golem(Properties* properties): Actor(properties)
 	frameCount = 18; 
 	animationSpeed = 80;
 	animation = new Animation();
-	animation->SetProperties(textureID, row, frameCount, animationSpeed);
+	animation->SetProperties(textureID, true, row, frameCount, animationSpeed);
 	collisionWidth = 25;
 	collisionHeight = 40;
 	physicsBody = Physics::GetInstance()->AddEnemyRect(properties->position.x, properties->position.y, collisionWidth, collisionHeight, this);
@@ -44,21 +44,21 @@ void Golem::Clean()
 
 void Golem::Idle()
 {
-	animation->SetProperties("golem_idle", 0, 18, 80, SDL_FLIP_HORIZONTAL);
+	animation->SetProperties("golem_idle", true, 0, 18, 80, SDL_FLIP_HORIZONTAL);
 	b2Vec2 velocity = b2Vec2(0.0f, physicsBody->GetLinearVelocity().y);
 	physicsBody->SetLinearVelocity(velocity);
 }
 
 void Golem::MoveRight()
 {
-	animation->SetProperties("golem_walking", 0, 24, 80);
+	animation->SetProperties("golem_walking", true, 0, 24, 80);
 	b2Vec2 velocity = b2Vec2(1.0f, physicsBody->GetLinearVelocity().y);
 	physicsBody->SetLinearVelocity(velocity);
 }
 
 void Golem::MoveLeft()
 {
-	animation->SetProperties("golem_walking", 0, 24, 80, SDL_FLIP_HORIZONTAL);
+	animation->SetProperties("golem_walking", true, 0, 24, 80, SDL_FLIP_HORIZONTAL);
 	b2Vec2 velocity = b2Vec2(-1.0f, physicsBody->GetLinearVelocity().y);
 	physicsBody->SetLinearVelocity(velocity);
 }

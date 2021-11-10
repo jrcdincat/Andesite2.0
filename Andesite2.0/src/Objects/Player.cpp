@@ -7,12 +7,11 @@
 using namespace constants;
 
 Player::Player(Properties* properties): Actor(properties) {
-	health = PLAYER_HEALTH;
 	row = 0;
 	frameCount = 8;
 	animationSpeed = 80;
 	animation = new Animation();
-	animation->SetProperties(textureID, row, frameCount, animationSpeed);
+	animation->SetProperties(textureID, true, row, frameCount, animationSpeed);
 	collisionWidth = 45;
 	collisionHeight = 80;
 	physicsBody = Physics::GetInstance()->AddPlayerRect(properties->position.x, properties->position.y, collisionWidth, collisionHeight, this);
@@ -85,21 +84,10 @@ void Player::Fall() {
 	currentState = PlayerState::Fall;
 }
 
-
 void Player::Idle() {
 	currentState = PlayerState::Idle;
 	b2Vec2 velocity = b2Vec2(0.0f, physicsBody->GetLinearVelocity().y);
 	physicsBody->SetLinearVelocity(velocity);
-}
-
-void Player::Hit() {
-	currentState = PlayerState::Hit;
-	health--;
-
-	if (health < 1)
-	{
-		Die();
-	}
 }
 
 void Player::Die() {
@@ -159,7 +147,7 @@ void Player::UpdateMovement() {
 				RunRight();
 			}
 		}
-		else if (currentState != PlayerState::Hit && currentState != PlayerState::Die)
+		else if (currentState != PlayerState::Die)
 		{
 			Idle();
 		}
@@ -170,38 +158,30 @@ void Player::UpdateMovement() {
 
 void Player::UpdateAnimationState()
 {
-	if (previousState == currentState && previousFlipSprite == flipSprite)
+	switch (currentState)
 	{
-		return;
+		case PlayerState::Idle:
+			animation->SetProperties("player_idle", true, 0, 8, 80, flipSprite);
+			break;
+		case PlayerState::Run:
+			animation->SetProperties("player_run", true, 0, 8, 80, flipSprite);
+			break;
+		case PlayerState::Jump:
+			animation->SetProperties("player_jump", true, 0, 2, 80, flipSprite);
+			break;
+		case PlayerState::Fall:
+			animation->SetProperties("player_fall", true, 0, 2, 80, flipSprite);
+			break;
+		case PlayerState::Die:
+			for (b2Fixture* fixture = physicsBody->GetFixtureList(); fixture; fixture = fixture->GetNext())
+			{
+				b2Filter filter = fixture->GetFilterData();
+				filter.maskBits = BOUNDARY;
+				fixture->SetFilterData(filter);
+			}
+			animation->SetProperties("player_death", false, 0, 6, 100, flipSprite);
+			break;
 	}
-		switch (currentState)
-		{
-			case PlayerState::Idle:
-				animation->SetProperties("player_idle", 0, 8, 80, flipSprite);
-				break;
-			case PlayerState::Run:
-				animation->SetProperties("player_run", 0, 8, 80, flipSprite);
-				break;
-			case PlayerState::Jump:
-				animation->SetProperties("player_jump", 0, 2, 80, flipSprite);
-				break;
-			case PlayerState::Fall:
-				animation->SetProperties("player_fall", 0, 2, 80, flipSprite);
-				break;
-			case PlayerState::Hit:
-				animation->SetProperties("player_hit", 0, 4, 80, flipSprite);
-				break;
-			case PlayerState::Die:
-				for (b2Fixture* fixture = physicsBody->GetFixtureList(); fixture; fixture = fixture->GetNext())
-				{
-					b2Filter filter = fixture->GetFilterData();
-					filter.maskBits = BOUNDARY;
-					fixture->SetFilterData(filter);
-				}
-				animation->SetProperties("player_death", 0, 6, 100, flipSprite);
-
-				break;
-		}
 		previousState = currentState;
 		previousFlipSprite = flipSprite;
 }

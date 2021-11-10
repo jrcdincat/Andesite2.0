@@ -15,7 +15,6 @@ public:
 
 	virtual void Idle();
 	virtual void Die();
-	void Hit();
 	void UpdateAnimationState();
 	inline int GetPlayerState() { return currentState; }
 
@@ -25,11 +24,10 @@ public:
 	bool isEscape = false;
 
 private: 
-	int row, frame, frameCount; 
+	int row, frameCount; 
 	int animationSpeed;
 	Animation* animation;
 	b2Body* physicsBody;
-	int health;
 	int collisionWidth, collisionHeight;
 	int currentState;
 	int previousState;

@@ -41,14 +41,14 @@ void ContactListener::BeginContact(b2Contact* contact) {
 			}
 			break;
 
-		// Player hit
+		// Player is hit
 		case PLAYER | ENEMY:
 			if (fixtureA->GetFilterData().categoryBits == PLAYER)
 			{
 				Player* player = (Player*)reinterpret_cast<Physics::FixtureUserData*>(fixtureA->GetUserData().pointer)->object;
 				if (player != nullptr)
 				{
-					player->Hit();
+					player->Die();
 				}
 			}
 			else
@@ -56,7 +56,7 @@ void ContactListener::BeginContact(b2Contact* contact) {
 				Player* player = (Player*)reinterpret_cast<Physics::FixtureUserData*>(fixtureB->GetUserData().pointer)->object;
 				if (player != nullptr)
 				{
-					player->Hit();
+					player->Die();
 				}
 			}
 	}

@@ -87,7 +87,6 @@ bool Game::Init(const char* TITLE, int xPos, int yPos, int w, int h, bool fullsc
 	TextureManager::GetInstance()->LoadTexture("player_run", "src/assets/images/hero/Sprites/Run.png");
 	TextureManager::GetInstance()->LoadTexture("player_jump", "src/assets/images/hero/Sprites/Jump.png");
 	TextureManager::GetInstance()->LoadTexture("player_fall", "src/assets/images/hero/Sprites/Fall.png");
-	TextureManager::GetInstance()->LoadTexture("player_hit", "src/assets/images/hero/Sprites/Take Hit - white.png");
 	TextureManager::GetInstance()->LoadTexture("player_death", "src/assets/images/hero/Sprites/Death.png");
 
 	playerProperties = new Properties("player_idle", 50, 672, 300, 300); // 50, 672

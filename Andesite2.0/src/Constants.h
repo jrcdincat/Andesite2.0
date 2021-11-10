@@ -10,7 +10,6 @@ namespace constants {
 	constexpr int GOLEM_Y_OFFSET_ANIMATION = 5.0f;
 	constexpr int PLAYER_X_OFFSET_ANIMATION = 150.0f;
 	constexpr int PLAYER_Y_OFFSET_ANIMATION = 105.0f;
-	constexpr int PLAYER_HEALTH = 3;
 
 	enum userDataTypes {
 		USER_TYPE_PLAYER_FEET = 1,
@@ -34,7 +33,6 @@ namespace constants {
 		Run,
 		Jump,
 		Fall,
-		Hit,
 		Die
 	};
 }
