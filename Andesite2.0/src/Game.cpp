@@ -148,7 +148,7 @@ void Game::Clean() {
 
 void Game::CreateEnemies()
 {
-	enemyProperties = new Properties("golem_idle", 200, 672, 75, 75);
+	enemyProperties = new Properties("golem_idle", 17 * PIXEL_PER_METER, 21.5 * PIXEL_PER_METER, 75, 75);
 	enemyGolem = new Golem(enemyProperties);
 }
 
