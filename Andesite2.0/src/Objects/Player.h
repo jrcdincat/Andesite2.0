@@ -12,11 +12,11 @@ public:
 	virtual void Draw();
 	virtual void Update(float dt);
 	virtual void Clean();
-
+	virtual void UpdateAnimationState();
+	virtual inline int GetCurrentState() { return currentState; }
 	virtual void Idle();
 	virtual void Die();
-	void UpdateAnimationState();
-	inline int GetPlayerState() { return currentState; }
+
 
 	bool isMoveRight = false;
 	bool isMoveLeft = false;
@@ -24,16 +24,6 @@ public:
 	bool isEscape = false;
 
 private: 
-	int row, frameCount; 
-	int animationSpeed;
-	Animation* animation;
-	b2Body* physicsBody;
-	int collisionWidth, collisionHeight;
-	int currentState;
-	int previousState;
-	SDL_RendererFlip flipSprite;
-	SDL_RendererFlip previousFlipSprite;
-
 	void UpdateMovement();
 	void RunRight();
 	void RunLeft();
@@ -42,5 +32,4 @@ private:
 	void Jump();
 	void Fall();
 	void Escape();
-
 };

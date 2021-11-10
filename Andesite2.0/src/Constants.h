@@ -35,4 +35,13 @@ namespace constants {
 		Fall,
 		Die
 	};
+
+	namespace EnemyStates
+	{
+		enum EnemyState {
+			Idle,
+			Walk,
+			Die
+		};
+	}
 }

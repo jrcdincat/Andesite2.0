@@ -3,6 +3,7 @@
 #include "../Constants.h"
 #include "../Graphics/TextureManager.h"
 using namespace constants;
+using namespace EnemyStates;
 
 Golem::Golem(Properties* properties): Actor(properties)
 {
@@ -13,7 +14,13 @@ Golem::Golem(Properties* properties): Actor(properties)
 	animation->SetProperties(textureID, true, row, frameCount, animationSpeed);
 	collisionWidth = 25;
 	collisionHeight = 40;
-	physicsBody = Physics::GetInstance()->AddEnemyRect(properties->position.x, properties->position.y, collisionWidth, collisionHeight, this);
+	physicsBody = Physics::GetInstance()->AddEnemyRect(
+		properties->position.x, 
+		properties->position.y, 
+		collisionWidth, 
+		collisionHeight, 
+		this
+	);
 	physicsBody->SetGravityScale(0.1f);
 	physicsBody->SetLinearDamping(1.3f);
 }
@@ -25,14 +32,18 @@ Golem::~Golem()
 
 void Golem::Draw()
 {
-	animation->Draw(physicsBody->GetPosition().x * PIXEL_PER_METER - GOLEM_X_OFFSET_ANIMATION, physicsBody->GetPosition().y * PIXEL_PER_METER - GOLEM_Y_OFFSET_ANIMATION, width, height);
+	animation->Draw(
+		physicsBody->GetPosition().x * PIXEL_PER_METER - GOLEM_X_OFFSET_ANIMATION, 
+		physicsBody->GetPosition().y * PIXEL_PER_METER - GOLEM_Y_OFFSET_ANIMATION,
+		width, 
+		height
+	);
 	// TextureManager::GetInstance()->DrawRect(physicsBody->GetPosition().x * PIXEL_PER_METER, physicsBody->GetPosition().y * PIXEL_PER_METER, collisionWidth, collisionHeight);
 }
 
 void Golem::Update(float dt)
 {
-	Idle();
-
+	UpdateAnimationState();
 	animation->Update();
 	origin->x = physicsBody->GetPosition().x * PIXEL_PER_METER + width / 2;
 	origin->y = physicsBody->GetPosition().y * PIXEL_PER_METER + height / 2;
@@ -44,28 +55,28 @@ void Golem::Clean()
 
 void Golem::Idle()
 {
-	animation->SetProperties("golem_idle", true, 0, 18, 80, SDL_FLIP_HORIZONTAL);
+	currentState = EnemyState::Idle;
 	b2Vec2 velocity = b2Vec2(0.0f, physicsBody->GetLinearVelocity().y);
 	physicsBody->SetLinearVelocity(velocity);
 }
 
 void Golem::MoveRight()
 {
-	animation->SetProperties("golem_walking", true, 0, 24, 80);
+	currentState = EnemyState::Walk;
 	b2Vec2 velocity = b2Vec2(1.0f, physicsBody->GetLinearVelocity().y);
 	physicsBody->SetLinearVelocity(velocity);
 }
 
 void Golem::MoveLeft()
 {
-	animation->SetProperties("golem_walking", true, 0, 24, 80, SDL_FLIP_HORIZONTAL);
+	currentState = EnemyState::Walk;
 	b2Vec2 velocity = b2Vec2(-1.0f, physicsBody->GetLinearVelocity().y);
 	physicsBody->SetLinearVelocity(velocity);
 }
 
 void Golem::Die()
 {
-	animation->SetProperties("golem_dying", 0, 18, 80, SDL_FLIP_HORIZONTAL);
+	currentState = EnemyState::Die;
 	
 	for (b2Fixture* fixture = physicsBody->GetFixtureList(); fixture; fixture = fixture->GetNext())
 	{
@@ -73,4 +84,22 @@ void Golem::Die()
 		filter.maskBits = BOUNDARY;
 		fixture->SetFilterData(filter);
 	}
+}
+
+void Golem::UpdateAnimationState()
+{
+	switch (currentState)
+	{
+		case EnemyState::Idle:
+			animation->SetProperties("golem_idle", true, 0, 18, 80, flipSprite);
+			break;
+		case EnemyState::Walk:
+			animation->SetProperties("golem_walking", true, 0, 24, 80, flipSprite);
+			break;
+		case EnemyState::Die:
+			animation->SetProperties("golem_dying", false, 0, 18, 500, flipSprite);
+			break;
+	}
+	previousState = currentState;
+	previousFlipSprite = flipSprite;
 }

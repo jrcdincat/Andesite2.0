@@ -15,14 +15,10 @@ public:
 
 	virtual void Idle();
 	virtual void Die();
+	virtual void UpdateAnimationState();
+	virtual inline int GetCurrentState() { return currentState; }
 
 private:
-	int row, frameCount;
-	int animationSpeed;
-	Animation* animation;
-	b2Body* physicsBody;
-	int collisionWidth, collisionHeight;
-
 	void MoveRight();
 	void MoveLeft();
 };

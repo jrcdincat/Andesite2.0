@@ -29,6 +29,9 @@ public:
 
 private:
 	Game();
+	void CreateEnemies();
+	void LoadTextures();
+
 	bool isRunning;
 	SDL_Window* window; 
 	SDL_Renderer* renderer;
