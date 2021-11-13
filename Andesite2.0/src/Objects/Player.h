@@ -14,8 +14,8 @@ public:
 	virtual void Clean();
 	virtual void UpdateAnimationState();
 	virtual inline int GetCurrentState() { return currentState; }
-	virtual void Idle();
-	virtual void Die();
+	void Idle();
+	void Die();
 	b2Body* GetPlayerBody() { return physicsBody; }
 
 	bool isMoveRight = false;

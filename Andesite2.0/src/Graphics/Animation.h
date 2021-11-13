@@ -7,7 +7,6 @@ public:
 	void Draw(float x, float y, int spriteWidth, int spriteHeight); 
 	void SetProperties(std::string id,bool repeat, int row, int frameCnt, int animateSpeed, SDL_RendererFlip flip = SDL_FLIP_NONE);
 	inline bool IsEnded() { return isEnded; }
-	inline void Reset() { currentFrame = 0; isEnded = false; }
 	inline std::string GetTextureID() { return textureID; }
 
 private:

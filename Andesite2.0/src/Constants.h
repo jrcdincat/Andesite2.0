@@ -10,12 +10,17 @@ namespace constants {
 	constexpr int GOLEM_Y_OFFSET_ANIMATION = 5.0f;
 	constexpr int PLAYER_X_OFFSET_ANIMATION = 150.0f;
 	constexpr int PLAYER_Y_OFFSET_ANIMATION = 105.0f;
+	constexpr int ROCK1_X_OFFSET_ANIMATION = 10.0f;
+	constexpr int ROCK1_Y_OFFSET_ANIMATION = 5.0f;
+	constexpr int EXPLOSION1_X_OFFSET_ANIMATION = 70.0f;
+	constexpr int EXPLOSION1_Y_OFFSET_ANIMATION = 60.0f;
 
 	enum userDataTypes {
 		USER_TYPE_PLAYER_FEET = 1,
 		USER_TYPE_BOUDNARY = 2,
 		USER_TYPE_PLAYER = 3,
-		USER_TYPE_ENEMY = 4
+		USER_TYPE_ENEMY = 4,
+		USER_TYPE_ROCK = 5
 	};
 
 	enum categoryBits {
@@ -24,8 +29,9 @@ namespace constants {
 		PLAYER = 0x0002,
 		ENEMY = 0x0004,
 		ENEMY_HEAD = 0x0008,
-		GEM = 0x0010,
-		PLAYER_FEET = 0x0016
+		PLAYER_FEET = 0x0016,
+		ROCK = 0x0032,
+		GEM = 0x0064
 	};
 
 	enum PlayerState {
@@ -42,6 +48,14 @@ namespace constants {
 			Idle,
 			Walk,
 			Die
+		};
+	}
+
+	namespace HazardStates
+	{
+		enum RockState {
+			Falling,
+			Exploding
 		};
 	}
 }

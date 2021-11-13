@@ -4,10 +4,12 @@
 #include "Time/Timer.h"
 #include "Physics/Physics.h"
 #include "Camera/Camera.h"
-#include "Objects/Golem.h"
+#include "Objects/Objects.h"
 
 Game* Game::gameInstance = nullptr;
 Golem* enemyGolem = nullptr;
+Rock* rock;
+Properties* rockProperties;
 
 Game::Game()
 {
@@ -76,8 +78,8 @@ bool Game::Init(const char* TITLE, int xPos, int yPos, int w, int h, bool fullsc
 	// Set Map Background Layers
 	parallaxBackground.push_back(new BackgroundLayer("background", 0, -200, 0.3, 0.75, 0.75));
 	parallaxBackground.push_back(new BackgroundLayer("background", 2550, -200, 0.3, 0.75, 0.75));
-
-	playerProperties = new Properties("player_idle", 50, 672, 300, 300);
+	
+	playerProperties = new Properties("player_idle", 1 * PIXEL_PER_METER, 21.5 * PIXEL_PER_METER, 300, 300);
 	player = new Player(playerProperties);
 
 	CreateEnemies();
@@ -100,6 +102,7 @@ void Game::Update() {
 	float deltaTime = Timer::GetInstance()->GetDeltaTime();
 	player->Update(deltaTime);
 	enemyGolem->Update(deltaTime);
+	rock->Update(deltaTime);
 	gameMap->Update();
 	Camera::GetInstance()->Update(deltaTime);
 }
@@ -118,6 +121,7 @@ void Game::Render() {
 	gameMap->Render();
 	player->Draw();
 	enemyGolem->Draw();
+	rock->Draw();
 	Physics::GetInstance()->Render();
 	SDL_RenderPresent(renderer);
 }
@@ -127,6 +131,8 @@ void Game::Clean() {
 	delete player;
 	delete enemyProperties;
 	delete enemyGolem;
+	delete rockProperties;
+	delete rock;
 
 	for (auto backgroundLayer : parallaxBackground)
 	{
@@ -150,6 +156,9 @@ void Game::CreateEnemies()
 {
 	enemyProperties = new Properties("golem_idle", 17 * PIXEL_PER_METER, 21.5 * PIXEL_PER_METER, 75, 75);
 	enemyGolem = new Golem(enemyProperties);
+
+	rockProperties = new Properties("rock1", 1 * PIXEL_PER_METER, 0, 60, 50);
+	rock = new Rock(rockProperties);
 }
 
 void Game::LoadTextures()
@@ -161,6 +170,10 @@ void Game::LoadTextures()
 	TextureManager::GetInstance()->LoadTexture("golem_idle", "src/assets/images/golem/Golem_Idle.png");
 	TextureManager::GetInstance()->LoadTexture("golem_walking", "src/assets/images/golem/Golem_Walking.png");
 	TextureManager::GetInstance()->LoadTexture("golem_dying", "src/assets/images/golem/Golem_Dying.png");
+
+	// Load Rock Textures
+	TextureManager::GetInstance()->LoadTexture("rock1", "src/assets/images/rocks/Rock1.png");
+	TextureManager::GetInstance()->LoadTexture("explosion1", "src/assets/images/rocks/Explosion1.png");
 
 	// Load Player Textures
 	TextureManager::GetInstance()->LoadTexture("player_idle", "src/assets/images/hero/Sprites/Idle.png");

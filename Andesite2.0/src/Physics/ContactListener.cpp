@@ -21,6 +21,58 @@ void ContactListener::BeginContact(b2Contact* contact) {
 	int contactDef = fixtureA->GetFilterData().categoryBits | fixtureB->GetFilterData().categoryBits;
 	switch (contactDef)
 	{
+		// Rock hits boundary
+		case ROCK | BOUNDARY:
+			if (fixtureA->GetFilterData().categoryBits == ROCK)
+			{
+				Rock* rock = (Rock*)reinterpret_cast<Physics::FixtureUserData*>(fixtureA->GetUserData().pointer)->object;
+				if (rock != nullptr)
+				{
+					rock->Explode();
+				}
+			}
+			else if (fixtureB->GetFilterData().categoryBits == ROCK)
+			{
+				Rock* rock = (Rock*)reinterpret_cast<Physics::FixtureUserData*>(fixtureB->GetUserData().pointer)->object;
+				if (rock != nullptr)
+				{
+					rock->Explode();
+				}
+			}
+			break;
+
+		// Rock hits player
+		case ROCK | PLAYER:
+			if (fixtureA->GetFilterData().categoryBits == ROCK)
+			{
+				Rock* rock = (Rock*)reinterpret_cast<Physics::FixtureUserData*>(fixtureA->GetUserData().pointer)->object;
+				if (rock != nullptr)
+				{
+					rock->Explode();
+				}
+
+				Player* player = (Player*)reinterpret_cast<Physics::FixtureUserData*>(fixtureB->GetUserData().pointer)->object;
+				if (player != nullptr)
+				{
+					player->Die();
+				}
+			}
+			else if (fixtureB->GetFilterData().categoryBits == ROCK)
+			{
+				Rock* rock = (Rock*)reinterpret_cast<Physics::FixtureUserData*>(fixtureB->GetUserData().pointer)->object;
+				if (rock != nullptr)
+				{
+					rock->Explode();
+				}
+
+				Player* player = (Player*)reinterpret_cast<Physics::FixtureUserData*>(fixtureA->GetUserData().pointer)->object;
+				if (player != nullptr)
+				{
+					player->Die();
+				}
+			}
+			break;
+
 		// Enemy head is hit 
 		case PLAYER_FEET | ENEMY_HEAD:
 			if (fixtureA->GetFilterData().categoryBits == ENEMY_HEAD)

@@ -1,32 +1,35 @@
 #pragma once
+#pragma once
 #include "Actor.h"
 #include "../Graphics/Animation.h"
 #include "../Physics/Physics.h"
 #include "../Objects/Player.h"
 
-class Golem : public Actor {
+class Rock : public Actor {
 public:
-	Golem() = default;
-	Golem(Properties* properties);
-	~Golem();
+	Rock() = default;
+	Rock(Properties* properties);
+	~Rock();
 
 	virtual void Draw();
 	virtual void Update(float dt);
 	virtual void Clean();
 
-	void Idle();
-	void Die();
+	void Fall();
+	void Explode();
 	virtual void UpdateAnimationState();
 	virtual inline int GetCurrentState() { return currentState; }
 
 private:
 	void MoveRight();
 	void MoveLeft();
-	void FollowPlayerWhenInRange();
-	
+	void RandomSpawnInRangeOfPlayer();
+
 	Vector2D movementBoundaryLeft;
 	Vector2D movementBoundaryRight;
 	Player* playerInstance;
 	b2Body* playerBody;
+	bool isExplode;
+
 	float detectRange;
 };
