@@ -127,11 +127,8 @@ void Game::Render() {
 }
 
 void Game::Clean() {
-	delete playerProperties; 
 	delete player;
-	delete enemyProperties;
 	delete enemyGolem;
-	delete rockProperties;
 	delete rock;
 
 	for (auto backgroundLayer : parallaxBackground)

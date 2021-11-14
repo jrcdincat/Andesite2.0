@@ -25,10 +25,12 @@ public:
 		width(properties->width), height(properties->height), renderFlip(properties->renderFlip) { 
 		float x = properties->position.x + properties->width / 2;
 		float y = properties->position.y + properties->height / 2;
+		this->properties = properties;
 		origin = new Vector2D(x, y);
 	};
 	virtual ~GameObject() {
 		delete origin;
+		delete properties;
 	};
 
 	inline Vector2D* GetOrigin() { return origin; }
@@ -43,7 +45,8 @@ protected:
 	b2Body* physicsBody;
 	int collisionWidth, collisionHeight;
 	
-	Animation * animation;
+	Animation* animation;
+	Properties* properties;
 	std::string textureID;
 	int width, height;
 	int row, frameCount;
