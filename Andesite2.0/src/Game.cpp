@@ -79,6 +79,7 @@ bool Game::Init(const char* TITLE, int xPos, int yPos, int w, int h, bool fullsc
 	parallaxBackground.push_back(new BackgroundLayer("background", 0, -200, 0.3, 0.75, 0.75));
 	parallaxBackground.push_back(new BackgroundLayer("background", 2550, -200, 0.3, 0.75, 0.75));
 	
+	// Initialize Player
 	playerProperties = new Properties("player_idle", 1 * PIXEL_PER_METER, 21.5 * PIXEL_PER_METER, 300, 300);
 	player = new Player(playerProperties);
 
@@ -119,9 +120,11 @@ void Game::Render() {
 	}
 
 	gameMap->Render();
+	TextureManager::GetInstance()->DrawFrame("cave_background", 15000, 300, 1000, 450, 0, 0, SDL_FLIP_NONE);
 	player->Draw();
 	enemyGolem->Draw();
 	rock->Draw();
+	TextureManager::GetInstance()->DrawFrame("cave_foreground", 15000, 300, 1000, 450, 0, 0, SDL_FLIP_NONE);
 	Physics::GetInstance()->Render();
 	SDL_RenderPresent(renderer);
 }
@@ -178,4 +181,8 @@ void Game::LoadTextures()
 	TextureManager::GetInstance()->LoadTexture("player_jump", "src/assets/images/hero/Sprites/Jump.png");
 	TextureManager::GetInstance()->LoadTexture("player_fall", "src/assets/images/hero/Sprites/Fall.png");
 	TextureManager::GetInstance()->LoadTexture("player_death", "src/assets/images/hero/Sprites/Death.png");
+
+	// Load Cave Textures
+	TextureManager::GetInstance()->LoadTexture("cave_background", "src/assets/images/cave/cave_background.png");
+	TextureManager::GetInstance()->LoadTexture("cave_foreground", "src/assets/images/cave/cave_foreground.png");
 }
