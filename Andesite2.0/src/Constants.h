@@ -34,6 +34,12 @@ namespace constants {
 		GEM = 0x0064
 	};
 
+	enum MenuState {
+		IN_MAIN_MENU,
+		IN_GAME,
+		IN_YOU_WON_MENU
+	};
+
 	enum PlayerState {
 		Idle,
 		Run,
@@ -58,4 +64,5 @@ namespace constants {
 			Explode
 		};
 	}
+
 }

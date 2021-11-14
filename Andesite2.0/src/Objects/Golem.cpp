@@ -31,6 +31,7 @@ Golem::Golem(Properties* properties): Actor(properties)
 
 Golem::~Golem()
 {
+	physicsBody->GetWorld()->DestroyBody(physicsBody);
 	delete animation;
 }
 

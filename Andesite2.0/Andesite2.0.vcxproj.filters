@@ -96,6 +96,12 @@
     <ClCompile Include="src\Objects\Rock.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Menu\MainMenu.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Menu\Button.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="src\Assets\images\Background.png">
@@ -293,6 +299,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Objects\Rock.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Menu\MainMenu.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Menu\Button.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

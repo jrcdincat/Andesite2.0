@@ -21,12 +21,16 @@ public:
 	void Update();
 	void Render();
 	void Clean();
+	void CleanGameMap();
+	void CreateGameMap();
 
 	inline bool IsRunning() { return isRunning; }
 	inline void SetIsRunning(bool status) { isRunning = status; };
 	inline SDL_Renderer* GetRenderer() { return renderer; }
 	inline GameMap* GetMap() { return gameMap; }
 	inline Player* GetPlayer() { return player; }
+
+	int currentGameState;
 
 private:
 	Game();

@@ -24,6 +24,7 @@ Player::Player(Properties* properties): Actor(properties) {
 }
 
 Player::~Player() {
+	physicsBody->GetWorld()->DestroyBody(physicsBody);
 	delete animation;
 }
 
@@ -180,6 +181,10 @@ void Player::UpdateAnimationState()
 				fixture->SetFilterData(filter);
 			}
 			animation->SetProperties("player_death", false, 0, 6, 100, flipSprite);
+			if (animation->IsEnded())
+			{
+				Game::GetInstance()->currentGameState = IN_MAIN_MENU;
+			}
 			break;
 	}
 		previousState = currentState;

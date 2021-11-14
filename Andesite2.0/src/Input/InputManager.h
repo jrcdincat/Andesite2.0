@@ -1,5 +1,6 @@
 #pragma once
 #include "Command.h"
+#include "../Menu/MainMenu.h"
 
 class InputManager {
 public:
@@ -7,6 +8,7 @@ public:
 	InputManager();
 	~InputManager();
 	Command* handleKeyInput(const Uint8* state);
+	bool HandleButtonEvent(SDL_Rect rect);
 	void HandleEvent(Player* player);
 
 private: 

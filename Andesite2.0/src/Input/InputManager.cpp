@@ -96,5 +96,33 @@ void InputManager::HandleEvent(Player* player)
 		default:
 			break;
 		}
-	}	
+	}
+}
+bool InputManager::HandleButtonEvent(SDL_Rect rect)
+{
+	SDL_Event event;
+	while (SDL_PollEvent(&event))
+	{
+		switch (event.type)
+		{
+		case SDL_QUIT:
+			Game::GetInstance()->SetIsRunning(false);
+			break;
+		case SDL_MOUSEBUTTONDOWN:
+
+			if (event.button.button == SDL_BUTTON_LEFT)
+			{
+				int x, y;
+				SDL_GetMouseState(&x, &y);
+
+				if (x > rect.x && x < (rect.x + rect.w) && y > rect.y && y < (rect.y + rect.h))
+				{
+					return true;
+				}
+			}
+			break;
+		default:
+			break;
+		}
+	}
 }

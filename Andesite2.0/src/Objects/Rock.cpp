@@ -35,6 +35,7 @@ Rock::Rock(Properties* properties) : Actor(properties)
 
 Rock::~Rock()
 {
+	physicsBody->GetWorld()->DestroyBody(physicsBody);
 	delete animation;
 }
 
