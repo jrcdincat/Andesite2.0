@@ -23,13 +23,13 @@ public:
 private:
 	void MoveRight();
 	void MoveLeft();
-	void RandomSpawnInRangeOfPlayer();
+	void FallWhenPlayerInRange();
 
 	Vector2D movementBoundaryLeft;
 	Vector2D movementBoundaryRight;
 	Player* playerInstance;
 	b2Body* playerBody;
 	bool isExplode;
-
+	bool isNotVisible;
 	float detectRange;
 };

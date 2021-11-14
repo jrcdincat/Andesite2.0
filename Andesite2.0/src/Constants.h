@@ -6,14 +6,14 @@ namespace constants {
 	constexpr float JUMP_FORCE = 20.0f;
 	constexpr float JUMP_TIME = 15.0f;
 	constexpr float PIXEL_PER_METER = 32.0f;
-	constexpr int GOLEM_X_OFFSET_ANIMATION = 40.0f;
-	constexpr int GOLEM_Y_OFFSET_ANIMATION = 5.0f;
-	constexpr int PLAYER_X_OFFSET_ANIMATION = 150.0f;
-	constexpr int PLAYER_Y_OFFSET_ANIMATION = 105.0f;
-	constexpr int ROCK1_X_OFFSET_ANIMATION = 10.0f;
-	constexpr int ROCK1_Y_OFFSET_ANIMATION = 5.0f;
-	constexpr int EXPLOSION1_X_OFFSET_ANIMATION = 70.0f;
-	constexpr int EXPLOSION1_Y_OFFSET_ANIMATION = 60.0f;
+	constexpr float GOLEM_X_OFFSET_ANIMATION = 40.0f;
+	constexpr float GOLEM_Y_OFFSET_ANIMATION = 5.0f;
+	constexpr float PLAYER_X_OFFSET_ANIMATION = 150.0f;
+	constexpr float PLAYER_Y_OFFSET_ANIMATION = 105.0f;
+	constexpr float ROCK1_X_OFFSET_ANIMATION = 10.0f;
+	constexpr float ROCK1_Y_OFFSET_ANIMATION = 5.0f;
+	constexpr float EXPLOSION1_X_OFFSET_ANIMATION = 70.0f;
+	constexpr float EXPLOSION1_Y_OFFSET_ANIMATION = 60.0f;
 
 	enum userDataTypes {
 		USER_TYPE_PLAYER_FEET = 1,
@@ -54,8 +54,8 @@ namespace constants {
 	namespace HazardStates
 	{
 		enum RockState {
-			Falling,
-			Exploding
+			Fall,
+			Explode
 		};
 	}
 }

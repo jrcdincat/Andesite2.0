@@ -28,7 +28,9 @@ Rock::Rock(Properties* properties) : Actor(properties)
 	physicsBody->SetLinearDamping(1.3f);
 	playerInstance = Game::GetInstance()->GetPlayer();
 	playerBody = playerInstance->GetPlayerBody();
-	detectRange = 9.0f;
+	detectRange = 20.0f;
+	physicsBody->SetEnabled(false);
+	isNotVisible = false;
 }
 
 Rock::~Rock()
@@ -38,6 +40,10 @@ Rock::~Rock()
 
 void Rock::Draw()
 {
+	if (isNotVisible)
+	{
+		return;
+	}
 	if (isExplode)
 	{
 		animation->Draw(physicsBody->GetPosition().x * PIXEL_PER_METER - EXPLOSION1_X_OFFSET_ANIMATION,
@@ -61,7 +67,7 @@ void Rock::Draw()
 
 void Rock::Update(float dt)
 {
-	//FollowPlayerWhenInRange();
+	FallWhenPlayerInRange();
 	UpdateAnimationState();
 	animation->Update();
 	origin->x = physicsBody->GetPosition().x * PIXEL_PER_METER + width / 2;
@@ -74,7 +80,7 @@ void Rock::Clean()
 
 void Rock::Fall()
 {
-	currentState = HazardStates::RockState::Falling;
+	currentState = HazardStates::RockState::Fall;
 	b2Vec2 velocity = b2Vec2(0.0f, physicsBody->GetLinearVelocity().y);
 	physicsBody->SetLinearVelocity(velocity);
 }
@@ -97,7 +103,7 @@ void Rock::MoveLeft()
 
 void Rock::Explode()
 {
-	currentState = HazardStates::RockState::Exploding;
+	currentState = HazardStates::RockState::Explode;
 
 	for (b2Fixture* fixture = physicsBody->GetFixtureList(); fixture; fixture = fixture->GetNext())
 	{
@@ -111,20 +117,25 @@ void Rock::UpdateAnimationState()
 {
 	switch (currentState)
 	{
-	case HazardStates::RockState::Falling:
+	case HazardStates::RockState::Fall:
 		animation->SetProperties("rock1", true, 0, 23, 80, flipSprite);
 		break;
-	case HazardStates::RockState::Exploding:
+	case HazardStates::RockState::Explode:
 		animation->SetProperties("explosion1", false, 0, 100, 60, flipSprite);
 		isExplode = true;
-		
+		if (animation->IsEnded())
+		{
+			isNotVisible = true;
+			physicsBody->SetEnabled(false);
+		}
+
 		break;
 	}
 	previousState = currentState;
 	previousFlipSprite = flipSprite;
 }
 
-void Rock::RandomSpawnInRangeOfPlayer()
+void Rock::FallWhenPlayerInRange()
 {
 	//std::cout << "enemy: " << physicsBody->GetPosition().x << " w:" << physicsBody->GetWorldCenter().y << std::endl;
 	//std::cout << "--- player: " << playerBody->GetPosition().x << " y:" << playerBody->GetWorldCenter().y << std::endl;
@@ -132,18 +143,8 @@ void Rock::RandomSpawnInRangeOfPlayer()
 	float yAxisDistance = physicsBody->GetPosition().y - playerBody->GetPosition().y;
 	float distance = sqrt(xAxisDistance * xAxisDistance + yAxisDistance * yAxisDistance);
 
-
-
-
-	//if (distance < detectRange && currentState != EnemyState::Die)
-	//{
-	//	if (xAxisDistance < 0)
-	//	{
-	//		MoveRight();
-	//	}
-	//	else
-	//	{
-	//		MoveLeft();
-	//	}
-	//}
+	if (distance < detectRange && currentState != HazardStates::RockState::Explode)
+	{
+		physicsBody->SetEnabled(true);
+	}
 }
