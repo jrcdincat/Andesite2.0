@@ -12,6 +12,18 @@ public:
 	virtual void execute(Player* actor);
 };
 
+class JumpLeftCommand : public Command
+{
+public:
+	virtual void execute(Player* actor);
+};
+
+class JumpRightCommand : public Command
+{
+public:
+	virtual void execute(Player* actor);
+};
+
 class MoveLeftCommand : public Command
 {
 public:

@@ -12,10 +12,11 @@ public:
 	virtual void Draw();
 	virtual void Update(float dt);
 	virtual void Clean();
-
-	virtual void Idle();
-	virtual void Die();
-	void Hit();
+	virtual void UpdateAnimationState();
+	virtual inline int GetCurrentState() { return currentState; }
+	void Idle();
+	void Die();
+	b2Body* GetPlayerBody() { return physicsBody; }
 
 	bool isMoveRight = false;
 	bool isMoveLeft = false;
@@ -23,16 +24,11 @@ public:
 	bool isEscape = false;
 
 private: 
-	int row, frame, frameCount; 
-	int animationSpeed;
-	Animation* animation;
-	b2Body* physicsBody;
-	int health;
-	int collisionWidth, collisionHeight;
-
 	void UpdateMovement();
-	void MoveRight();
-	void MoveLeft();
+	void RunRight();
+	void RunLeft();
+	void SetVelocityMoveRight();
+	void SetVelocityMoveLeft();
 	void Jump();
 	void Fall();
 	void Escape();

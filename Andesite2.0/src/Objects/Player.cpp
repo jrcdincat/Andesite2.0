@@ -7,17 +7,20 @@
 using namespace constants;
 
 Player::Player(Properties* properties): Actor(properties) {
-	health = PLAYER_HEALTH;
 	row = 0;
 	frameCount = 8;
 	animationSpeed = 80;
 	animation = new Animation();
-	animation->SetProperties(textureID, row, frameCount, animationSpeed);
+	animation->SetProperties(textureID, true, row, frameCount, animationSpeed);
 	collisionWidth = 45;
 	collisionHeight = 80;
 	physicsBody = Physics::GetInstance()->AddPlayerRect(properties->position.x, properties->position.y, collisionWidth, collisionHeight, this);
 	physicsBody->SetGravityScale(0.1f);
 	physicsBody->SetLinearDamping(1.3f);
+	currentState = PlayerState::Idle;
+	previousState = PlayerState::Idle;
+	flipSprite = SDL_FLIP_NONE;
+	previousFlipSprite = SDL_FLIP_NONE;
 }
 
 Player::~Player() {
@@ -31,8 +34,9 @@ void Player::Draw() {
 }
 
 void Player::Update(float dt) {
-	animation->Update();
 	UpdateMovement();
+	UpdateAnimationState();
+	animation->Update();
 	origin->x = physicsBody->GetPosition().x * PIXEL_PER_METER + width / 2;
 	origin->y = physicsBody->GetPosition().y * PIXEL_PER_METER + height / 2;
 	// frame = (SDL_GetTicks() / animationSpeed) % frameCount; 
@@ -43,76 +47,51 @@ void Player::Clean() {
 }
 
 // Movement
-void Player::MoveRight() {
-	animation->SetProperties("player_run", 0, 8, 80);
+void Player::RunRight() {
+	currentState = PlayerState::Run;
+	SetVelocityMoveRight();
+}
+
+void Player::RunLeft() {
+	currentState = PlayerState::Run;
+	SetVelocityMoveLeft();
+}
+
+void Player::SetVelocityMoveRight() {
+	flipSprite = SDL_FLIP_NONE;
 	b2Vec2 velocity = b2Vec2(1.0f, physicsBody->GetLinearVelocity().y);
 	physicsBody->SetLinearVelocity(velocity);
 }
 
-void Player::MoveLeft() {
-	animation->SetProperties("player_run", 0, 8, 80, SDL_FLIP_HORIZONTAL);
+void Player::SetVelocityMoveLeft() {
+	flipSprite = SDL_FLIP_HORIZONTAL;
 	b2Vec2 velocity = b2Vec2(-1.0f, physicsBody->GetLinearVelocity().y);
 	physicsBody->SetLinearVelocity(velocity);
 }
 
 void Player::Jump() {
-
-	std::cout << "User Data: " << reinterpret_cast<Physics::FixtureUserData*>(physicsBody->GetFixtureList()->GetUserData().pointer)->type<< std::endl;
-	std::cout << "Feet " << Physics::GetInstance()->numFootContacts << std::endl;
 	// Jump once when in contact
 	if (Physics::GetInstance()->numFootContacts > 0)
 	{
-		animation->SetProperties("player_jump", 0, 2, 80);
+		currentState = PlayerState::Jump;
 		float impulse = INT_MAX * Timer::GetInstance()->GetDeltaTime();
 		physicsBody->ApplyLinearImpulseToCenter(b2Vec2(physicsBody->GetLinearVelocity().x, -impulse), true);
 	}
-	
-	isJump = false;
-	//else
-	//{
-	//	// If no contact on floor, then fall animation.
-	//	b2Vec2 velocity = physicsBody->GetLinearVelocity();
-	//	bool isMovingOnAxis = (velocity.x * 0 + velocity.y * (physicsBody->GetGravityScale() * 3.8f) > 0);
-	//	if (isMovingOnAxis)
-	//	{
-	//		Fall();
-	//	}
-	//	else
-	//	{
-	//		isJump = false;
-	//	}
-	//	std::cout << "axis " << isMovingOnAxis << std::endl;
-	//}
-	// Additional Jump allowed in air 
-	// Reset Additional Jump allowed in air when landing on floor
 }
 
 void Player::Fall() {
-	animation->SetProperties("player_fall", 0, 2, 80);
+	isJump = false;
+	currentState = PlayerState::Fall;
 }
 
-
 void Player::Idle() {
-	animation->SetProperties("player_idle", 0, 8, 80, SDL_FLIP_HORIZONTAL);
+	currentState = PlayerState::Idle;
 	b2Vec2 velocity = b2Vec2(0.0f, physicsBody->GetLinearVelocity().y);
 	physicsBody->SetLinearVelocity(velocity);
 }
 
-void Player::Hit() {
-	health--;
-
-	if (health < 1)
-	{
-		Die();
-	}
-
-	std::cout << "**** Player Hit ****" << std::endl;
-	animation->SetProperties("player_hit", 0, 4, 80, SDL_FLIP_HORIZONTAL);
-}
-
 void Player::Die() {
-	std::cout << "*** Player Die ****" << std::endl;
-	animation->SetProperties("player_death", 0, 6, 80, SDL_FLIP_HORIZONTAL);
+	currentState = PlayerState::Die;
 }
 
 void Player::Escape() {
@@ -120,31 +99,89 @@ void Player::Escape() {
 }
 
 void Player::UpdateMovement() {
-	if (isMoveLeft)
-	{
-		MoveLeft();
-	}
-	if (isMoveRight)
-	{
-		MoveRight();
-	}
-	if (isJump)
-	{
-		Jump();
-	}
+	b2Vec2 velocity = physicsBody->GetLinearVelocity();
+	bool isMovingOnAxis = (velocity.x * 0 + velocity.y * (physicsBody->GetGravityScale() * 3.8f) > 0);
+	// Exit
 	if (isEscape)
 	{
 		Escape();
 	}
 
-	b2Vec2 velocity = physicsBody->GetLinearVelocity();
-	bool isMovingOnAxis = (velocity.x * 0 + velocity.y * (physicsBody->GetGravityScale() * 3.8f) > 0);
-	/*if (isMovingOnAxis && Physics::GetInstance()->numFootContacts == 0)
+	if (currentState == PlayerState::Die)
 	{
+		return;
+	}
+
+	// Falling movement
+	if (isMovingOnAxis && Physics::GetInstance()->numFootContacts < 1)
+	{
+		if (isMoveLeft)
+		{
+			SetVelocityMoveLeft();
+		}
+		else if (isMoveRight)
+		{
+			SetVelocityMoveRight();
+		}
+
 		Fall();
 	}
 	else
 	{
-		isJump = false;
-	}*/
+		// On ground movement
+		if (isMoveLeft | isMoveRight | isJump)
+		{
+
+			if (isJump)
+			{
+				Jump();
+			}
+
+			if (isMoveLeft)
+			{
+				RunLeft();
+			}
+			
+			if (isMoveRight)
+			{
+				RunRight();
+			}
+		}
+		else if (currentState != PlayerState::Die)
+		{
+			Idle();
+		}
+
+	}
+}
+
+
+void Player::UpdateAnimationState()
+{
+	switch (currentState)
+	{
+		case PlayerState::Idle:
+			animation->SetProperties("player_idle", true, 0, 8, 80, flipSprite);
+			break;
+		case PlayerState::Run:
+			animation->SetProperties("player_run", true, 0, 8, 80, flipSprite);
+			break;
+		case PlayerState::Jump:
+			animation->SetProperties("player_jump", true, 0, 2, 80, flipSprite);
+			break;
+		case PlayerState::Fall:
+			animation->SetProperties("player_fall", true, 0, 2, 80, flipSprite);
+			break;
+		case PlayerState::Die:
+			for (b2Fixture* fixture = physicsBody->GetFixtureList(); fixture; fixture = fixture->GetNext())
+			{
+				b2Filter filter = fixture->GetFilterData();
+				filter.maskBits = BOUNDARY;
+				fixture->SetFilterData(filter);
+			}
+			animation->SetProperties("player_death", false, 0, 6, 100, flipSprite);
+			break;
+	}
+		previousState = currentState;
+		previousFlipSprite = flipSprite;
 }

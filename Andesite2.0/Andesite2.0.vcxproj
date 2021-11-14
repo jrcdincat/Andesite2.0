@@ -41,6 +41,7 @@
     <ClCompile Include="src\Objects\GameObject.cpp" />
     <ClCompile Include="src\Objects\IObject.cpp" />
     <ClCompile Include="src\Objects\Player.cpp" />
+    <ClCompile Include="src\Objects\Rock.cpp" />
     <ClCompile Include="src\pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
@@ -114,6 +115,7 @@
     <ClInclude Include="src\Objects\IObject.h" />
     <ClInclude Include="src\Objects\Objects.h" />
     <ClInclude Include="src\Objects\Player.h" />
+    <ClInclude Include="src\Objects\Rock.h" />
     <ClInclude Include="src\pch.h" />
     <ClInclude Include="src\Physics\ContactListener.h" />
     <ClInclude Include="src\Physics\Physics.h" />

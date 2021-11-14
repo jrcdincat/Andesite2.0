@@ -144,3 +144,31 @@ b2Body* Physics::AddEnemyRect(int x, int y, int w, int h, void* object) {
 
 	return body;
 }
+
+b2Body* Physics::AddRockRect(int x, int y, int w, int h, void* object) {
+	b2BodyDef bodyDef;
+	b2PolygonShape shape;
+	b2Body* body;
+	b2FixtureDef fixtureDef;
+	FixtureUserData* userData;
+
+	// Enemy Body
+	bodyDef.position.Set(x / PIXEL_PER_METER, y / PIXEL_PER_METER);
+	bodyDef.type = b2_dynamicBody;
+	body = physicsWorld->CreateBody(&bodyDef);
+	shape.SetAsBox((w / PIXEL_PER_METER) / 2, (h / PIXEL_PER_METER) / 2);
+	fixtureDef.shape = &shape;
+	fixtureDef.density = 200.0f;
+	fixtureDef.friction = 0.01f;
+	fixtureDef.restitution = 0.0f;
+	fixtureDef.filter.categoryBits = ROCK;
+	fixtureDef.filter.maskBits = BOUNDARY | PLAYER;
+	userData = new FixtureUserData();
+	userData->type = USER_TYPE_ROCK;
+	userData->object = object;
+	userDataList.push_back(userData);
+	fixtureDef.userData.pointer = reinterpret_cast<uintptr_t>(userData);
+	body->CreateFixture(&fixtureDef);
+
+	return body;
+}

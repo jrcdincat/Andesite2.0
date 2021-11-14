@@ -26,9 +26,13 @@ public:
 	inline void SetIsRunning(bool status) { isRunning = status; };
 	inline SDL_Renderer* GetRenderer() { return renderer; }
 	inline GameMap* GetMap() { return gameMap; }
+	inline Player* GetPlayer() { return player; }
 
 private:
 	Game();
+	void CreateEnemies();
+	void LoadTextures();
+
 	bool isRunning;
 	SDL_Window* window; 
 	SDL_Renderer* renderer;

@@ -2,6 +2,7 @@
 #include "Actor.h"
 #include "../Graphics/Animation.h"
 #include "../Physics/Physics.h"
+#include "../Objects/Player.h"
 
 class Golem : public Actor {
 public:
@@ -13,16 +14,19 @@ public:
 	virtual void Update(float dt);
 	virtual void Clean();
 
-	virtual void Idle();
-	virtual void Die();
+	void Idle();
+	void Die();
+	virtual void UpdateAnimationState();
+	virtual inline int GetCurrentState() { return currentState; }
 
 private:
-	int row, frameCount;
-	int animationSpeed;
-	Animation* animation;
-	b2Body* physicsBody;
-	int collisionWidth, collisionHeight;
-
 	void MoveRight();
 	void MoveLeft();
+	void FollowPlayerWhenInRange();
+	
+	Vector2D movementBoundaryLeft;
+	Vector2D movementBoundaryRight;
+	Player* playerInstance;
+	b2Body* playerBody;
+	float detectRange;
 };
