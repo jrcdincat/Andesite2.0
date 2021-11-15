@@ -6,6 +6,7 @@
 #include "Camera/Camera.h"
 #include "Objects/Objects.h"
 #include "Menu/Button.h"
+#include "Audio/AudioManager.h"
 
 Game* Game::gameInstance = nullptr;
 Golem* enemyGolem = nullptr;
@@ -62,6 +63,19 @@ bool Game::Init(const char* TITLE, int xPos, int yPos, int w, int h, bool fullsc
 			SDL_Log("Failed to initialize SDL IMG: %s", IMG_GetError());
 			return false;
 		}
+
+		// Initialize SDL Audio Mixer
+		if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0)
+		{
+			SDL_Log("Failed to initialize Mixer: %s", Mix_GetError());
+			return false;
+		}
+		
+		if (!AudioManager::GetInstance()->LoadAudio())
+		{
+			return false;
+		}
+
 	}
 	else 
 	{
@@ -86,7 +100,7 @@ bool Game::Init(const char* TITLE, int xPos, int yPos, int w, int h, bool fullsc
 	parallaxBackground.push_back(new BackgroundLayer("background", 2550, -200, 0.3, 0.75, 0.75));
 	
 	Camera::GetInstance()->SetMapSize(gameMap->GetMapWidth(), gameMap->GetMapHeight());
-
+	AudioManager::GetInstance()->PlayMusic();
 	isRunning = true;
 	return isRunning;
 }
@@ -185,6 +199,7 @@ void Game::Clean() {
 	delete TextureManager::GetInstance();
 	delete Physics::GetInstance();
 	delete MainMenu::GetInstance();
+	delete AudioManager::GetInstance();
 	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(window);
 	IMG_Quit();

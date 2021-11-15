@@ -3,6 +3,7 @@
 #include "../Input/InputManager.h"
 #include "../Graphics/TextureManager.h"
 #include "../Time/Timer.h"
+#include "../Audio/AudioManager.h"
 #include "../Constants.h"
 using namespace constants;
 
@@ -75,6 +76,7 @@ void Player::Jump() {
 	if (Physics::GetInstance()->numFootContacts > 0)
 	{
 		currentState = PlayerState::Jump;
+		AudioManager::GetInstance()->PlaySfx("jump");
 		float impulse = INT_MAX * Timer::GetInstance()->GetDeltaTime();
 		physicsBody->ApplyLinearImpulseToCenter(b2Vec2(physicsBody->GetLinearVelocity().x, -impulse), true);
 	}
@@ -93,6 +95,7 @@ void Player::Idle() {
 
 void Player::Die() {
 	currentState = PlayerState::Die;
+	AudioManager::GetInstance()->PlaySfx("player_death");
 }
 
 void Player::Escape() {

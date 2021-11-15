@@ -2,7 +2,7 @@
 #include "Rock.h"
 #include "../Constants.h"
 #include "../Graphics/TextureManager.h"
-
+#include "../Audio/AudioManager.h"
 using namespace constants;
 using namespace EnemyStates;
 
@@ -105,6 +105,8 @@ void Rock::MoveLeft()
 void Rock::Explode()
 {
 	currentState = HazardStates::RockState::Explode;
+
+	AudioManager::GetInstance()->PlaySfx("explosion");
 
 	for (b2Fixture* fixture = physicsBody->GetFixtureList(); fixture; fixture = fixture->GetNext())
 	{
