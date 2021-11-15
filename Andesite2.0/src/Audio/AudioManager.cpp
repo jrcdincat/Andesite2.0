@@ -29,6 +29,7 @@ bool AudioManager::LoadAudio()
 	}
 	Mix_VolumeMusic(10);
 
+	// Player jumpSfx
 	Mix_Chunk* jumpSfx = Mix_LoadWAV("src/assets/sfx/jump.mp3");
 	if (jumpSfx == NULL)
 	{
@@ -38,14 +39,35 @@ bool AudioManager::LoadAudio()
 	sfx.insert(std::pair<std::string, Mix_Chunk*>("jump", jumpSfx));
 	Mix_VolumeChunk(jumpSfx, 14);
 
+	// Player death sfx
+	Mix_Chunk* playerDeathSfx = Mix_LoadWAV("src/assets/sfx/player_death.mp3");
+	if (playerDeathSfx == NULL)
+	{
+		SDL_Log("Failed to load player death sfx: %s", Mix_GetError());
+		return false;
+	}
+	sfx.insert(std::pair<std::string, Mix_Chunk*>("player_death", playerDeathSfx));
+	Mix_VolumeChunk(playerDeathSfx, 14);
+
+	// Rock explosion sfx
 	Mix_Chunk* explosionSfx = Mix_LoadWAV("src/assets/sfx/explosion.wav");
-	if (jumpSfx == NULL)
+	if (explosionSfx == NULL)
 	{
 		SDL_Log("Failed to load explosion sfx: %s", Mix_GetError());
 		return false;
 	}
 	sfx.insert(std::pair<std::string, Mix_Chunk*>("explosion", explosionSfx));
 	Mix_VolumeChunk(explosionSfx, 14);
+
+	// Golem death sfx
+	Mix_Chunk* golemDeathSfx = Mix_LoadWAV("src/assets/sfx/golem_death.mp3");
+	if (golemDeathSfx == NULL)
+	{
+		SDL_Log("Failed to load golem death sfx: %s", Mix_GetError());
+		return false;
+	}
+	sfx.insert(std::pair<std::string, Mix_Chunk*>("golem_death", golemDeathSfx));
+	Mix_VolumeChunk(golemDeathSfx, 14);
 
 	return true;
 }

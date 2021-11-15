@@ -95,6 +95,7 @@ void Player::Idle() {
 
 void Player::Die() {
 	currentState = PlayerState::Die;
+	AudioManager::GetInstance()->PlaySfx("player_death");
 }
 
 void Player::Escape() {

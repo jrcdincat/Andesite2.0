@@ -2,6 +2,7 @@
 #include "Golem.h"
 #include "../Constants.h"
 #include "../Graphics/TextureManager.h"
+#include "../Audio/AudioManager.h"
 
 using namespace constants;
 using namespace EnemyStates;
@@ -86,6 +87,8 @@ void Golem::Die()
 {
 	currentState = EnemyState::Die;
 	
+	AudioManager::GetInstance()->PlaySfx("golem_death");
+
 	for (b2Fixture* fixture = physicsBody->GetFixtureList(); fixture; fixture = fixture->GetNext())
 	{
 		b2Filter filter = fixture->GetFilterData();
