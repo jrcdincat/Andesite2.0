@@ -102,6 +102,9 @@
     <ClCompile Include="src\Menu\Button.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Audio\AudioManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="src\Assets\images\Background.png">
@@ -305,6 +308,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Menu\Button.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Audio\AudioManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
