@@ -159,11 +159,11 @@ void Game::Render() {
 		}
 
 		gameMap->Render();
-		TextureManager::GetInstance()->DrawFrame("cave_background", 15000, 300, 1000, 450, 0, 0, SDL_FLIP_NONE);
+		TextureManager::GetInstance()->DrawFrame("cave_background", 7120, 397, 1000, 450, 0, 0, SDL_FLIP_NONE);
 		player->Draw();
 		enemyGolem->Draw();
 		rock->Draw();
-		TextureManager::GetInstance()->DrawFrame("cave_foreground", 15000, 300, 1000, 450, 0, 0, SDL_FLIP_NONE);
+		TextureManager::GetInstance()->DrawFrame("cave_foreground", 7120, 397, 1000, 450, 0, 0, SDL_FLIP_NONE);
 		Physics::GetInstance()->Render();
 		break;
 	}
