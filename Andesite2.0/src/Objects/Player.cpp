@@ -111,6 +111,11 @@ void Player::UpdateMovement() {
 		Escape();
 	}
 
+	if (physicsBody->GetPosition().y >= LAVA_Y_AXIS)
+	{
+		Die();
+	}
+
 	if (currentState == PlayerState::Die)
 	{
 		return;
