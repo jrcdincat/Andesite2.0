@@ -14,6 +14,11 @@ public:
 	virtual void Update(float dt);
 	virtual void Clean();
 
+	inline void SetMovementBoundaries(float leftXBoundary, float rightXBoundary) { 
+		movementBoundaryLeft = leftXBoundary; 
+		movementBoundaryRight = rightXBoundary; 
+	}
+
 	void Idle();
 	void Die();
 	virtual void UpdateAnimationState();
@@ -24,9 +29,9 @@ private:
 	void MoveLeft();
 	void FollowPlayerWhenInRange();
 	
-	Vector2D movementBoundaryLeft;
-	Vector2D movementBoundaryRight;
 	Player* playerInstance;
 	b2Body* playerBody;
 	float detectRange;
+	float movementBoundaryLeft;
+	float movementBoundaryRight;
 };

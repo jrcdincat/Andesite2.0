@@ -123,8 +123,12 @@ void Golem::FollowPlayerWhenInRange()
 	float yAxisDistance = physicsBody->GetPosition().y - playerBody->GetPosition().y;
 	float distance = sqrt(xAxisDistance * xAxisDistance + yAxisDistance * yAxisDistance);
 	//std::cout << "d: " << distance << std::endl;
+	int currentX = physicsBody->GetPosition().x;
 
-	if (distance < detectRange && currentState != EnemyState::Die)
+	if (distance < detectRange && 
+		currentState != EnemyState::Die && 
+		currentX < movementBoundaryRight && 
+		currentX > movementBoundaryLeft )
 	{
 		if (xAxisDistance < 0)
 		{
