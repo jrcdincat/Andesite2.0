@@ -15,6 +15,7 @@ public:
 	virtual void Update(float dt);
 	virtual void Clean();
 
+	inline void SetDetectRange(float range) { detectRange = range; }
 	void Fall();
 	void Explode();
 	virtual void UpdateAnimationState();
@@ -25,8 +26,6 @@ private:
 	void MoveLeft();
 	void FallWhenPlayerInRange();
 
-	Vector2D movementBoundaryLeft;
-	Vector2D movementBoundaryRight;
 	Player* playerInstance;
 	b2Body* playerBody;
 	bool isExplode;

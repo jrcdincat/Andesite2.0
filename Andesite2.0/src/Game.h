@@ -6,6 +6,7 @@
 #include "Graphics/TextureManager.h"
 #include "Map/GameMap.h"
 #include "Map/BackgroundLayer.h"
+#include "Objects/Objects.h"
 
 class Game
 {
@@ -42,8 +43,9 @@ private:
 	SDL_Renderer* renderer;
 	Player* player;
 	Properties* playerProperties;
-	Properties* enemyProperties;
 	static Game* gameInstance;
 	GameMap* gameMap;
 	std::vector<BackgroundLayer*> parallaxBackground;
+	std::vector<Golem*> golems;
+	std::vector<Rock*> rocks;
 };

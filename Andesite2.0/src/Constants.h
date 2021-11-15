@@ -14,6 +14,7 @@ namespace constants {
 	constexpr float ROCK1_Y_OFFSET_ANIMATION = 5.0f;
 	constexpr float EXPLOSION1_X_OFFSET_ANIMATION = 70.0f;
 	constexpr float EXPLOSION1_Y_OFFSET_ANIMATION = 60.0f;
+	constexpr float LAVA_Y_AXIS = 30.0f;
 
 	enum userDataTypes {
 		USER_TYPE_PLAYER_FEET = 1,

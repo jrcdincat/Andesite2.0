@@ -32,7 +32,7 @@ Player::~Player() {
 void Player::Draw() {
 	animation->Draw(physicsBody->GetPosition().x * PIXEL_PER_METER - PLAYER_X_OFFSET_ANIMATION, physicsBody->GetPosition().y * PIXEL_PER_METER - PLAYER_Y_OFFSET_ANIMATION, width, height);
 	// TextureManager::GetInstance()->DrawRect(physicsBody->GetPosition().x * PIXEL_PER_METER, physicsBody->GetPosition().y * PIXEL_PER_METER, collisionWidth, collisionHeight);
-	// std::cout << "x: " << physicsBody->GetPosition().x * PIXEL_PER_METER << "y: " << physicsBody->GetPosition().y * PIXEL_PER_METER << std::endl;
+	// std::cout << "x: " << physicsBody->GetPosition().x << "y: " << physicsBody->GetPosition().y << std::endl;
 }
 
 void Player::Update(float dt) {
@@ -109,6 +109,11 @@ void Player::UpdateMovement() {
 	if (isEscape)
 	{
 		Escape();
+	}
+
+	if (physicsBody->GetPosition().y >= LAVA_Y_AXIS)
+	{
+		Die();
 	}
 
 	if (currentState == PlayerState::Die)

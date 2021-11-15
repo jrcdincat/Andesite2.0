@@ -7,11 +7,9 @@
 #include "Objects/Objects.h"
 #include "Menu/Button.h"
 #include "Audio/AudioManager.h"
+#include <fstream>
 
 Game* Game::gameInstance = nullptr;
-Golem* enemyGolem = nullptr;
-Rock* rock;
-Properties* rockProperties;
 
 Game::Game()
 {
@@ -22,6 +20,7 @@ Game::Game()
 	player = nullptr;
 	playerProperties = nullptr;
 	gameMap = nullptr;
+	currentGameState = IN_MAIN_MENU;
 }
 Game::~Game()
 {
@@ -30,8 +29,6 @@ Game::~Game()
 
 bool Game::Init(const char* TITLE, int xPos, int yPos, int w, int h, bool fullscreen)
 {
-	currentGameState = IN_MAIN_MENU;
-
 	int isFullScreen = 0;
 	int imgTypeFlag = IMG_INIT_PNG;
 
@@ -130,8 +127,16 @@ void Game::Update() {
 	case IN_GAME:
 		float deltaTime = Timer::GetInstance()->GetDeltaTime();
 		player->Update(deltaTime);
-		enemyGolem->Update(deltaTime);
-		rock->Update(deltaTime);
+
+		for (Golem* golem : golems)
+		{
+			golem->Update(deltaTime);
+		}
+		for (Rock* rock : rocks)
+		{
+			rock->Update(deltaTime);
+		}
+
 		gameMap->Update();
 		Camera::GetInstance()->Update(deltaTime);
 		break;
@@ -159,11 +164,18 @@ void Game::Render() {
 		}
 
 		gameMap->Render();
-		TextureManager::GetInstance()->DrawFrame("cave_background", 15000, 300, 1000, 450, 0, 0, SDL_FLIP_NONE);
+		TextureManager::GetInstance()->DrawFrame("cave_background", 7120, 397, 1000, 450, 0, 0, SDL_FLIP_NONE);
 		player->Draw();
-		enemyGolem->Draw();
-		rock->Draw();
-		TextureManager::GetInstance()->DrawFrame("cave_foreground", 15000, 300, 1000, 450, 0, 0, SDL_FLIP_NONE);
+		for (Golem* golem : golems)
+		{
+			golem->Draw();
+		}
+		for (Rock* rock : rocks)
+		{
+			rock->Draw();
+		}
+
+		TextureManager::GetInstance()->DrawFrame("cave_foreground", 7120, 397, 1000, 450, 0, 0, SDL_FLIP_NONE);
 		Physics::GetInstance()->Render();
 		break;
 	}
@@ -174,17 +186,26 @@ void Game::Render() {
 void Game::CleanGameMap()
 {
 	delete player;
-	delete enemyGolem;
-	delete rock;
 	player = nullptr;
-	enemyGolem = nullptr;
-	rock = nullptr;
+
+	for (Golem* golem : golems)
+	{
+		delete golem;
+		golem = nullptr;
+	}
+	golems.clear();
+
+	for (Rock* rock : rocks)
+	{
+		delete rock;
+		rock = nullptr;
+	}
+	rocks.clear();
 }
 
 void Game::Clean() {
-	delete player;
-	delete enemyGolem;
-	delete rock;
+
+	CleanGameMap();
 
 	for (auto backgroundLayer : parallaxBackground)
 	{
@@ -208,11 +229,43 @@ void Game::Clean() {
 
 void Game::CreateEnemies()
 {
-	enemyProperties = new Properties("golem_idle", 17 * PIXEL_PER_METER, 21.5 * PIXEL_PER_METER, 75, 75);
-	enemyGolem = new Golem(enemyProperties);
+	std::ifstream inGolemFile("src/assets/spawn_locations/golem_locations.txt");
+	std::ifstream inRockFile("src/assets/spawn_locations/rock_locations.txt");
+	float x, y, leftXBoundary, rightXBoundary, range;
+	Golem* golem = nullptr;
+	Rock* rock = nullptr;
+	Properties* enemyProperties = nullptr;
+	Properties* rockProperties = nullptr;
 
-	rockProperties = new Properties("rock1", 1 * PIXEL_PER_METER, 0, 60, 50);
-	rock = new Rock(rockProperties);
+	// Try and read first line of file
+	if (!(inGolemFile >> x >> y >> leftXBoundary >> rightXBoundary))
+	{
+		SDL_Log("ERROR: Failed to parse golem_locations.txt");
+	}
+
+	// Parse other lines to create golem enemies
+	while (inGolemFile >> x >> y >> leftXBoundary >> rightXBoundary)
+	{
+		enemyProperties = new Properties("golem_idle", x * PIXEL_PER_METER, y * PIXEL_PER_METER, 75, 75);
+		golem = new Golem(enemyProperties);
+		golem->SetMovementBoundaries(leftXBoundary, rightXBoundary);
+		golems.push_back(golem);
+	}
+
+	// Try and read first line of file
+	if (!(inRockFile >> x >> y >> range))
+	{
+		SDL_Log("ERROR: Failed to parse rock_locations.txt");
+	}
+
+	// Parse other lines to create rocks
+	while (inRockFile >> x >> y >> range)
+	{
+		rockProperties = new Properties("rock1", x * PIXEL_PER_METER, y, 60, 50);	
+		rock = new Rock(rockProperties);
+		rock->SetDetectRange(range);
+		rocks.push_back(rock);
+	}
 }
 
 void Game::LoadTextures()
