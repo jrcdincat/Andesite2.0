@@ -10,7 +10,6 @@ class Player : public Actor {
 
 		virtual void Draw();
 		virtual void Update(float dt);
-		virtual void Clean();
 		virtual void UpdateAnimationState();
 		virtual inline int GetCurrentState() { return currentState; }
 

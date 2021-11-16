@@ -40,7 +40,8 @@ Rock::Rock(Properties* properties) : Actor(properties)
 
 Rock::~Rock()
 {
-	Clean();
+	physicsBody->GetWorld()->DestroyBody(physicsBody);
+	delete animation;
 }
 
 void Rock::Draw()
@@ -74,12 +75,6 @@ void Rock::Update(float dt)
 	FallWhenPlayerInRange();
 	UpdateAnimationState();
 	animation->Update();
-}
-
-void Rock::Clean()
-{
-	physicsBody->GetWorld()->DestroyBody(physicsBody);
-	delete animation;
 }
 
 void Rock::UpdateAnimationState()

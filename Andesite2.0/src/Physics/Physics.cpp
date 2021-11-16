@@ -22,11 +22,6 @@ Physics::Physics()
 
 Physics::~Physics() 
 {
-	Clean();
-}
-
-void Physics::Clean() 
-{
 	for (FixtureUserData* userData : userDataList)
 	{
 		delete userData;

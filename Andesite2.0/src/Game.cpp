@@ -25,7 +25,24 @@ Game::Game()
 
 Game::~Game()
 {
-	Clean();
+	CleanGameMap();
+
+	for (auto backgroundLayer : parallaxBackground)
+	{
+		delete backgroundLayer;
+	}
+
+	delete Camera::GetInstance();
+	delete InputManager::GetInstance();
+	delete MapParser::GetInstance();
+	delete TextureManager::GetInstance();
+	delete Physics::GetInstance();
+	delete MainMenu::GetInstance();
+	delete AudioManager::GetInstance();
+	SDL_DestroyRenderer(renderer);
+	SDL_DestroyWindow(window);
+	IMG_Quit();
+	SDL_Quit();
 }
 
 bool Game::Init(const char* TITLE, int xPos, int yPos, int w, int h, bool fullscreen)
@@ -252,29 +269,6 @@ void Game::CleanGameMap()
 		bat = nullptr;
 	}
 	bats.clear();
-}
-
-void Game::Clean() 
-{
-
-	CleanGameMap();
-
-	for (auto backgroundLayer : parallaxBackground)
-	{
-		delete backgroundLayer;
-	}
-
-	delete Camera::GetInstance();
-	delete InputManager::GetInstance();
-	delete MapParser::GetInstance();
-	delete TextureManager::GetInstance();
-	delete Physics::GetInstance();
-	delete MainMenu::GetInstance();
-	delete AudioManager::GetInstance();
-	SDL_DestroyRenderer(renderer);
-	SDL_DestroyWindow(window);
-	IMG_Quit();
-	SDL_Quit();
 }
 
 void Game::CreateEnemies()

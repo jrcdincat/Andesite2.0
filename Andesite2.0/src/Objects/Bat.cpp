@@ -40,7 +40,8 @@ Bat::Bat(Properties* properties) : Actor(properties)
 
 Bat::~Bat()
 {
-	Clean();
+	physicsBody->GetWorld()->DestroyBody(physicsBody);
+	delete animation;
 }
 
 void Bat::Draw()
@@ -58,12 +59,6 @@ void Bat::Update(float dt)
 	FollowPlayerWhenInRange();
 	UpdateAnimationState();
 	animation->Update();
-}
-
-void Bat::Clean()
-{
-	physicsBody->GetWorld()->DestroyBody(physicsBody);
-	delete animation;
 }
 
 void Bat::UpdateAnimationState()

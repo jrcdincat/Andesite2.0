@@ -40,7 +40,8 @@ Golem::Golem(Properties* properties): Actor(properties)
 
 Golem::~Golem()
 {
-	Clean();
+	physicsBody->GetWorld()->DestroyBody(physicsBody);
+	delete animation;
 }
 
 void Golem::Draw()
@@ -58,12 +59,6 @@ void Golem::Update(float dt)
 	FollowPlayerWhenInRange();
 	UpdateAnimationState();
 	animation->Update();
-}
-
-void Golem::Clean()
-{
-	physicsBody->GetWorld()->DestroyBody(physicsBody);
-	delete animation;
 }
 
 void Golem::UpdateAnimationState()

@@ -22,7 +22,6 @@ class Game
 		void Render();
 		void CreateGameMap(); // Creates game objects and sets camera target
 		void CleanGameMap(); // Deletes game objects 
-		void Clean(); // Free all dynamically allocated memory in game
 
 		inline bool IsRunning() { return isRunning; }
 		inline void SetIsRunning(bool status) { isRunning = status; };

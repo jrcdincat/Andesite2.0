@@ -11,7 +11,6 @@ class Physics {
 		}
 
 		~Physics();
-		void Clean();
 		void Render();
 
 		// Add physic body rects

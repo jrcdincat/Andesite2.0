@@ -34,7 +34,8 @@ Player::Player(Properties* properties): Actor(properties)
 
 Player::~Player() 
 {
-	Clean();
+	physicsBody->GetWorld()->DestroyBody(physicsBody);
+	delete animation;
 }
 
 void Player::Draw()
@@ -60,12 +61,6 @@ void Player::Update(float dt)
 
 	origin->x = physicsBody->GetPosition().x * PIXEL_PER_METER + width / 2;
 	origin->y = physicsBody->GetPosition().y * PIXEL_PER_METER + height / 2;
-}
-
-void Player::Clean()
-{
-	physicsBody->GetWorld()->DestroyBody(physicsBody);
-	delete animation;
 }
 
 void Player::UpdateAnimationState()
