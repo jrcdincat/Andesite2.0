@@ -306,7 +306,7 @@ void Game::LoadTextures()
 	TextureManager::GetInstance()->LoadTexture("button", "src/assets/images/buttons/play_button.png");
 	TextureManager::GetInstance()->LoadTexture("menu_background", "src/assets/images/buttons/menu_background.png");
 
-	// Load Other UI Textures
+	// Load Text Textures
 	TextureManager::GetInstance()->LoadTexture("win", "src/assets/images/text/win.png");
 	TextureManager::GetInstance()->LoadTexture("controls", "src/assets/images/text/controls.png");
 }
