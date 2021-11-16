@@ -39,6 +39,12 @@ void Player::Update(float dt) {
 	UpdateMovement();
 	UpdateAnimationState();
 	animation->Update();
+
+	if (physicsBody->GetPosition().x  > X_AXIS_WIN_LOCATION)
+	{
+		Win();
+	}
+
 	origin->x = physicsBody->GetPosition().x * PIXEL_PER_METER + width / 2;
 	origin->y = physicsBody->GetPosition().y * PIXEL_PER_METER + height / 2;
 	// frame = (SDL_GetTicks() / animationSpeed) % frameCount; 
@@ -98,6 +104,12 @@ void Player::Die() {
 	AudioManager::GetInstance()->PlaySfx("player_death");
 }
 
+void Player::Win() {
+	currentState = PlayerState::Win;
+	flipSprite = SDL_FLIP_NONE;
+	SetVelocityMoveRight();
+}
+
 void Player::Escape() {
 	Game::GetInstance()->SetIsRunning(false);
 }
@@ -116,7 +128,7 @@ void Player::UpdateMovement() {
 		Die();
 	}
 
-	if (currentState == PlayerState::Die)
+	if (currentState == PlayerState::Die || currentState == PlayerState::Win)
 	{
 		return;
 	}
@@ -156,7 +168,7 @@ void Player::UpdateMovement() {
 				RunRight();
 			}
 		}
-		else if (currentState != PlayerState::Die)
+		else if (currentState != PlayerState::Die && currentState != PlayerState::Win)
 		{
 			Idle();
 		}
@@ -190,6 +202,14 @@ void Player::UpdateAnimationState()
 			}
 			animation->SetProperties("player_death", false, 0, 6, 100, flipSprite);
 			if (animation->IsEnded())
+			{
+				Game::GetInstance()->currentGameState = IN_MAIN_MENU;
+			}
+			break;
+		case PlayerState::Win:
+			animation->SetProperties("player_run", true, 0, 8, 80, flipSprite);
+			AudioManager::GetInstance()->PlaySfx("player_win");
+			if (physicsBody->GetPosition().x > X_AXIS_END_OF_LEVEL_LOCATION)
 			{
 				Game::GetInstance()->currentGameState = IN_MAIN_MENU;
 			}

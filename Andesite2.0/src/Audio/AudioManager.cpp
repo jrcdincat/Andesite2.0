@@ -69,6 +69,16 @@ bool AudioManager::LoadAudio()
 	sfx.insert(std::pair<std::string, Mix_Chunk*>("golem_death", golemDeathSfx));
 	Mix_VolumeChunk(golemDeathSfx, 14);
 
+	// Player win sfx
+	Mix_Chunk* playerWinSfx = Mix_LoadWAV("src/assets/sfx/player_win.mp3");
+	if (playerWinSfx == NULL)
+	{
+		SDL_Log("Failed to load player_win sfx: %s", Mix_GetError());
+		return false;
+	}
+	sfx.insert(std::pair<std::string, Mix_Chunk*>("player_win", playerWinSfx));
+	Mix_VolumeChunk(playerWinSfx, 15);
+
 	return true;
 }
 

@@ -164,7 +164,10 @@ void Game::Render() {
 		}
 
 		gameMap->Render();
-		TextureManager::GetInstance()->DrawFrame("cave_background", 7120, 397, 1000, 450, 0, 0, SDL_FLIP_NONE);
+
+		TextureManager::GetInstance()->DrawFrame("cave_background", 7120, 397, 1000, 450, 0, 0);
+		TextureManager::GetInstance()->DrawFrame("controls", 50, 620, 200, 100, 0, 0);
+
 		player->Draw();
 		for (Golem* golem : golems)
 		{
@@ -175,7 +178,13 @@ void Game::Render() {
 			rock->Draw();
 		}
 
-		TextureManager::GetInstance()->DrawFrame("cave_foreground", 7120, 397, 1000, 450, 0, 0, SDL_FLIP_NONE);
+		TextureManager::GetInstance()->DrawFrame("cave_foreground", 7120, 397, 1000, 450, 0, 0);
+
+		if (player->GetCurrentState() == PlayerState::Win)
+		{
+			TextureManager::GetInstance()->Draw("win", 150, 30, 500, 400, 1.5, 1.5, 0);
+		}
+
 		Physics::GetInstance()->Render();
 		break;
 	}
@@ -293,9 +302,13 @@ void Game::LoadTextures()
 	TextureManager::GetInstance()->LoadTexture("cave_background", "src/assets/images/cave/cave_background.png");
 	TextureManager::GetInstance()->LoadTexture("cave_foreground", "src/assets/images/cave/cave_foreground.png");
 
-	// Menu Textures
+	// Load Menu Textures
 	TextureManager::GetInstance()->LoadTexture("button", "src/assets/images/buttons/play_button.png");
 	TextureManager::GetInstance()->LoadTexture("menu_background", "src/assets/images/buttons/menu_background.png");
+
+	// Load Text Textures
+	TextureManager::GetInstance()->LoadTexture("win", "src/assets/images/text/win.png");
+	TextureManager::GetInstance()->LoadTexture("controls", "src/assets/images/text/controls.png");
 }
 
 void Game::CreateGameMap()
