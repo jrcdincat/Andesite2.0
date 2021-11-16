@@ -1,5 +1,4 @@
 #pragma once
-#include "../Objects/Entity.h"
 #include "../Game.h"
 #include <map>
 class TextureManager {

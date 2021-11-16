@@ -41,7 +41,6 @@
     <ClCompile Include="src\Objects\Actor.cpp" />
     <ClCompile Include="src\Objects\Bat.cpp" />
     <ClCompile Include="src\Objects\Golem.cpp" />
-    <ClCompile Include="src\Objects\Entity.cpp" />
     <ClCompile Include="src\Objects\Player.cpp" />
     <ClCompile Include="src\Objects\Rock.cpp" />
     <ClCompile Include="src\pch.cpp">
@@ -116,7 +115,6 @@
     <ClInclude Include="src\Objects\Actor.h" />
     <ClInclude Include="src\Objects\Bat.h" />
     <ClInclude Include="src\Objects\Golem.h" />
-    <ClInclude Include="src\Objects\Entity.h" />
     <ClInclude Include="src\Objects\GameObject.h" />
     <ClInclude Include="src\Objects\IObject.h" />
     <ClInclude Include="src\Objects\Objects.h" />
