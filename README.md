@@ -1,10 +1,20 @@
-# Andesite2.0
+# Andesite
+Andesite is a 2D platformer where the player explores the volcanic wilderness. 
+Andesite uses:
+- `Box2D` (https://box2d.org/) for physics
+- `Simple DirectMedia Layer` (https://www.libsdl.org/) for rendering and audio
+- `Tiled` (https://www.mapeditor.org/) for creating .tmx map
 
-Andesite2.0 is a 2D platformer where the player explores the volcanic wilderness. 
-Unlike the first incomplete version of Andesite, Andesite2.0 utilizes `Box2D` physics (https://box2d.org/).
+## Gameplay
+Travel through dangerous terrain to reach safety within a cave. There are creatures roaming your path, try and avoid them or kill them to survive. They are most vulnerable on their heads.
 
+## Controls
+- **A** - Move Left
+- **D** - Move Right
+- **SPACE** - Jump
 
-## Plan
-By then end of October 2021, Andesite2.0 should have a fully completed one level platformer game.
-The .tmx map will be created using `Tiled`(https://www.mapeditor.org/). 
-Rendering and audio will be implemented with `Simple DirectMedia Layer` (https://www.libsdl.org/).
+## Music
+- Written by Neo Camanga
+
+## Art
+- Licenses have been obtained for art usage
