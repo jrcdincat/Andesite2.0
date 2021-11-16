@@ -9,11 +9,14 @@ using namespace EnemyStates;
 
 Bat::Bat(Properties* properties) : Actor(properties)
 {
+	// Set initial animation properties
 	row = 0;
 	frameCount = 12;
 	animationSpeed = 80;
 	animation = new Animation();
 	animation->SetProperties(textureID, true, row, frameCount, animationSpeed);
+
+	// Set physics body
 	collisionWidth = 80;
 	collisionHeight = 30;
 	physicsBody = Physics::GetInstance()->AddEnemyRect(
@@ -26,17 +29,18 @@ Bat::Bat(Properties* properties) : Actor(properties)
 	);
 	physicsBody->SetGravityScale(0.0f);
 	physicsBody->SetLinearDamping(1.3f);
-	playerInstance = Game::GetInstance()->GetPlayer();
-	playerBody = playerInstance->GetPlayerBody();
 	movementBoundaryLeft = 0.0f;
 	movementBoundaryRight = 20.0f;
 	isCharge = false;
+
+	// Get player physics body for detection
+	playerInstance = Game::GetInstance()->GetPlayer();
+	playerBody = playerInstance->GetPlayerBody();
 }
 
 Bat::~Bat()
 {
-	physicsBody->GetWorld()->DestroyBody(physicsBody);
-	delete animation;
+	Clean();
 }
 
 void Bat::Draw()
@@ -47,7 +51,6 @@ void Bat::Draw()
 		width,
 		height
 	);
-	//TextureManager::GetInstance()->DrawRect(physicsBody->GetPosition().x * PIXEL_PER_METER, physicsBody->GetPosition().y * PIXEL_PER_METER, collisionWidth, collisionHeight);
 }
 
 void Bat::Update(float dt)
@@ -55,12 +58,31 @@ void Bat::Update(float dt)
 	FollowPlayerWhenInRange();
 	UpdateAnimationState();
 	animation->Update();
-	origin->x = physicsBody->GetPosition().x * PIXEL_PER_METER + width / 2;
-	origin->y = physicsBody->GetPosition().y * PIXEL_PER_METER + height / 2;
 }
 
 void Bat::Clean()
 {
+	physicsBody->GetWorld()->DestroyBody(physicsBody);
+	delete animation;
+}
+
+void Bat::UpdateAnimationState()
+{
+	switch (currentState)
+	{
+		case EnemyState::IDLE:
+			animation->SetProperties("bat_idle", true, 0, 12, 80, flipSprite);
+			break;
+
+		case EnemyState::MOVE:
+			animation->SetProperties("bat_flying", true, 0, 8, 80, flipSprite);
+			break;
+
+		case EnemyState::DIE:
+			animation->SetProperties("bat_dying", false, 0, 8, 2, flipSprite);
+			physicsBody->SetGravityScale(0.1f);
+			break;
+	}
 }
 
 void Bat::Idle()
@@ -70,44 +92,12 @@ void Bat::Idle()
 	physicsBody->SetLinearVelocity(velocity);
 }
 
-void Bat::MoveRight()
-{
-	b2Vec2 velocity;
-	flipSprite = SDL_FLIP_NONE;
-	currentState = EnemyState::MOVE;
-	if (isCharge)
-	{
-		velocity = b2Vec2(BAT_CHARGE_SPEED, physicsBody->GetLinearVelocity().y);
-	}
-	else
-	{
-		velocity = b2Vec2(BAT_DEFAULT_SPEED, physicsBody->GetLinearVelocity().y);
-	}
-	physicsBody->SetLinearVelocity(velocity);
-}
-
-void Bat::MoveLeft()
-{
-	b2Vec2 velocity;
-	currentState = EnemyState::MOVE;
-	flipSprite = SDL_FLIP_HORIZONTAL;
-	if (isCharge)
-	{
-		velocity = b2Vec2(-BAT_CHARGE_SPEED, physicsBody->GetLinearVelocity().y);
-	}
-	else
-	{
-		velocity = b2Vec2(-BAT_DEFAULT_SPEED, physicsBody->GetLinearVelocity().y);
-	}
-	physicsBody->SetLinearVelocity(velocity);
-}
-
 void Bat::Die()
 {
 	currentState = EnemyState::DIE;
-
 	AudioManager::GetInstance()->PlaySfx("bat_death");
 
+	// Disable collision with player;
 	for (b2Fixture* fixture = physicsBody->GetFixtureList(); fixture; fixture = fixture->GetNext())
 	{
 		b2Filter filter = fixture->GetFilterData();
@@ -116,31 +106,47 @@ void Bat::Die()
 	}
 }
 
-void Bat::UpdateAnimationState()
+void Bat::MoveRight()
 {
-	switch (currentState)
+	b2Vec2 velocity;
+	flipSprite = SDL_FLIP_NONE;
+	currentState = EnemyState::MOVE;
+
+	if (isCharge)
 	{
-	case EnemyState::IDLE:
-		animation->SetProperties("bat_idle", true, 0, 12, 80, flipSprite);
-		break;
-	case EnemyState::MOVE:
-		animation->SetProperties("bat_flying", true, 0, 8, 80, flipSprite);
-		break;
-	case EnemyState::DIE:
-		animation->SetProperties("bat_dying", false, 0, 8, 2, flipSprite);
-		physicsBody->SetGravityScale(0.1f);
-		break;
+		velocity = b2Vec2(BAT_CHARGE_SPEED, physicsBody->GetLinearVelocity().y);
 	}
+	else
+	{
+		velocity = b2Vec2(BAT_DEFAULT_SPEED, physicsBody->GetLinearVelocity().y);
+	}
+
+	physicsBody->SetLinearVelocity(velocity);
+}
+
+void Bat::MoveLeft()
+{
+	b2Vec2 velocity;
+	currentState = EnemyState::MOVE;
+	flipSprite = SDL_FLIP_HORIZONTAL;
+
+	if (isCharge)
+	{
+		velocity = b2Vec2(-BAT_CHARGE_SPEED, physicsBody->GetLinearVelocity().y);
+	}
+	else
+	{
+		velocity = b2Vec2(-BAT_DEFAULT_SPEED, physicsBody->GetLinearVelocity().y);
+	}
+
+	physicsBody->SetLinearVelocity(velocity);
 }
 
 void Bat::FollowPlayerWhenInRange()
 {
-	//std::cout << "enemy: " << physicsBody->GetPosition().x << " w:" << physicsBody->GetWorldCenter().y << std::endl;
-	//std::cout << "--- player: " << playerBody->GetPosition().x << " y:" << playerBody->GetWorldCenter().y << std::endl;
 	float xAxisDistance = physicsBody->GetPosition().x - playerBody->GetPosition().x;
 	float yAxisDistance = physicsBody->GetPosition().y - playerBody->GetPosition().y;
 	float distance = sqrt(xAxisDistance * xAxisDistance + yAxisDistance * yAxisDistance);
-	//std::cout << "d: " << distance << std::endl;
 	int currentX = physicsBody->GetPosition().x;
 
 	if (distance < BAT_DETECT_RANGE &&
