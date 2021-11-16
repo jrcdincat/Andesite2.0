@@ -36,7 +36,6 @@ class TileLayer: public Layer {
 		TileLayer(bool isObjLayer, int tSize, int rowCnt, int colCnt, TileMap tMap, TileSetList tSets);
 
 		virtual void Render(); 
-		virtual void Update() { };
 		inline TileMap GetTileMap() { return tileMap; }
 
 		std::vector<TileObject> objects;

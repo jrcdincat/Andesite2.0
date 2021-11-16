@@ -14,11 +14,3 @@ void GameMap::Render() {
 		mapLayers[i]->Render();
 	}
 }
-
-void GameMap::Update() {
-	for (unsigned int i = 0; i < mapLayers.size(); i++) {
-		if (mapLayers[i] == nullptr)
-			break;
-		mapLayers[i]->Update();
-	}
-}

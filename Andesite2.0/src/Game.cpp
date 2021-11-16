@@ -147,7 +147,6 @@ void Game::Update()
 				bat->Update(deltaTime);
 			}
 
-			gameMap->Update();
 			Camera::GetInstance()->Update(deltaTime);
 			break;
 	}
