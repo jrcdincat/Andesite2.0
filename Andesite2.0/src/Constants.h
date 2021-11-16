@@ -15,6 +15,8 @@ namespace constants {
 	constexpr float EXPLOSION1_X_OFFSET_ANIMATION = 70.0f;
 	constexpr float EXPLOSION1_Y_OFFSET_ANIMATION = 60.0f;
 	constexpr float LAVA_Y_AXIS = 30.0f;
+	constexpr float X_AXIS_WIN_LOCATION = 214.0f;
+	constexpr float X_AXIS_END_OF_LEVEL_LOCATION = 227.0f;
 
 	enum userDataTypes {
 		USER_TYPE_PLAYER_FEET = 1,
@@ -46,7 +48,8 @@ namespace constants {
 		Run,
 		Jump,
 		Fall,
-		Die
+		Die,
+		Win
 	};
 
 	namespace EnemyStates
