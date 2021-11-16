@@ -31,8 +31,3 @@ void MoveRightCommand::execute(Player* player)
 	player->isMoveRight = true;
 	player->isMoveLeft = false;
 }
-
-void EscapeCommand::execute(Player* player)
-{
-	player->isEscape = true;
-}

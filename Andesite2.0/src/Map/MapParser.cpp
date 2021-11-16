@@ -4,11 +4,8 @@
 
 MapParser* MapParser::instance = nullptr;
 
-bool MapParser::Load() {
-	return (Parse("map", "src/assets/map.tmx"));		
-}
-
-void MapParser::Clean() {
+MapParser::~MapParser()
+{
 	std::map <std::string, GameMap*>::iterator it;
 	for (it = gameMaps.begin(); it != gameMaps.end(); it++) {
 		delete it->second;
@@ -18,15 +15,20 @@ void MapParser::Clean() {
 	gameMaps.clear();
 }
 
+bool MapParser::Load() {
+	return (Parse("map", "src/assets/map.tmx"));		
+}
+
 bool MapParser::Parse(std::string id, std::string src) {
+	// Load file
 	TiXmlDocument xml;
 	xml.LoadFile(src);
-
 	if (xml.Error()) {
 		std::cerr << "Failed to load: " << src << std::endl;
 		return false;
 	}
 
+	// Get map and tile size
 	TiXmlElement* root = xml.RootElement();
 	int numRow, numCol, tileSize = 0;
 	root->Attribute("width", &numCol);
@@ -35,19 +37,23 @@ bool MapParser::Parse(std::string id, std::string src) {
 
 	// Loop through all xml tile sets inside the .tmx file and add them into a TileSetList
 	TileSetList tileSets;
-	for (TiXmlElement* element = root->FirstChildElement(); element != nullptr; element = element->NextSiblingElement()) {
+	for (TiXmlElement* element = root->FirstChildElement(); element != nullptr; element = element->NextSiblingElement()) 
+	{
 		if (element->Value() == std::string("tileset")) {
 			tileSets.push_back(ParseTileSet(element));
 		}
 	}
 	
+	// Create new game map
 	GameMap* gameMap = new GameMap();
 	root->Attribute("width", &gameMap->MAP_WIDTH);
 	root->Attribute("height", &gameMap->MAP_HEIGHT);
 	gameMap->MAP_WIDTH *= tileSize;
 	gameMap->MAP_HEIGHT *= tileSize;
 
-	for (TiXmlElement* element = root->FirstChildElement(); element != nullptr; element = element->NextSiblingElement()) {
+	// Set game map layers
+	for (TiXmlElement* element = root->FirstChildElement(); element != nullptr; element = element->NextSiblingElement())
+	{
 		TileLayer* tileLayer;
 
 		if (element->Value() == std::string("layer")) {
@@ -63,7 +69,6 @@ bool MapParser::Parse(std::string id, std::string src) {
 	}
 
 	gameMaps[id] = gameMap;
-	
 	return true;
 }
 
@@ -123,14 +128,17 @@ TileSet MapParser::ParseTileSet(TiXmlElement* xmlTileSet) {
 
 TileLayer* MapParser::ParseTileLayer(TiXmlElement* xmlLayer, TileSetList tileSets, int tileSize, int numRow, int numCol) {
 	TiXmlElement* data = nullptr;
-	for (TiXmlElement* element = xmlLayer->FirstChildElement(); element != nullptr; element = element->NextSiblingElement()) {
-		if (element->Value() == std::string("data")) {
+	for (TiXmlElement* element = xmlLayer->FirstChildElement(); element != nullptr; element = element->NextSiblingElement())
+	{
+		if (element->Value() == std::string("data"))
+		{
 			data = element;
 			break;
 		}
 	}
 
-	if (data == nullptr) {
+	if (data == nullptr)
+	{
 		return nullptr;
 	}
 
@@ -141,15 +149,17 @@ TileLayer* MapParser::ParseTileLayer(TiXmlElement* xmlLayer, TileSetList tileSet
 
 	// Create tile map 2D vector
 	TileMap tileMap(numRow, std::vector<int>(numCol, 0));
-
-	for (int row = 0; row < numRow; row++) {
-		for (int col = 0; col < numCol; col++) {
+	for (int row = 0; row < numRow; row++) 
+	{
+		for (int col = 0; col < numCol; col++) 
+		{
 			std::getline(iss, id, ',');
 			std::stringstream convertor(id);
 			convertor >> tileMap[row][col];
 			
 			// Stop at end of stream
-			if (!iss.good()) {
+			if (!iss.good()) 
+			{
 				break;
 			}
 		}
@@ -168,7 +178,9 @@ TileLayer* MapParser::ParseStaticObjectCollisionLayer(TiXmlElement* xmlLayer, Ti
 	typeThatisRightJustifiedSet.insert(47);
 	typeThatisRightJustifiedSet.insert(41);
 
-	for (TiXmlElement* element = xmlLayer->FirstChildElement(); element != nullptr; element = element->NextSiblingElement()) {
+	// Create tile objects
+	for (TiXmlElement* element = xmlLayer->FirstChildElement(); element != nullptr; element = element->NextSiblingElement())
+	{
 		if (element->Value() == std::string("object"))
 		{
 			TileObject object;
@@ -180,6 +192,7 @@ TileLayer* MapParser::ParseStaticObjectCollisionLayer(TiXmlElement* xmlLayer, Ti
 			element->Attribute("height", &object.imageHeight);
 			object.tileSetGID = tileSets[1].firstID;
 
+			// Set collision box size
 			for (int i = 0; i < tileSets[1].tileObjects.size(); i++)
 			{
 				if (tileSets[1].tileObjects[i].id == object.typeID)
@@ -189,23 +202,29 @@ TileLayer* MapParser::ParseStaticObjectCollisionLayer(TiXmlElement* xmlLayer, Ti
 					break;
 				}
 			}
+			
+			// Determine height offset
 			int heightOffset = object.imageHeight / 3;
 			if (object.collisionHeight != object.imageHeight)
 			{
 				heightOffset = object.collisionHeight;
 			}
 			
+			// Determine width offset
 			int widthOffset = (object.collisionWidth / 2);
 			if (typeThatisRightJustifiedSet.find(object.typeID) != typeThatisRightJustifiedSet.end())
 			{
 				widthOffset = object.imageWidth - (object.collisionWidth / 2);
 			}
 
-			object.physicsBody = Physics::GetInstance()->AddBoundaryRect(object.x + widthOffset, object.y + heightOffset, object.collisionWidth, object.collisionHeight, false, false);
-			
+			object.physicsBody = Physics::GetInstance()->AddBoundaryRect(
+				object.x + widthOffset, 
+				object.y + heightOffset, 
+				object.collisionWidth, 
+				object.collisionHeight
+			);
 			tileLayer->objects.push_back(object);
 		}
 	}
-
 	return tileLayer;
 }

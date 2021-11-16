@@ -9,11 +9,14 @@ using namespace EnemyStates;
 
 Golem::Golem(Properties* properties): Actor(properties)
 {
+	// Set initial animation properties
 	row = 0;
 	frameCount = 18; 
 	animationSpeed = 80;
 	animation = new Animation();
 	animation->SetProperties(textureID, true, row, frameCount, animationSpeed);
+
+	// Set physics body
 	collisionWidth = 25;
 	collisionHeight = 40;
 	physicsBody = Physics::GetInstance()->AddEnemyRect(
@@ -26,11 +29,13 @@ Golem::Golem(Properties* properties): Actor(properties)
 	);
 	physicsBody->SetGravityScale(0.1f);
 	physicsBody->SetLinearDamping(1.3f);
-	playerInstance = Game::GetInstance()->GetPlayer();
-	playerBody = playerInstance->GetPlayerBody();
 	movementBoundaryLeft = 0.0f;
 	movementBoundaryRight = 0.0f;
 	isCharge = false;
+
+	// Get player physics body for detection
+	playerInstance = Game::GetInstance()->GetPlayer();
+	playerBody = playerInstance->GetPlayerBody();
 }
 
 Golem::~Golem()
@@ -47,7 +52,6 @@ void Golem::Draw()
 		width, 
 		height
 	);
-	// TextureManager::GetInstance()->DrawRect(physicsBody->GetPosition().x * PIXEL_PER_METER, physicsBody->GetPosition().y * PIXEL_PER_METER, collisionWidth, collisionHeight);
 }
 
 void Golem::Update(float dt)
@@ -55,59 +59,39 @@ void Golem::Update(float dt)
 	FollowPlayerWhenInRange();
 	UpdateAnimationState();
 	animation->Update();
-	origin->x = physicsBody->GetPosition().x * PIXEL_PER_METER + width / 2;
-	origin->y = physicsBody->GetPosition().y * PIXEL_PER_METER + height / 2;
 }
 
-void Golem::Clean()
+void Golem::UpdateAnimationState()
 {
+	switch (currentState)
+	{
+		case EnemyState::IDLE:
+			animation->SetProperties("golem_idle", true, 0, 18, 80, flipSprite);
+			break;
+
+		case EnemyState::MOVE:
+			animation->SetProperties("golem_walking", true, 0, 24, 80, flipSprite);
+			break;
+
+		case EnemyState::DIE:
+			animation->SetProperties("golem_dying", false, 0, 10, 2, flipSprite);
+			break;
+	}
 }
 
 void Golem::Idle()
 {
-	currentState = EnemyState::Idle;
+	currentState = EnemyState::IDLE;
 	b2Vec2 velocity = b2Vec2(0.0f, physicsBody->GetLinearVelocity().y);
-	physicsBody->SetLinearVelocity(velocity);
-}
-
-void Golem::MoveRight()
-{
-	b2Vec2 velocity;
-	flipSprite = SDL_FLIP_NONE;
-	currentState = EnemyState::Move;
-	if (isCharge)
-	{
-		velocity = b2Vec2(GOLEM_CHARGE_SPEED, physicsBody->GetLinearVelocity().y);
-	}
-	else
-	{
-		velocity = b2Vec2(GOLEM_DEFAULT_SPEED, physicsBody->GetLinearVelocity().y);
-	}
-	physicsBody->SetLinearVelocity(velocity);
-}
-
-void Golem::MoveLeft()
-{
-	b2Vec2 velocity;
-	currentState = EnemyState::Move;
-	flipSprite = SDL_FLIP_HORIZONTAL;
-	if (isCharge)
-	{
-		velocity = b2Vec2(-GOLEM_CHARGE_SPEED, physicsBody->GetLinearVelocity().y);
-	}
-	else
-	{
-		velocity = b2Vec2(-GOLEM_DEFAULT_SPEED, physicsBody->GetLinearVelocity().y);
-	}
 	physicsBody->SetLinearVelocity(velocity);
 }
 
 void Golem::Die()
 {
-	currentState = EnemyState::Die;
-	
+	currentState = EnemyState::DIE;
 	AudioManager::GetInstance()->PlaySfx("golem_death");
 
+	// Disable collision with player
 	for (b2Fixture* fixture = physicsBody->GetFixtureList(); fixture; fixture = fixture->GetNext())
 	{
 		b2Filter filter = fixture->GetFilterData();
@@ -116,38 +100,53 @@ void Golem::Die()
 	}
 }
 
-void Golem::UpdateAnimationState()
+void Golem::MoveRight()
 {
-	switch (currentState)
+	b2Vec2 velocity;
+	flipSprite = SDL_FLIP_NONE;
+	currentState = EnemyState::MOVE;
+
+	if (isCharge)
 	{
-		case EnemyState::Idle:
-			animation->SetProperties("golem_idle", true, 0, 18, 80, flipSprite);
-			break;
-		case EnemyState::Move:
-			animation->SetProperties("golem_walking", true, 0, 24, 80, flipSprite);
-			break;
-		case EnemyState::Die:
-			animation->SetProperties("golem_dying", false, 0, 10, 2, flipSprite);
-			break;
+		velocity = b2Vec2(GOLEM_CHARGE_SPEED, physicsBody->GetLinearVelocity().y);
 	}
-	previousState = currentState;
-	previousFlipSprite = flipSprite;
+	else
+	{
+		velocity = b2Vec2(GOLEM_DEFAULT_SPEED, physicsBody->GetLinearVelocity().y);
+	}
+
+	physicsBody->SetLinearVelocity(velocity);
+}
+
+void Golem::MoveLeft()
+{
+	b2Vec2 velocity;
+	currentState = EnemyState::MOVE;
+	flipSprite = SDL_FLIP_HORIZONTAL;
+
+	if (isCharge)
+	{
+		velocity = b2Vec2(-GOLEM_CHARGE_SPEED, physicsBody->GetLinearVelocity().y);
+	}
+	else
+	{
+		velocity = b2Vec2(-GOLEM_DEFAULT_SPEED, physicsBody->GetLinearVelocity().y);
+	}
+
+	physicsBody->SetLinearVelocity(velocity);
 }
 
 void Golem::FollowPlayerWhenInRange()
 {
-	//std::cout << "enemy: " << physicsBody->GetPosition().x << " w:" << physicsBody->GetWorldCenter().y << std::endl;
-	//std::cout << "--- player: " << playerBody->GetPosition().x << " y:" << playerBody->GetWorldCenter().y << std::endl;
 	float xAxisDistance = physicsBody->GetPosition().x - playerBody->GetPosition().x;
 	float yAxisDistance = physicsBody->GetPosition().y - playerBody->GetPosition().y;
 	float distance = sqrt(xAxisDistance * xAxisDistance + yAxisDistance * yAxisDistance);
-	//std::cout << "d: " << distance << std::endl;
 	int currentX = physicsBody->GetPosition().x;
 
 	if (distance < GOLEM_DETECT_RANGE && 
-		currentState != EnemyState::Die && 
+		currentState != EnemyState::DIE && 
 		currentX < movementBoundaryRight && 
-		currentX > movementBoundaryLeft )
+		currentX > movementBoundaryLeft)
 	{
 		if (distance < 5.0f)
 		{

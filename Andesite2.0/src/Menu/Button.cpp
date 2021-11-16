@@ -2,9 +2,6 @@
 #include "Button.h"
 #include "../Graphics/TextureManager.h"
 #include "../Input/InputManager.h"
-#include "../Game.h"
-#include "../Constants.h"
-using namespace constants;
 
 Button::Button(int x, int y, int w, int h)
 {
@@ -16,10 +13,12 @@ Button::Button(int x, int y, int w, int h)
 
 bool Button::HandleEvent()
 {
+	// Check if button was pressed
 	if (InputManager::GetInstance()->HandleButtonEvent(rect))
 	{
 		return true;
 	}
+
 	return false;
 }
 

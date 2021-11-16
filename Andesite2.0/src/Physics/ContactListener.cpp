@@ -5,15 +5,16 @@
 #include "../Objects/Objects.h"
 using namespace constants;
 
-void ContactListener::BeginContact(b2Contact* contact) {
+void ContactListener::BeginContact(b2Contact* contact) 
+{
 	b2Fixture* fixtureA = contact->GetFixtureA();
 	b2Fixture* fixtureB = contact->GetFixtureB();
 
-	//check if fixture A was the foot sensor
+	// Check if fixture A was the foot sensor on floor
 	Physics::FixtureUserData* fixtureUserData = reinterpret_cast<Physics::FixtureUserData*>(fixtureA->GetUserData().pointer);
 	if (fixtureUserData->type == USER_TYPE_PLAYER_FEET)
 		Physics::GetInstance()->numFootContacts++;
-	//check if fixture B was the foot sensor
+	// Check if fixture B was the foot sensor on floor
 	fixtureUserData = reinterpret_cast<Physics::FixtureUserData*>(fixtureB->GetUserData().pointer);
 	if (fixtureUserData->type == USER_TYPE_PLAYER_FEET)
 		Physics::GetInstance()->numFootContacts++;
@@ -73,7 +74,7 @@ void ContactListener::BeginContact(b2Contact* contact) {
 			}
 			break;
 
-		// Enemy head is hit 
+		// Enemy's head is hit 
 		case PLAYER_FEET | ENEMY_HEAD:
 			if (fixtureA->GetFilterData().categoryBits == ENEMY_HEAD)
 			{
@@ -105,7 +106,6 @@ void ContactListener::BeginContact(b2Contact* contact) {
 						break;
 					}
 				}
-
 			}
 			else
 			{
@@ -161,15 +161,16 @@ void ContactListener::BeginContact(b2Contact* contact) {
 	}
 }
 
-void ContactListener::EndContact(b2Contact* contact) {
+void ContactListener::EndContact(b2Contact* contact) 
+{
 	b2Fixture* fixtureA = contact->GetFixtureA();
 	b2Fixture* fixtureB = contact->GetFixtureB();
 
-	//check if fixture A was the foot sensor
+	// Check if fixture A was the foot sensor leaving floor
 	Physics::FixtureUserData* fixtureUserData = reinterpret_cast<Physics::FixtureUserData*>(fixtureA->GetUserData().pointer);
 	if (fixtureUserData->type == USER_TYPE_PLAYER_FEET)
 		Physics::GetInstance()->numFootContacts--;
-	//check if fixture B was the foot sensor
+	// Check if fixture B was the foot sensor leaving floor
 	fixtureUserData = reinterpret_cast<Physics::FixtureUserData*>(fixtureB->GetUserData().pointer);
 	if (fixtureUserData->type == USER_TYPE_PLAYER_FEET)
 		Physics::GetInstance()->numFootContacts--;

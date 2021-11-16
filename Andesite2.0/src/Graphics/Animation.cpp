@@ -13,12 +13,14 @@ Animation::Animation() {
 }
 
 void Animation::Update() {
+	// Play each frame of animation
 	if (isRepeated || !isEnded)
 	{
 		isEnded = false;
 		currentFrame = (SDL_GetTicks() / animationSpeed) % frameCount;
 	}
 
+	// Only play animation one time
 	if (!isRepeated && currentFrame == frameCount - 1)
 	{
 		isEnded = true;

@@ -22,9 +22,27 @@ Game::Game()
 	gameMap = nullptr;
 	currentGameState = IN_MAIN_MENU;
 }
+
 Game::~Game()
 {
-	Clean();
+	CleanGameMap();
+
+	for (auto backgroundLayer : parallaxBackground)
+	{
+		delete backgroundLayer;
+	}
+
+	delete Camera::GetInstance();
+	delete InputManager::GetInstance();
+	delete MapParser::GetInstance();
+	delete TextureManager::GetInstance();
+	delete Physics::GetInstance();
+	delete MainMenu::GetInstance();
+	delete AudioManager::GetInstance();
+	SDL_DestroyRenderer(renderer);
+	SDL_DestroyWindow(window);
+	IMG_Quit();
+	SDL_Quit();
 }
 
 bool Game::Init(const char* TITLE, int xPos, int yPos, int w, int h, bool fullscreen)
@@ -68,11 +86,11 @@ bool Game::Init(const char* TITLE, int xPos, int yPos, int w, int h, bool fullsc
 			return false;
 		}
 		
+		// Load all audio files
 		if (!AudioManager::GetInstance()->LoadAudio())
 		{
 			return false;
 		}
-
 	}
 	else 
 	{
@@ -85,25 +103,31 @@ bool Game::Init(const char* TITLE, int xPos, int yPos, int w, int h, bool fullsc
 	SDL_SetWindowIcon(window, icon);
 
 
+	// Parse through map.tmx data to create game map
 	if (!MapParser::GetInstance()->Load()) {
 		std::cout << "Failed to load map" << std::endl;
 	}
 	gameMap = MapParser::GetInstance()->GetMap("map");
 
+	// Load all texture files
 	LoadTextures();
 
 	// Set Map Background Layers
 	parallaxBackground.push_back(new BackgroundLayer("background", 0, -200, 0.3, 0.75, 0.75));
 	parallaxBackground.push_back(new BackgroundLayer("background", 2550, -200, 0.3, 0.75, 0.75));
 	
+	// Initialize game camera and set map size
 	Camera::GetInstance()->SetMapSize(gameMap->GetMapWidth(), gameMap->GetMapHeight());
+
+	// Initialize and set in-game music
 	AudioManager::GetInstance()->PlayMusic();
+
 	isRunning = true;
 	return isRunning;
 }
 
-
-void Game::HandleEvent() {
+void Game::HandleEvent() 
+{
 	switch (currentGameState)
 	{
 		case IN_MAIN_MENU:
@@ -116,91 +140,108 @@ void Game::HandleEvent() {
 	}
 }
 
-
-
-void Game::Update() {
+void Game::Update() 
+{
 	switch (currentGameState)
 	{
-	case IN_MAIN_MENU:
-		break;
+		case IN_GAME:
+			float deltaTime = Timer::GetInstance()->GetDeltaTime();
 
-	case IN_GAME:
-		float deltaTime = Timer::GetInstance()->GetDeltaTime();
-		player->Update(deltaTime);
+			player->Update(deltaTime);
 
-		for (Golem* golem : golems)
-		{
-			golem->Update(deltaTime);
-		}
-		for (Rock* rock : rocks)
-		{
-			rock->Update(deltaTime);
-		}
+			for (Golem* golem : golems)
+			{
+				golem->Update(deltaTime);
+			}
 
-		for (Bat* bat : bats)
-		{
-			bat->Update(deltaTime);
-		}
+			for (Rock* rock : rocks)
+			{
+				rock->Update(deltaTime);
+			}
 
-		gameMap->Update();
-		Camera::GetInstance()->Update(deltaTime);
-		break;
+			for (Bat* bat : bats)
+			{
+				bat->Update(deltaTime);
+			}
+
+			Camera::GetInstance()->Update(deltaTime);
+			break;
 	}
 }
 
-void Game::Render() {
+void Game::Render() 
+{
 	SDL_SetRenderDrawColor(renderer, 50, 50, 50, SDL_ALPHA_OPAQUE);
 	SDL_RenderClear(renderer);
 
 	switch (currentGameState)
 	{
-	case IN_MAIN_MENU:
-		MainMenu::GetInstance()->Render();
-		if (Game::GetInstance()->GetPlayer() != nullptr && Game::GetInstance()->currentGameState == IN_MAIN_MENU)
-		{
-			Game::GetInstance()->CleanGameMap();
-		}
-		break;
+		case IN_MAIN_MENU:
+			MainMenu::GetInstance()->Render();
+			if (Game::GetInstance()->GetPlayer() != nullptr && Game::GetInstance()->currentGameState == IN_MAIN_MENU)
+			{
+				Game::GetInstance()->CleanGameMap();
+			}
+			break;
 
-	case IN_GAME:
-		for (auto backgroundLayer : parallaxBackground)
-		{
-			backgroundLayer->Render();
-		}
+		case IN_GAME:
+			for (auto backgroundLayer : parallaxBackground)
+			{
+				backgroundLayer->Render();
+			}
 
-		gameMap->Render();
+			gameMap->Render();
 
-		TextureManager::GetInstance()->DrawFrame("cave_background", 7120, 397, 1000, 450, 0, 0);
-		TextureManager::GetInstance()->DrawFrame("controls", 50, 620, 200, 100, 0, 0);
+			TextureManager::GetInstance()->DrawFrame("cave_background", 7120, 397, 1000, 450, 0, 0);
+			TextureManager::GetInstance()->DrawFrame("controls", 50, 620, 200, 100, 0, 0);
 
-		player->Draw();
-		for (Golem* golem : golems)
-		{
-			golem->Draw();
-		}
+			player->Draw();
 
-		for (Rock* rock : rocks)
-		{
-			rock->Draw();
-		}
+			for (Golem* golem : golems)
+			{
+				golem->Draw();
+			}
 
-		for (Bat* bat : bats)
-		{
-			bat->Draw();
-		}
+			for (Rock* rock : rocks)
+			{
+				rock->Draw();
+			}
 
-		TextureManager::GetInstance()->DrawFrame("cave_foreground", 7120, 397, 1000, 450, 0, 0);
+			for (Bat* bat : bats)
+			{
+				bat->Draw();
+			}
 
-		if (player->GetCurrentState() == PlayerState::Win)
-		{
-			TextureManager::GetInstance()->Draw("win", 150, 30, 500, 400, 1.5, 1.5, 0);
-		}
+			TextureManager::GetInstance()->DrawFrame("cave_foreground", 7120, 397, 1000, 450, 0, 0);
 
-		Physics::GetInstance()->Render();
-		break;
+			if (player->GetCurrentState() == PlayerState::WIN)
+			{
+				TextureManager::GetInstance()->Draw("win", 150, 30, 500, 400, 1.5, 1.5, 0);
+			}
+
+			Physics::GetInstance()->Render();
+			break;
 	}
 
 	SDL_RenderPresent(renderer);
+}
+
+void Game::CreateGameMap()
+{
+	// Initialize Player
+	playerProperties = new Properties(
+		"player_idle", 
+		PLAYER_X_START_POS * PIXEL_PER_METER,
+		PLAYER_Y_START_POS * PIXEL_PER_METER,
+		300,
+		300
+	);
+	player = new Player(playerProperties);
+
+	CreateEnemies();
+
+	// Setup Camera
+	Camera::GetInstance()->SetTarget(player->GetOrigin());
 }
 
 void Game::CleanGameMap()
@@ -230,64 +271,35 @@ void Game::CleanGameMap()
 	bats.clear();
 }
 
-void Game::Clean() {
-
-	CleanGameMap();
-
-	for (auto backgroundLayer : parallaxBackground)
-	{
-		delete backgroundLayer;
-	}
-
-	delete Camera::GetInstance();
-	delete InputManager::GetInstance();
-	MapParser::GetInstance()->Clean();
-	delete MapParser::GetInstance();
-	TextureManager::GetInstance()->Clean();
-	delete TextureManager::GetInstance();
-	delete Physics::GetInstance();
-	delete MainMenu::GetInstance();
-	delete AudioManager::GetInstance();
-	SDL_DestroyRenderer(renderer);
-	SDL_DestroyWindow(window);
-	IMG_Quit();
-	SDL_Quit();
-}
-
 void Game::CreateEnemies()
 {
-	std::ifstream inGolemFile("src/assets/spawn_locations/golem_locations.txt");
-	std::ifstream inRockFile("src/assets/spawn_locations/rock_locations.txt");
-	std::ifstream inBatFile("src/assets/spawn_locations/bat_locations.txt");
 	float x, y, leftXBoundary, rightXBoundary, range;
-	Golem* golem = nullptr;
-	Rock* rock = nullptr;
-	Bat* bat = nullptr;
-	Properties* enemyProperties = nullptr;
-	Properties* rockProperties = nullptr;
-	Properties* batProperties = nullptr;
 
+	std::ifstream inGolemFile("src/assets/spawn_locations/golem_locations.txt");
+	Golem* golem = nullptr;
+	Properties* golemProperties = nullptr;
 	// Try and read first line of file
 	if (!(inGolemFile >> x >> y >> leftXBoundary >> rightXBoundary))
 	{
 		SDL_Log("ERROR: Failed to parse golem_locations.txt");
 	}
-
 	// Parse other lines to create golem enemies
 	while (inGolemFile >> x >> y >> leftXBoundary >> rightXBoundary)
 	{
-		enemyProperties = new Properties("golem_idle", x * PIXEL_PER_METER, y * PIXEL_PER_METER, 75, 75);
-		golem = new Golem(enemyProperties);
+		golemProperties = new Properties("golem_idle", x * PIXEL_PER_METER, y * PIXEL_PER_METER, 75, 75);
+		golem = new Golem(golemProperties);
 		golem->SetMovementBoundaries(leftXBoundary, rightXBoundary);
 		golems.push_back(golem);
 	}
 
+	std::ifstream inRockFile("src/assets/spawn_locations/rock_locations.txt");
+	Rock* rock = nullptr;
+	Properties* rockProperties = nullptr;
 	// Try and read first line of file
 	if (!(inRockFile >> x >> y >> range))
 	{
 		SDL_Log("ERROR: Failed to parse rock_locations.txt");
 	}
-
 	// Parse other lines to create rocks
 	while (inRockFile >> x >> y >> range)
 	{
@@ -297,13 +309,15 @@ void Game::CreateEnemies()
 		rocks.push_back(rock);
 	}
 
+	std::ifstream inBatFile("src/assets/spawn_locations/bat_locations.txt");
+	Bat* bat = nullptr;
+	Properties* batProperties = nullptr;
 	// Try and read first line of file
 	if (!(inBatFile >> x >> y >> leftXBoundary >> rightXBoundary))
 	{
 		SDL_Log("ERROR: Failed to parse bat_locations.txt");
 	}
-
-	// Pare other lines to create bats
+	// Parse other lines to create bats
 	while (inBatFile >> x >> y >> leftXBoundary >> rightXBoundary)
 	{
 		batProperties = new Properties("bat_idle", x * PIXEL_PER_METER, y * PIXEL_PER_METER, 102, 80);
@@ -348,16 +362,4 @@ void Game::LoadTextures()
 	// Load Text Textures
 	TextureManager::GetInstance()->LoadTexture("win", "src/assets/images/text/win.png");
 	TextureManager::GetInstance()->LoadTexture("controls", "src/assets/images/text/controls.png");
-}
-
-void Game::CreateGameMap()
-{
-	// Initialize Player
-	playerProperties = new Properties("player_idle", 5 * PIXEL_PER_METER, 21.5 * PIXEL_PER_METER, 300, 300);
-	player = new Player(playerProperties);
-
-	CreateEnemies();
-
-	// Setup Camera
-	Camera::GetInstance()->SetTarget(player->GetOrigin());
 }

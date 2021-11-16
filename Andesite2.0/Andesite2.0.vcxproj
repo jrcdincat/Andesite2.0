@@ -35,15 +35,10 @@
     <ClCompile Include="src\Map\GameMap.cpp" />
     <ClCompile Include="src\Map\MapParser.cpp" />
     <ClCompile Include="src\Map\TileLayer.cpp" />
-    <ClCompile Include="src\Math\Vector2D.cpp" />
     <ClCompile Include="src\Menu\Button.cpp" />
     <ClCompile Include="src\Menu\MainMenu.cpp" />
-    <ClCompile Include="src\Objects\Actor.cpp" />
     <ClCompile Include="src\Objects\Bat.cpp" />
     <ClCompile Include="src\Objects\Golem.cpp" />
-    <ClCompile Include="src\Objects\Entity.cpp" />
-    <ClCompile Include="src\Objects\GameObject.cpp" />
-    <ClCompile Include="src\Objects\IObject.cpp" />
     <ClCompile Include="src\Objects\Player.cpp" />
     <ClCompile Include="src\Objects\Rock.cpp" />
     <ClCompile Include="src\pch.cpp">
@@ -118,7 +113,6 @@
     <ClInclude Include="src\Objects\Actor.h" />
     <ClInclude Include="src\Objects\Bat.h" />
     <ClInclude Include="src\Objects\Golem.h" />
-    <ClInclude Include="src\Objects\Entity.h" />
     <ClInclude Include="src\Objects\GameObject.h" />
     <ClInclude Include="src\Objects\IObject.h" />
     <ClInclude Include="src\Objects\Objects.h" />

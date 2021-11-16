@@ -1,7 +1,6 @@
 #include "../pch.h"
 #include "MainMenu.h"
 #include "../Game.h"
-#include "../Input/InputManager.h"
 #include "../Graphics/TextureManager.h"
 #include "../Constants.h"
 using namespace constants;
@@ -10,7 +9,10 @@ MainMenu* MainMenu::mainMenuInstance = nullptr;
 
 MainMenu::MainMenu()
 {
-	playButton = new Button(SCREEN_WIDTH / 2 - 350 / 2 - 15, SCREEN_HEIGHT / 2, 350, 125);
+	// Create play button 
+	int x = SCREEN_WIDTH / 2 - 350 / 2 - 15;
+	int y = SCREEN_HEIGHT / 2;
+	playButton = new Button(x, y, 350, 125);
 }
 
 MainMenu::~MainMenu()
@@ -20,6 +22,7 @@ MainMenu::~MainMenu()
 
 void MainMenu::HandleEvents()
 {
+	// Start game if play button is pressed
 	if (playButton->HandleEvent())
 	{
 		Game::GetInstance()->currentGameState = IN_GAME;

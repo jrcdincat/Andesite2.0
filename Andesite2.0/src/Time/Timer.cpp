@@ -3,7 +3,8 @@
 
 Timer* Timer::instance = nullptr;
 
-void Timer::Tick() {
+void Timer::Tick() 
+{
 	deltaTime = (SDL_GetTicks() - prevTime) * (TARGET_FPS / 1000.0f);
 	
 	if (deltaTime > TARGET_DELTATIME) {

@@ -5,33 +5,30 @@
 #include "../Objects/Player.h"
 
 class Bat : public Actor {
-public:
-	Bat() = default;
-	Bat(Properties* properties);
-	~Bat();
+	public:
+		Bat(Properties* properties);
+		~Bat();
 
-	virtual void Draw();
-	virtual void Update(float dt);
-	virtual void Clean();
+		virtual void Draw();
+		virtual void Update(float dt);
+		virtual void UpdateAnimationState();
+		virtual inline int GetCurrentState() { return currentState; }
 
-	inline void SetMovementBoundaries(float leftXBoundary, float rightXBoundary) {
-		movementBoundaryLeft = leftXBoundary;
-		movementBoundaryRight = rightXBoundary;
-	}
+		void Idle();
+		void Die();
+		inline void SetMovementBoundaries(float leftXBoundary, float rightXBoundary) {
+			movementBoundaryLeft = leftXBoundary;
+			movementBoundaryRight = rightXBoundary;
+		}
 
-	void Idle();
-	void Die();
-	virtual void UpdateAnimationState();
-	virtual inline int GetCurrentState() { return currentState; }
+	private:
+		void MoveRight();
+		void MoveLeft();
+		void FollowPlayerWhenInRange();
 
-private:
-	void MoveRight();
-	void MoveLeft();
-	void FollowPlayerWhenInRange();
-
-	Player* playerInstance;
-	b2Body* playerBody;
-	float movementBoundaryLeft;
-	float movementBoundaryRight;
-	bool isCharge;
+		Player* playerInstance;
+		b2Body* playerBody;
+		float movementBoundaryLeft;
+		float movementBoundaryRight;
+		bool isCharge;
 };

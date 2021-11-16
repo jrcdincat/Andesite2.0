@@ -3,17 +3,18 @@
 
 class MainMenu
 {
-public:
-	static MainMenu* GetInstance() {
-		return mainMenuInstance = (mainMenuInstance != nullptr) ? mainMenuInstance : new MainMenu();
-	}
-	~MainMenu();
+	public:
+		static MainMenu* GetInstance() {
+			return mainMenuInstance = (mainMenuInstance != nullptr) ? mainMenuInstance : new MainMenu();
+		}
+		~MainMenu();
 
-	void HandleEvents();
-	void Render();
+		void HandleEvents();
+		void Render();
 
-private:
-	MainMenu();
-	static MainMenu* mainMenuInstance;
-	Button* playButton;
+	private:
+		MainMenu();
+
+		static MainMenu* mainMenuInstance;
+		Button* playButton;
 };

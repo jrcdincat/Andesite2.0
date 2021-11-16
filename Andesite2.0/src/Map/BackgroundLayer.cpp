@@ -27,7 +27,7 @@ void BackgroundLayer::Render()
 	long endOfBackgroundXPosition = xOffset + scaledImageXSize;
 
 	// Reposition background based on player position
-	if ( playerPosition > endOfBackgroundXPosition + 0.25 * endOfBackgroundXPosition)
+	if (playerPosition > endOfBackgroundXPosition + 0.25 * endOfBackgroundXPosition)
 	{
 		xOffset += 2 * scaledImageXSize;
 	}
@@ -47,9 +47,4 @@ void BackgroundLayer::Render()
 		scrollRatio, 
 		flip
 	);
-}
-
-void BackgroundLayer::Update() 
-{
-
 }
