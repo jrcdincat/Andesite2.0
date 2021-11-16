@@ -1,5 +1,5 @@
 #include "../pch.h"
-#include "Golem.h"
+#include "Bat.h"
 #include "../Constants.h"
 #include "../Graphics/TextureManager.h"
 #include "../Audio/AudioManager.h"
@@ -7,50 +7,50 @@
 using namespace constants;
 using namespace EnemyStates;
 
-Golem::Golem(Properties* properties): Actor(properties)
+Bat::Bat(Properties* properties) : Actor(properties)
 {
 	row = 0;
-	frameCount = 18; 
+	frameCount = 12;
 	animationSpeed = 80;
 	animation = new Animation();
 	animation->SetProperties(textureID, true, row, frameCount, animationSpeed);
-	collisionWidth = 25;
-	collisionHeight = 40;
+	collisionWidth = 80;
+	collisionHeight = 30;
 	physicsBody = Physics::GetInstance()->AddEnemyRect(
-		properties->position.x, 
-		properties->position.y, 
-		collisionWidth, 
-		collisionHeight, 
-		USER_TYPE_GOLEM,
+		properties->position.x,
+		properties->position.y,
+		collisionWidth,
+		collisionHeight,
+		USER_TYPE_BAT,
 		this
 	);
-	physicsBody->SetGravityScale(0.1f);
+	physicsBody->SetGravityScale(0.0f);
 	physicsBody->SetLinearDamping(1.3f);
 	playerInstance = Game::GetInstance()->GetPlayer();
 	playerBody = playerInstance->GetPlayerBody();
 	movementBoundaryLeft = 0.0f;
-	movementBoundaryRight = 0.0f;
+	movementBoundaryRight = 20.0f;
 	isCharge = false;
 }
 
-Golem::~Golem()
+Bat::~Bat()
 {
 	physicsBody->GetWorld()->DestroyBody(physicsBody);
 	delete animation;
 }
 
-void Golem::Draw()
+void Bat::Draw()
 {
 	animation->Draw(
-		physicsBody->GetPosition().x * PIXEL_PER_METER - GOLEM_X_OFFSET_ANIMATION, 
-		physicsBody->GetPosition().y * PIXEL_PER_METER - GOLEM_Y_OFFSET_ANIMATION,
-		width, 
+		physicsBody->GetPosition().x * PIXEL_PER_METER - BAT_X_OFFSET_ANIMATION,
+		physicsBody->GetPosition().y * PIXEL_PER_METER - BAT_Y_OFFSET_ANIMATION,
+		width,
 		height
 	);
-	// TextureManager::GetInstance()->DrawRect(physicsBody->GetPosition().x * PIXEL_PER_METER, physicsBody->GetPosition().y * PIXEL_PER_METER, collisionWidth, collisionHeight);
+	//TextureManager::GetInstance()->DrawRect(physicsBody->GetPosition().x * PIXEL_PER_METER, physicsBody->GetPosition().y * PIXEL_PER_METER, collisionWidth, collisionHeight);
 }
 
-void Golem::Update(float dt)
+void Bat::Update(float dt)
 {
 	FollowPlayerWhenInRange();
 	UpdateAnimationState();
@@ -59,54 +59,54 @@ void Golem::Update(float dt)
 	origin->y = physicsBody->GetPosition().y * PIXEL_PER_METER + height / 2;
 }
 
-void Golem::Clean()
+void Bat::Clean()
 {
 }
 
-void Golem::Idle()
+void Bat::Idle()
 {
 	currentState = EnemyState::Idle;
 	b2Vec2 velocity = b2Vec2(0.0f, physicsBody->GetLinearVelocity().y);
 	physicsBody->SetLinearVelocity(velocity);
 }
 
-void Golem::MoveRight()
+void Bat::MoveRight()
 {
 	b2Vec2 velocity;
 	flipSprite = SDL_FLIP_NONE;
 	currentState = EnemyState::Move;
 	if (isCharge)
 	{
-		velocity = b2Vec2(GOLEM_CHARGE_SPEED, physicsBody->GetLinearVelocity().y);
+		velocity = b2Vec2(BAT_CHARGE_SPEED, physicsBody->GetLinearVelocity().y);
 	}
 	else
 	{
-		velocity = b2Vec2(GOLEM_DEFAULT_SPEED, physicsBody->GetLinearVelocity().y);
+		velocity = b2Vec2(BAT_DEFAULT_SPEED, physicsBody->GetLinearVelocity().y);
 	}
 	physicsBody->SetLinearVelocity(velocity);
 }
 
-void Golem::MoveLeft()
+void Bat::MoveLeft()
 {
 	b2Vec2 velocity;
 	currentState = EnemyState::Move;
 	flipSprite = SDL_FLIP_HORIZONTAL;
 	if (isCharge)
 	{
-		velocity = b2Vec2(-GOLEM_CHARGE_SPEED, physicsBody->GetLinearVelocity().y);
+		velocity = b2Vec2(-BAT_CHARGE_SPEED, physicsBody->GetLinearVelocity().y);
 	}
 	else
 	{
-		velocity = b2Vec2(-GOLEM_DEFAULT_SPEED, physicsBody->GetLinearVelocity().y);
+		velocity = b2Vec2(-BAT_DEFAULT_SPEED, physicsBody->GetLinearVelocity().y);
 	}
 	physicsBody->SetLinearVelocity(velocity);
 }
 
-void Golem::Die()
+void Bat::Die()
 {
 	currentState = EnemyState::Die;
-	
-	AudioManager::GetInstance()->PlaySfx("golem_death");
+
+	AudioManager::GetInstance()->PlaySfx("bat_death");
 
 	for (b2Fixture* fixture = physicsBody->GetFixtureList(); fixture; fixture = fixture->GetNext())
 	{
@@ -116,25 +116,26 @@ void Golem::Die()
 	}
 }
 
-void Golem::UpdateAnimationState()
+void Bat::UpdateAnimationState()
 {
 	switch (currentState)
 	{
-		case EnemyState::Idle:
-			animation->SetProperties("golem_idle", true, 0, 18, 80, flipSprite);
-			break;
-		case EnemyState::Move:
-			animation->SetProperties("golem_walking", true, 0, 24, 80, flipSprite);
-			break;
-		case EnemyState::Die:
-			animation->SetProperties("golem_dying", false, 0, 10, 2, flipSprite);
-			break;
+	case EnemyState::Idle:
+		animation->SetProperties("bat_idle", true, 0, 12, 80, flipSprite);
+		break;
+	case EnemyState::Move:
+		animation->SetProperties("bat_flying", true, 0, 8, 80, flipSprite);
+		break;
+	case EnemyState::Die:
+		animation->SetProperties("bat_dying", false, 0, 8, 2, flipSprite);
+		physicsBody->SetGravityScale(0.1f);
+		break;
 	}
 	previousState = currentState;
 	previousFlipSprite = flipSprite;
 }
 
-void Golem::FollowPlayerWhenInRange()
+void Bat::FollowPlayerWhenInRange()
 {
 	//std::cout << "enemy: " << physicsBody->GetPosition().x << " w:" << physicsBody->GetWorldCenter().y << std::endl;
 	//std::cout << "--- player: " << playerBody->GetPosition().x << " y:" << playerBody->GetWorldCenter().y << std::endl;
@@ -144,10 +145,10 @@ void Golem::FollowPlayerWhenInRange()
 	//std::cout << "d: " << distance << std::endl;
 	int currentX = physicsBody->GetPosition().x;
 
-	if (distance < GOLEM_DETECT_RANGE && 
-		currentState != EnemyState::Die && 
-		currentX < movementBoundaryRight && 
-		currentX > movementBoundaryLeft )
+	if (distance < BAT_DETECT_RANGE &&
+		currentState != EnemyState::Die &&
+		currentX < movementBoundaryRight &&
+		currentX > movementBoundaryLeft)
 	{
 		if (distance < 5.0f)
 		{
@@ -170,6 +171,10 @@ void Golem::FollowPlayerWhenInRange()
 				MoveLeft();
 				break;
 			}
+		}
+		else if (xAxisDistance < 1.5f && xAxisDistance > -1.5f && yAxisDistance < -1.0f)
+		{
+			Idle();
 		}
 		else
 		{

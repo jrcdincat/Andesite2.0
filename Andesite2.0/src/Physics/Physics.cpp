@@ -110,7 +110,7 @@ b2Body* Physics::AddPlayerRect(int x, int y, int w, int h, void* object) {
 	return body;
 }
 
-b2Body* Physics::AddEnemyRect(int x, int y, int w, int h, void* object) {
+b2Body* Physics::AddEnemyRect(int x, int y, int w, int h, int type, void* object) {
 	b2BodyDef bodyDef;
 	b2PolygonShape shape;
 	b2Body* body;
@@ -129,7 +129,7 @@ b2Body* Physics::AddEnemyRect(int x, int y, int w, int h, void* object) {
 	fixtureDef.filter.categoryBits = ENEMY;
 	fixtureDef.filter.maskBits = BOUNDARY | PLAYER;
 	userData = new FixtureUserData();
-	userData->type = USER_TYPE_ENEMY;
+	userData->type = type;
 	userData->object = object;
 	userDataList.push_back(userData);
 	fixtureDef.userData.pointer = reinterpret_cast<uintptr_t>(userData);
