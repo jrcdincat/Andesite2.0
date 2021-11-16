@@ -22,6 +22,7 @@ Game::Game()
 	gameMap = nullptr;
 	currentGameState = IN_MAIN_MENU;
 }
+
 Game::~Game()
 {
 	Clean();
@@ -108,7 +109,8 @@ bool Game::Init(const char* TITLE, int xPos, int yPos, int w, int h, bool fullsc
 	return isRunning;
 }
 
-void Game::HandleEvent() {
+void Game::HandleEvent() 
+{
 	switch (currentGameState)
 	{
 		case IN_MAIN_MENU:
@@ -121,7 +123,8 @@ void Game::HandleEvent() {
 	}
 }
 
-void Game::Update() {
+void Game::Update() 
+{
 	switch (currentGameState)
 	{
 		case IN_GAME:
@@ -150,7 +153,8 @@ void Game::Update() {
 	}
 }
 
-void Game::Render() {
+void Game::Render() 
+{
 	SDL_SetRenderDrawColor(renderer, 50, 50, 50, SDL_ALPHA_OPAQUE);
 	SDL_RenderClear(renderer);
 
@@ -251,7 +255,8 @@ void Game::CleanGameMap()
 	bats.clear();
 }
 
-void Game::Clean() {
+void Game::Clean() 
+{
 
 	CleanGameMap();
 

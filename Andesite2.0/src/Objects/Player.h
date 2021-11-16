@@ -4,33 +4,33 @@
 #include "../Physics/Physics.h"
 
 class Player : public Actor {
-public: 
-	Player() = default;
-	Player(Properties* properties);
-	~Player();
+	public: 
+		Player(Properties* properties);
+		~Player();
 
-	virtual void Draw();
-	virtual void Update(float dt);
-	virtual void Clean();
-	virtual void UpdateAnimationState();
-	virtual inline int GetCurrentState() { return currentState; }
-	void Idle();
-	void Die();
-	void Win();
-	b2Body* GetPlayerBody() { return physicsBody; }
+		virtual void Draw();
+		virtual void Update(float dt);
+		virtual void Clean();
+		virtual void UpdateAnimationState();
+		virtual inline int GetCurrentState() { return currentState; }
 
-	bool isMoveRight = false;
-	bool isMoveLeft = false;
-	bool isJump = false;
-	bool isEscape = false;
+		void Idle();
+		void Die();
+		void Win();
+		b2Body* GetPlayerBody() { return physicsBody; }
 
-private: 
-	void UpdateMovement();
-	void RunRight();
-	void RunLeft();
-	void SetVelocityMoveRight();
-	void SetVelocityMoveLeft();
-	void Jump();
-	void Fall();
-	void Escape();
+		// Player input flag variables
+		bool isMoveRight = false;
+		bool isMoveLeft = false;
+		bool isJump = false;
+		bool isEscape = false;
+
+	private: 
+		void UpdateMovement();
+		void SetVelocityMoveRight();
+		void SetVelocityMoveLeft();
+		void RunRight();
+		void RunLeft();
+		void Jump();
+		void Fall();
 };

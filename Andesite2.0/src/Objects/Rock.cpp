@@ -100,8 +100,6 @@ void Rock::UpdateAnimationState()
 		}
 		break;
 	}
-	previousState = currentState;
-	previousFlipSprite = flipSprite;
 }
 
 void Rock::Fall()

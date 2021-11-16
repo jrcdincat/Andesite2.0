@@ -43,7 +43,8 @@ void Physics::Render()
 	physicsWorld->Step(dt, VELOCITY_ITERATIONS, POSITION_ITERATIONS);
 }
 
-b2Body* Physics::AddBoundaryRect(int x, int y, int w, int h) {
+b2Body* Physics::AddBoundaryRect(int x, int y, int w, int h)
+{
 	b2BodyDef bodyDef;
 	b2Body* body;
 	b2PolygonShape shape;
@@ -74,7 +75,8 @@ b2Body* Physics::AddBoundaryRect(int x, int y, int w, int h) {
 	return body;
 }
 
-b2Body* Physics::AddPlayerRect(int x, int y, int w, int h, void* object) {
+b2Body* Physics::AddPlayerRect(int x, int y, int w, int h, void* object) 
+{
 	b2BodyDef bodyDef;
 	b2Body* body;
 	b2PolygonShape shape;
@@ -121,7 +123,8 @@ b2Body* Physics::AddPlayerRect(int x, int y, int w, int h, void* object) {
 	return body;
 }
 
-b2Body* Physics::AddEnemyRect(int x, int y, int w, int h, int type, void* object) {
+b2Body* Physics::AddEnemyRect(int x, int y, int w, int h, int type, void* object) 
+{
 	b2BodyDef bodyDef;
 	b2Body* body;
 	b2PolygonShape shape;
@@ -161,7 +164,8 @@ b2Body* Physics::AddEnemyRect(int x, int y, int w, int h, int type, void* object
 	return body;
 }
 
-b2Body* Physics::AddRockRect(int x, int y, int w, int h, void* object) {
+b2Body* Physics::AddRockRect(int x, int y, int w, int h, void* object) 
+{
 	b2BodyDef bodyDef;
 	b2Body* body;
 	b2PolygonShape shape;

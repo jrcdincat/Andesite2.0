@@ -20,6 +20,7 @@ namespace constants {
 	constexpr float X_AXIS_WIN_LOCATION = 214.0f;
 	constexpr float X_AXIS_END_OF_LEVEL_LOCATION = 227.0f;
 	constexpr float LAVA_Y_AXIS = 30.0f;
+	constexpr float PLAYER_SPEED = 1.0f;
 
 	// Golem constants
 	constexpr float GOLEM_X_OFFSET_ANIMATION = 40.0f;

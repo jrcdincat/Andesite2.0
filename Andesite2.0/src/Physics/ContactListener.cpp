@@ -5,7 +5,8 @@
 #include "../Objects/Objects.h"
 using namespace constants;
 
-void ContactListener::BeginContact(b2Contact* contact) {
+void ContactListener::BeginContact(b2Contact* contact) 
+{
 	b2Fixture* fixtureA = contact->GetFixtureA();
 	b2Fixture* fixtureB = contact->GetFixtureB();
 
@@ -160,7 +161,8 @@ void ContactListener::BeginContact(b2Contact* contact) {
 	}
 }
 
-void ContactListener::EndContact(b2Contact* contact) {
+void ContactListener::EndContact(b2Contact* contact) 
+{
 	b2Fixture* fixtureA = contact->GetFixtureA();
 	b2Fixture* fixtureB = contact->GetFixtureB();
 

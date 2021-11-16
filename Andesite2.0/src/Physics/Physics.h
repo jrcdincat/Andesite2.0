@@ -22,7 +22,8 @@ class Physics {
 
 		int numFootContacts; // Used to determine when jumping is allowed
 
-		struct FixtureUserData {
+		struct FixtureUserData 
+		{
 			int type;
 			void* object;
 		};
