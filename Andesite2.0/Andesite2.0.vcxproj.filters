@@ -27,9 +27,6 @@
     <ClCompile Include="src\Game.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Objects\Actor.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\Objects\Player.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
