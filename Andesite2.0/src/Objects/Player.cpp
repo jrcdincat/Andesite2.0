@@ -18,8 +18,8 @@ Player::Player(Properties* properties): Actor(properties) {
 	physicsBody = Physics::GetInstance()->AddPlayerRect(properties->position.x, properties->position.y, collisionWidth, collisionHeight, this);
 	physicsBody->SetGravityScale(0.1f);
 	physicsBody->SetLinearDamping(1.3f);
-	currentState = PlayerState::Idle;
-	previousState = PlayerState::Idle;
+	currentState = PlayerState::IDLE;
+	previousState = PlayerState::IDLE;
 	flipSprite = SDL_FLIP_NONE;
 	previousFlipSprite = SDL_FLIP_NONE;
 }
@@ -56,12 +56,12 @@ void Player::Clean() {
 
 // Movement
 void Player::RunRight() {
-	currentState = PlayerState::Run;
+	currentState = PlayerState::RUN;
 	SetVelocityMoveRight();
 }
 
 void Player::RunLeft() {
-	currentState = PlayerState::Run;
+	currentState = PlayerState::RUN;
 	SetVelocityMoveLeft();
 }
 
@@ -81,7 +81,7 @@ void Player::Jump() {
 	// Jump once when in contact
 	if (Physics::GetInstance()->numFootContacts > 0)
 	{
-		currentState = PlayerState::Jump;
+		currentState = PlayerState::JUMP;
 		AudioManager::GetInstance()->PlaySfx("jump");
 		float impulse = INT_MAX * Timer::GetInstance()->GetDeltaTime();
 		physicsBody->ApplyLinearImpulseToCenter(b2Vec2(physicsBody->GetLinearVelocity().x, -impulse), true);
@@ -90,22 +90,22 @@ void Player::Jump() {
 
 void Player::Fall() {
 	isJump = false;
-	currentState = PlayerState::Fall;
+	currentState = PlayerState::FALL;
 }
 
 void Player::Idle() {
-	currentState = PlayerState::Idle;
+	currentState = PlayerState::IDLE;
 	b2Vec2 velocity = b2Vec2(0.0f, physicsBody->GetLinearVelocity().y);
 	physicsBody->SetLinearVelocity(velocity);
 }
 
 void Player::Die() {
-	currentState = PlayerState::Die;
+	currentState = PlayerState::DIE;
 	AudioManager::GetInstance()->PlaySfx("player_death");
 }
 
 void Player::Win() {
-	currentState = PlayerState::Win;
+	currentState = PlayerState::WIN;
 	flipSprite = SDL_FLIP_NONE;
 	SetVelocityMoveRight();
 }
@@ -128,7 +128,7 @@ void Player::UpdateMovement() {
 		Die();
 	}
 
-	if (currentState == PlayerState::Die || currentState == PlayerState::Win)
+	if (currentState == PlayerState::DIE || currentState == PlayerState::WIN)
 	{
 		return;
 	}
@@ -168,7 +168,7 @@ void Player::UpdateMovement() {
 				RunRight();
 			}
 		}
-		else if (currentState != PlayerState::Die && currentState != PlayerState::Win)
+		else if (currentState != PlayerState::DIE && currentState != PlayerState::WIN)
 		{
 			Idle();
 		}
@@ -181,19 +181,19 @@ void Player::UpdateAnimationState()
 {
 	switch (currentState)
 	{
-		case PlayerState::Idle:
+		case PlayerState::IDLE:
 			animation->SetProperties("player_idle", true, 0, 8, 80, flipSprite);
 			break;
-		case PlayerState::Run:
+		case PlayerState::RUN:
 			animation->SetProperties("player_run", true, 0, 8, 80, flipSprite);
 			break;
-		case PlayerState::Jump:
+		case PlayerState::JUMP:
 			animation->SetProperties("player_jump", true, 0, 2, 80, flipSprite);
 			break;
-		case PlayerState::Fall:
+		case PlayerState::FALL:
 			animation->SetProperties("player_fall", true, 0, 2, 80, flipSprite);
 			break;
-		case PlayerState::Die:
+		case PlayerState::DIE:
 			for (b2Fixture* fixture = physicsBody->GetFixtureList(); fixture; fixture = fixture->GetNext())
 			{
 				b2Filter filter = fixture->GetFilterData();
@@ -206,7 +206,7 @@ void Player::UpdateAnimationState()
 				Game::GetInstance()->currentGameState = IN_MAIN_MENU;
 			}
 			break;
-		case PlayerState::Win:
+		case PlayerState::WIN:
 			animation->SetProperties("player_run", true, 0, 8, 80, flipSprite);
 			AudioManager::GetInstance()->PlaySfx("player_win");
 			if (physicsBody->GetPosition().x > X_AXIS_END_OF_LEVEL_LOCATION)

@@ -1,6 +1,5 @@
 #pragma once
 #include "SDL_image.h"
-#include "Objects/Player.h"
 #include "Input/Command.h"
 #include "Input/InputManager.h"
 #include "Graphics/TextureManager.h"
@@ -21,9 +20,9 @@ public:
 	void HandleEvent();
 	void Update();
 	void Render();
-	void Clean();
-	void CleanGameMap();
-	void CreateGameMap();
+	void CreateGameMap(); // Creates game objects and sets camera target
+	void CleanGameMap(); // Deletes game objects 
+	void Clean(); // Free all dynamically allocated memory in game
 
 	inline bool IsRunning() { return isRunning; }
 	inline void SetIsRunning(bool status) { isRunning = status; };
@@ -35,8 +34,8 @@ public:
 
 private:
 	Game();
-	void CreateEnemies();
-	void LoadTextures();
+	void CreateEnemies(); // Creates all enemy objects
+	void LoadTextures(); // Loads all texture files
 
 	bool isRunning;
 	SDL_Window* window; 

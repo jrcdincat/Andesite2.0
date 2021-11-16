@@ -65,7 +65,7 @@ void Golem::Clean()
 
 void Golem::Idle()
 {
-	currentState = EnemyState::Idle;
+	currentState = EnemyState::IDLE;
 	b2Vec2 velocity = b2Vec2(0.0f, physicsBody->GetLinearVelocity().y);
 	physicsBody->SetLinearVelocity(velocity);
 }
@@ -74,7 +74,7 @@ void Golem::MoveRight()
 {
 	b2Vec2 velocity;
 	flipSprite = SDL_FLIP_NONE;
-	currentState = EnemyState::Move;
+	currentState = EnemyState::MOVE;
 	if (isCharge)
 	{
 		velocity = b2Vec2(GOLEM_CHARGE_SPEED, physicsBody->GetLinearVelocity().y);
@@ -89,7 +89,7 @@ void Golem::MoveRight()
 void Golem::MoveLeft()
 {
 	b2Vec2 velocity;
-	currentState = EnemyState::Move;
+	currentState = EnemyState::MOVE;
 	flipSprite = SDL_FLIP_HORIZONTAL;
 	if (isCharge)
 	{
@@ -104,7 +104,7 @@ void Golem::MoveLeft()
 
 void Golem::Die()
 {
-	currentState = EnemyState::Die;
+	currentState = EnemyState::DIE;
 	
 	AudioManager::GetInstance()->PlaySfx("golem_death");
 
@@ -120,13 +120,13 @@ void Golem::UpdateAnimationState()
 {
 	switch (currentState)
 	{
-		case EnemyState::Idle:
+		case EnemyState::IDLE:
 			animation->SetProperties("golem_idle", true, 0, 18, 80, flipSprite);
 			break;
-		case EnemyState::Move:
+		case EnemyState::MOVE:
 			animation->SetProperties("golem_walking", true, 0, 24, 80, flipSprite);
 			break;
-		case EnemyState::Die:
+		case EnemyState::DIE:
 			animation->SetProperties("golem_dying", false, 0, 10, 2, flipSprite);
 			break;
 	}
@@ -145,7 +145,7 @@ void Golem::FollowPlayerWhenInRange()
 	int currentX = physicsBody->GetPosition().x;
 
 	if (distance < GOLEM_DETECT_RANGE && 
-		currentState != EnemyState::Die && 
+		currentState != EnemyState::DIE && 
 		currentX < movementBoundaryRight && 
 		currentX > movementBoundaryLeft )
 	{

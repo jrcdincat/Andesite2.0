@@ -65,7 +65,7 @@ void Bat::Clean()
 
 void Bat::Idle()
 {
-	currentState = EnemyState::Idle;
+	currentState = EnemyState::IDLE;
 	b2Vec2 velocity = b2Vec2(0.0f, physicsBody->GetLinearVelocity().y);
 	physicsBody->SetLinearVelocity(velocity);
 }
@@ -74,7 +74,7 @@ void Bat::MoveRight()
 {
 	b2Vec2 velocity;
 	flipSprite = SDL_FLIP_NONE;
-	currentState = EnemyState::Move;
+	currentState = EnemyState::MOVE;
 	if (isCharge)
 	{
 		velocity = b2Vec2(BAT_CHARGE_SPEED, physicsBody->GetLinearVelocity().y);
@@ -89,7 +89,7 @@ void Bat::MoveRight()
 void Bat::MoveLeft()
 {
 	b2Vec2 velocity;
-	currentState = EnemyState::Move;
+	currentState = EnemyState::MOVE;
 	flipSprite = SDL_FLIP_HORIZONTAL;
 	if (isCharge)
 	{
@@ -104,7 +104,7 @@ void Bat::MoveLeft()
 
 void Bat::Die()
 {
-	currentState = EnemyState::Die;
+	currentState = EnemyState::DIE;
 
 	AudioManager::GetInstance()->PlaySfx("bat_death");
 
@@ -120,13 +120,13 @@ void Bat::UpdateAnimationState()
 {
 	switch (currentState)
 	{
-	case EnemyState::Idle:
+	case EnemyState::IDLE:
 		animation->SetProperties("bat_idle", true, 0, 12, 80, flipSprite);
 		break;
-	case EnemyState::Move:
+	case EnemyState::MOVE:
 		animation->SetProperties("bat_flying", true, 0, 8, 80, flipSprite);
 		break;
-	case EnemyState::Die:
+	case EnemyState::DIE:
 		animation->SetProperties("bat_dying", false, 0, 8, 2, flipSprite);
 		physicsBody->SetGravityScale(0.1f);
 		break;
@@ -146,7 +146,7 @@ void Bat::FollowPlayerWhenInRange()
 	int currentX = physicsBody->GetPosition().x;
 
 	if (distance < BAT_DETECT_RANGE &&
-		currentState != EnemyState::Die &&
+		currentState != EnemyState::DIE &&
 		currentX < movementBoundaryRight &&
 		currentX > movementBoundaryLeft)
 	{

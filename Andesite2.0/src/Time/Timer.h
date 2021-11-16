@@ -1,12 +1,12 @@
 #pragma once
-const int TARGET_FPS = 60;
-const float TARGET_DELTATIME = 1.5f;
+#include "../Constants.h"
+using namespace constants;
 
 class Timer {
 public: 
-	void Tick();
-	inline float GetDeltaTime() { return deltaTime; }
 	inline static Timer* GetInstance() { return instance = (instance != nullptr) ? instance : new Timer(); }
+	inline float GetDeltaTime() { return deltaTime; }
+	void Tick();
 	
 private: 
 	Timer() = default; 

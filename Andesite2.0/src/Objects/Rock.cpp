@@ -81,7 +81,7 @@ void Rock::Clean()
 
 void Rock::Fall()
 {
-	currentState = HazardStates::RockState::Fall;
+	currentState = HazardStates::RockState::FALL;
 	b2Vec2 velocity = b2Vec2(0.0f, physicsBody->GetLinearVelocity().y);
 	physicsBody->SetLinearVelocity(velocity);
 }
@@ -89,14 +89,14 @@ void Rock::Fall()
 void Rock::MoveRight()
 {
 	flipSprite = SDL_FLIP_NONE;
-	currentState = EnemyState::Move;
+	currentState = EnemyState::MOVE;
 	b2Vec2 velocity = b2Vec2(0.3f, physicsBody->GetLinearVelocity().y);
 	physicsBody->SetLinearVelocity(velocity);
 }
 
 void Rock::MoveLeft()
 {
-	currentState = EnemyState::Move;
+	currentState = EnemyState::MOVE;
 	flipSprite = SDL_FLIP_HORIZONTAL;
 	b2Vec2 velocity = b2Vec2(-0.3f, physicsBody->GetLinearVelocity().y);
 	physicsBody->SetLinearVelocity(velocity);
@@ -104,7 +104,7 @@ void Rock::MoveLeft()
 
 void Rock::Explode()
 {
-	currentState = HazardStates::RockState::Explode;
+	currentState = HazardStates::RockState::EXPLODE;
 
 	AudioManager::GetInstance()->PlaySfx("explosion");
 
@@ -120,10 +120,10 @@ void Rock::UpdateAnimationState()
 {
 	switch (currentState)
 	{
-	case HazardStates::RockState::Fall:
+	case HazardStates::RockState::FALL:
 		animation->SetProperties("rock1", true, 0, 23, 80, flipSprite);
 		break;
-	case HazardStates::RockState::Explode:
+	case HazardStates::RockState::EXPLODE:
 		animation->SetProperties("explosion1", false, 0, 100, 60, flipSprite);
 		isExplode = true;
 		if (animation->IsEnded())
@@ -146,7 +146,7 @@ void Rock::FallWhenPlayerInRange()
 	float yAxisDistance = physicsBody->GetPosition().y - playerBody->GetPosition().y;
 	float distance = sqrt(xAxisDistance * xAxisDistance + yAxisDistance * yAxisDistance);
 
-	if (distance < detectRange && currentState != HazardStates::RockState::Explode)
+	if (distance < detectRange && currentState != HazardStates::RockState::EXPLODE)
 	{
 		physicsBody->SetEnabled(true);
 	}
