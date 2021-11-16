@@ -31,7 +31,7 @@ private:
 	
 	Player* playerInstance;
 	b2Body* playerBody;
-	float detectRange;
 	float movementBoundaryLeft;
 	float movementBoundaryRight;
+	bool isCharge;
 };

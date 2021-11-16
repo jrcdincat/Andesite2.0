@@ -27,7 +27,9 @@ Golem::Golem(Properties* properties): Actor(properties)
 	physicsBody->SetLinearDamping(1.3f);
 	playerInstance = Game::GetInstance()->GetPlayer();
 	playerBody = playerInstance->GetPlayerBody();
-	detectRange = 9.0f;
+	movementBoundaryLeft = 0.0f;
+	movementBoundaryRight = 0.0f;
+	isCharge = false;
 }
 
 Golem::~Golem()
@@ -69,17 +71,33 @@ void Golem::Idle()
 
 void Golem::MoveRight()
 {
+	b2Vec2 velocity;
 	flipSprite = SDL_FLIP_NONE;
 	currentState = EnemyState::Walk;
-	b2Vec2 velocity = b2Vec2(0.3f, physicsBody->GetLinearVelocity().y);
+	if (isCharge)
+	{
+		velocity = b2Vec2(GOLEM_CHARGE_SPEED, physicsBody->GetLinearVelocity().y);
+	}
+	else
+	{
+		velocity = b2Vec2(GOLEM_DEFAULT_SPEED, physicsBody->GetLinearVelocity().y);
+	}
 	physicsBody->SetLinearVelocity(velocity);
 }
 
 void Golem::MoveLeft()
 {
+	b2Vec2 velocity;
 	currentState = EnemyState::Walk;
 	flipSprite = SDL_FLIP_HORIZONTAL;
-	b2Vec2 velocity = b2Vec2(-0.3f, physicsBody->GetLinearVelocity().y);
+	if (isCharge)
+	{
+		velocity = b2Vec2(-GOLEM_CHARGE_SPEED, physicsBody->GetLinearVelocity().y);
+	}
+	else
+	{
+		velocity = b2Vec2(-GOLEM_DEFAULT_SPEED, physicsBody->GetLinearVelocity().y);
+	}
 	physicsBody->SetLinearVelocity(velocity);
 }
 
@@ -125,18 +143,44 @@ void Golem::FollowPlayerWhenInRange()
 	//std::cout << "d: " << distance << std::endl;
 	int currentX = physicsBody->GetPosition().x;
 
-	if (distance < detectRange && 
+	if (distance < GOLEM_DETECT_RANGE && 
 		currentState != EnemyState::Die && 
 		currentX < movementBoundaryRight && 
 		currentX > movementBoundaryLeft )
 	{
-		if (xAxisDistance < 0)
+		if (distance < 5.0f)
 		{
-			MoveRight();
+			isCharge = true;
 		}
 		else
 		{
-			MoveLeft();
+			isCharge = false;
+		}
+
+		std::cout << xAxisDistance << " " << yAxisDistance << std::endl;
+
+		if ((xAxisDistance < 2.0f && xAxisDistance > -2.0f && yAxisDistance > 1.0f))
+		{
+			switch (flipSprite)
+			{
+			case SDL_FLIP_NONE:
+				MoveRight();
+				break;
+			case SDL_FLIP_HORIZONTAL:
+				MoveLeft();
+				break;
+			}
+		}
+		else
+		{
+			if (xAxisDistance < 0)
+			{
+				MoveRight();
+			}
+			else
+			{
+				MoveLeft();
+			}
 		}
 	}
 }

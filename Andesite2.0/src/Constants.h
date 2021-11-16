@@ -17,6 +17,9 @@ namespace constants {
 	constexpr float LAVA_Y_AXIS = 30.0f;
 	constexpr float X_AXIS_WIN_LOCATION = 214.0f;
 	constexpr float X_AXIS_END_OF_LEVEL_LOCATION = 227.0f;
+	constexpr float GOLEM_DEFAULT_SPEED = 0.3f;
+	constexpr float GOLEM_CHARGE_SPEED = 0.6f;
+	constexpr float GOLEM_DETECT_RANGE = 10.0f;
 
 	enum userDataTypes {
 		USER_TYPE_PLAYER_FEET = 1,
