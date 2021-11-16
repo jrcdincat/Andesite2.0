@@ -35,7 +35,6 @@
     <ClCompile Include="src\Map\GameMap.cpp" />
     <ClCompile Include="src\Map\MapParser.cpp" />
     <ClCompile Include="src\Map\TileLayer.cpp" />
-    <ClCompile Include="src\Math\Vector2D.cpp" />
     <ClCompile Include="src\Menu\Button.cpp" />
     <ClCompile Include="src\Menu\MainMenu.cpp" />
     <ClCompile Include="src\Objects\Bat.cpp" />

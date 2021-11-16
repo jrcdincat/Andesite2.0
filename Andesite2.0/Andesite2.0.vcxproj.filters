@@ -30,9 +30,6 @@
     <ClCompile Include="src\Objects\Player.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Math\Vector2D.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\Map\GameMap.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

@@ -3,7 +3,6 @@
 #include <string>; 
 #include <vector>;
 #include "Layer.h"
-#include "../Math/Vector2D.h"
 #include "../Physics/Physics.h"
 
 struct TileObject {
@@ -33,20 +32,20 @@ using TileSetList = std::vector<TileSet>;
 using TileMap = std::vector<std::vector<int> >;
 
 class TileLayer: public Layer {
-public: 
-	TileLayer(bool isObjLayer, int tSize, int rowCnt, int colCnt, TileMap tMap, TileSetList tSets);
+	public: 
+		TileLayer(bool isObjLayer, int tSize, int rowCnt, int colCnt, TileMap tMap, TileSetList tSets);
 
-	virtual void Render(); 
-	virtual void Update();
-	inline TileMap GetTileMap() { return tileMap; }
+		virtual void Render(); 
+		virtual void Update() { };
+		inline TileMap GetTileMap() { return tileMap; }
 
-	std::vector<TileObject> objects;
+		std::vector<TileObject> objects;
 
-private: 
-	int tileSize; 
-	int numRow, numCol;
-	int mapTileLayerOffset;
-	bool isObjectLayer;
-	TileMap tileMap; 
-	TileSetList tileSets;
+	private: 
+		int tileSize; 
+		int numRow, numCol;
+		int mapTileLayerOffset;
+		bool isObjectLayer;
+		TileMap tileMap; 
+		TileSetList tileSets;
 };
