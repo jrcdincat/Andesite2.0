@@ -21,6 +21,7 @@ AudioManager::~AudioManager()
 
 bool AudioManager::LoadAudio()
 {
+	// Game Music
 	gameMusic = Mix_LoadMUS("src/assets/music/Andesite.wav");
 	if (gameMusic == NULL)
 	{
