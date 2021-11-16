@@ -131,8 +131,6 @@ void Bat::UpdateAnimationState()
 		physicsBody->SetGravityScale(0.1f);
 		break;
 	}
-	previousState = currentState;
-	previousFlipSprite = flipSprite;
 }
 
 void Bat::FollowPlayerWhenInRange()

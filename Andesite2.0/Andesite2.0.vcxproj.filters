@@ -33,9 +33,6 @@
     <ClCompile Include="src\Objects\Entity.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Objects\GameObject.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\Objects\Player.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
