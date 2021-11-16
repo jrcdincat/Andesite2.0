@@ -267,7 +267,6 @@ void Game::Clean()
 	delete Camera::GetInstance();
 	delete InputManager::GetInstance();
 	delete MapParser::GetInstance();
-	TextureManager::GetInstance()->Clean();
 	delete TextureManager::GetInstance();
 	delete Physics::GetInstance();
 	delete MainMenu::GetInstance();
