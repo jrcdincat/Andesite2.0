@@ -10,12 +10,11 @@ Camera::Camera() {
 	MAP_HEIGHT = 0;
 }
 
-Camera::~Camera() {
-}
-
 void Camera::Update(float deltaTime) {
 	if (pointTarget == nullptr)
+	{
 		return;
+	}
 	
 	// Camera moves after player moves half way across screen
 	viewBox.x = pointTarget->x - SCREEN_WIDTH / 2;
@@ -31,6 +30,7 @@ void Camera::Update(float deltaTime) {
 		viewBox.y = 0;
 	}
 
+	// Prevent viewbox from exceeding map size
 	if (viewBox.x > (2 * MAP_WIDTH - viewBox.w)) 
 	{
 		viewBox.x = (2 * MAP_WIDTH - viewBox.w);
