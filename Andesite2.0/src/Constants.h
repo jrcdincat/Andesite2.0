@@ -7,6 +7,11 @@ namespace constants {
 	constexpr float TARGET_DELTATIME = 1.5f;
 	constexpr float PIXEL_PER_METER = 32.0f;
 
+	// Physics
+	constexpr float PHYSICS_WORLD_GRAVITY = 3.8f;
+	constexpr int VELOCITY_ITERATIONS = 8;
+	constexpr int POSITION_ITERATIONS = 3;
+
 	// Player constants
 	constexpr float PLAYER_X_START_POS = 5.0f;
 	constexpr float PLAYER_Y_START_POS = 21.5f;

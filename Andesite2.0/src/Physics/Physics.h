@@ -1,35 +1,38 @@
 #pragma once
 #include <box2d.h>
+#include <b2_settings.h>
+#include <vector>
 #include "ContactListener.h"
 
 class Physics {
-public:
-	struct FixtureUserData {
-		int type;
-		void* object;
-	};
+	public:
+		static Physics* GetInstance() {
+			return physicsInstance = (physicsInstance != nullptr) ? physicsInstance : new Physics();
+		}
 
-	static Physics* GetInstance() {
-		return physicsInstance = (physicsInstance != nullptr) ? physicsInstance : new Physics();
-	}
+		~Physics();
+		void Clean();
+		void Render();
 
-	~Physics();
-	
-	void Clean();
-	void Render();
+		// Add physic body rects
+		b2Body* AddBoundaryRect(int x, int y, int w, int h);
+		b2Body* AddPlayerRect(int x, int y, int w, int h, void* object);
+		b2Body* AddEnemyRect(int x, int y, int w, int h, int type, void* object);
+		b2Body* AddRockRect(int x, int y, int w, int h, void* object);
 
-	b2Body* AddBoundaryRect(int x, int y, int w, int h, bool isDynamic, bool isPlayer);
-	b2Body* AddEnemyRect(int x, int y, int w, int h, int type, void* object);
-	b2Body* AddPlayerRect(int x, int y, int w, int h, void* object);
-	b2Body* AddRockRect(int x, int y, int w, int h, void* object);
+		int numFootContacts; // Used to determine when jumping is allowed
 
-	int numFootContacts;
-	int numEnemyHeadContacts;
+		struct FixtureUserData {
+			int type;
+			void* object;
+		};
 
-private:
-	Physics();
-	static Physics* physicsInstance;
-	b2World* physicsWorld;
-	float worldGravity;
-	ContactListener* contactListener;
+	private:
+		Physics();
+
+		static Physics* physicsInstance;
+		b2World* physicsWorld;
+		float worldGravity;
+		ContactListener* contactListener;
+		std::vector<Physics::FixtureUserData*> userDataList;
 };
