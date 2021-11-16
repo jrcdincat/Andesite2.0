@@ -7,46 +7,27 @@
 #include "TileLayer.h"
 
 class MapParser {
-public:
-	inline static MapParser* GetInstance() { return instance = (instance != nullptr) ? instance : new MapParser(); }
-	inline GameMap* GetMap(std::string id) { return gameMaps[id]; }
+	public:
+		~MapParser();
+		inline static MapParser* GetInstance() { return instance = (instance != nullptr) ? instance : new MapParser(); }
+		inline GameMap* GetMap(std::string id) { return gameMaps[id]; }
 
-	bool Load();
-	void Clean();
+		/// Parse map.tmx to create map
+		bool Load();
 
-private:
-	MapParser() = default;
-	bool Parse(std::string id, std::string src);
-	/// <summary>
-	/// Parse through xml tile set inside of the .tmx file to store inside an instance of the TileSet class
-	/// </summary>
-	/// <param name="xmlTileSet"></param>
-	/// <returns></returns>
-	TileSet ParseTileSet(TiXmlElement* xmlTileSet );
-	
-	/// <summary>
-	/// Parse through xml tile layer data inside of the .tmx file to store inside the TileLayer class
-	/// </summary>
-	/// <param name="xmlLayer"></param>
-	/// <param name="tileSets"></param>
-	/// <param name="tileSize"></param>
-	/// <param name="numRow"></param>
-	/// <param name="numCol"></param>
-	/// <returns></returns>
-	TileLayer* ParseTileLayer(TiXmlElement* xmlLayer, TileSetList tileSets, int tileSize, int numRow, int numCol);
+	private:
+		MapParser() = default;
+		bool Parse(std::string id, std::string src);
 
-	/// <summary>
-	/// Parse through xml collision layer data inside of the .tmx file to store inside the TileLayer class. 
-	/// Adds Box2D static bodies
-	/// </summary>
-	/// <param name="xmlLayer"></param>
-	/// <param name="tileSets"></param>
-	/// <param name="tileSize"></param>
-	/// <param name="numRow"></param>
-	/// <param name="numCol"></param>
-	/// <returns></returns>
-	TileLayer* ParseStaticObjectCollisionLayer(TiXmlElement* xmlLayer, TileSetList tileSets, int tileSize, int numRow, int numCol);
+		/// Parse through xml tile set inside of the .tmx file to store inside an instance of the TileSet class
+		TileSet ParseTileSet(TiXmlElement* xmlTileSet );
 
-	static MapParser* instance;
-	std::map<std::string, GameMap*> gameMaps;
+		/// Parse through xml tile layer data inside of the .tmx file to store inside the TileLayer class
+		TileLayer* ParseTileLayer(TiXmlElement* xmlLayer, TileSetList tileSets, int tileSize, int numRow, int numCol);
+
+		/// Parse through xml collision layer data inside of the .tmx file to store inside the TileLayer class. 
+		TileLayer* ParseStaticObjectCollisionLayer(TiXmlElement* xmlLayer, TileSetList tileSets, int tileSize, int numRow, int numCol);
+
+		static MapParser* instance;
+		std::map<std::string, GameMap*> gameMaps;
 };
