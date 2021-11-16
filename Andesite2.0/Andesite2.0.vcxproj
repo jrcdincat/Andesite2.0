@@ -19,14 +19,112 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\dependencies\TinyXML\tinystr.cpp" />
+    <ClCompile Include="..\dependencies\TinyXML\tinyxml.cpp" />
+    <ClCompile Include="..\dependencies\TinyXML\tinyxmlerror.cpp" />
+    <ClCompile Include="..\dependencies\TinyXML\tinyxmlparser.cpp" />
+    <ClCompile Include="src\Audio\AudioManager.cpp" />
+    <ClCompile Include="src\Camera\Camera.cpp" />
+    <ClCompile Include="src\Game.cpp" />
+    <ClCompile Include="src\Graphics\Animation.cpp" />
+    <ClCompile Include="src\Graphics\TextureManager.cpp" />
+    <ClCompile Include="src\Input\Command.cpp" />
+    <ClCompile Include="src\Input\InputManager.cpp" />
     <ClCompile Include="src\Main.cpp" />
+    <ClCompile Include="src\Map\BackgroundLayer.cpp" />
+    <ClCompile Include="src\Map\GameMap.cpp" />
+    <ClCompile Include="src\Map\MapParser.cpp" />
+    <ClCompile Include="src\Map\TileLayer.cpp" />
+    <ClCompile Include="src\Menu\Button.cpp" />
+    <ClCompile Include="src\Menu\MainMenu.cpp" />
+    <ClCompile Include="src\Objects\Bat.cpp" />
+    <ClCompile Include="src\Objects\Golem.cpp" />
+    <ClCompile Include="src\Objects\Player.cpp" />
+    <ClCompile Include="src\Objects\Rock.cpp" />
+    <ClCompile Include="src\pch.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="src\Physics\ContactListener.cpp" />
+    <ClCompile Include="src\Physics\Physics.cpp" />
     <ClCompile Include="src\Time\Timer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="src\Assets\images\Background.png" />
+    <Image Include="src\Assets\images\Spritesheet_tileset.png" />
+    <Image Include="src\Assets\images\Tile_1.png" />
+    <Image Include="src\Assets\images\Tile_10.png" />
+    <Image Include="src\Assets\images\Tile_11.png" />
+    <Image Include="src\Assets\images\Tile_12.png" />
+    <Image Include="src\Assets\images\Tile_13.png" />
+    <Image Include="src\Assets\images\Tile_14.png" />
+    <Image Include="src\Assets\images\Tile_15.png" />
+    <Image Include="src\Assets\images\Tile_16.png" />
+    <Image Include="src\Assets\images\Tile_17.png" />
+    <Image Include="src\Assets\images\Tile_18.png" />
+    <Image Include="src\Assets\images\Tile_19.png" />
+    <Image Include="src\Assets\images\Tile_2.png" />
+    <Image Include="src\Assets\images\Tile_20.png" />
+    <Image Include="src\Assets\images\Tile_21.png" />
+    <Image Include="src\Assets\images\Tile_22.png" />
+    <Image Include="src\Assets\images\Tile_23.png" />
+    <Image Include="src\Assets\images\Tile_24.png" />
+    <Image Include="src\Assets\images\Tile_25.png" />
+    <Image Include="src\Assets\images\Tile_26.png" />
+    <Image Include="src\Assets\images\Tile_29.png" />
+    <Image Include="src\Assets\images\Tile_3.png" />
+    <Image Include="src\Assets\images\Tile_30.png" />
+    <Image Include="src\Assets\images\Tile_31.png" />
+    <Image Include="src\Assets\images\Tile_32.png" />
+    <Image Include="src\Assets\images\Tile_33.png" />
+    <Image Include="src\Assets\images\Tile_34.png" />
+    <Image Include="src\Assets\images\Tile_35.png" />
+    <Image Include="src\Assets\images\Tile_36.png" />
+    <Image Include="src\Assets\images\Tile_37.png" />
+    <Image Include="src\Assets\images\Tile_38.png" />
+    <Image Include="src\Assets\images\Tile_39.png" />
+    <Image Include="src\Assets\images\Tile_4.png" />
+    <Image Include="src\Assets\images\Tile_40.png" />
+    <Image Include="src\Assets\images\Tile_5.png" />
+    <Image Include="src\Assets\images\Tile_6.png" />
+    <Image Include="src\Assets\images\Tile_7.png" />
+    <Image Include="src\Assets\images\Tile_8.png" />
+    <Image Include="src\Assets\images\Tile_9.png" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Audio\AudioManager.h" />
+    <ClInclude Include="src\Camera\Camera.h" />
+    <ClInclude Include="src\Constants.h" />
+    <ClInclude Include="src\Game.h" />
+    <ClInclude Include="src\Graphics\Animation.h" />
+    <ClInclude Include="src\Graphics\TextureManager.h" />
+    <ClInclude Include="src\Input\Command.h" />
+    <ClInclude Include="src\Input\InputManager.h" />
+    <ClInclude Include="src\Map\BackgroundLayer.h" />
+    <ClInclude Include="src\Map\GameMap.h" />
+    <ClInclude Include="src\Map\Layer.h" />
+    <ClInclude Include="src\Map\MapParser.h" />
+    <ClInclude Include="src\Map\TileLayer.h" />
+    <ClInclude Include="src\Math\Vector2D.h" />
+    <ClInclude Include="src\Menu\Button.h" />
+    <ClInclude Include="src\Menu\MainMenu.h" />
+    <ClInclude Include="src\Objects\Actor.h" />
+    <ClInclude Include="src\Objects\Bat.h" />
+    <ClInclude Include="src\Objects\Golem.h" />
+    <ClInclude Include="src\Objects\GameObject.h" />
+    <ClInclude Include="src\Objects\IObject.h" />
+    <ClInclude Include="src\Objects\Objects.h" />
+    <ClInclude Include="src\Objects\Player.h" />
+    <ClInclude Include="src\Objects\Rock.h" />
+    <ClInclude Include="src\pch.h" />
+    <ClInclude Include="src\Physics\ContactListener.h" />
+    <ClInclude Include="src\Physics\Physics.h" />
     <ClInclude Include="src\Time\Timer.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="src\Assets\map.tmx" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
@@ -107,12 +205,15 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)dependencies/Box2d/include/box2d;$(SolutionDir)dependencies/SDL2/include;$(SolutionDir)dependencies/TinyXML</AdditionalIncludeDirectories>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <ForcedIncludeFiles>%(ForcedIncludeFiles)</ForcedIncludeFiles>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(SolutionDir)dependencies/Box2D/lib;$(SolutionDir)dependencies/SDL2/lib/x64</AdditionalLibraryDirectories>
-      <AdditionalDependencies>SDL2.lib;SDL2_image.lib;SDL2main.lib;SDL2test.lib;box2d.lib;Shell32.lib</AdditionalDependencies>
+      <AdditionalDependencies>SDL2_mixer.lib;SDL2.lib;SDL2_image.lib;SDL2main.lib;SDL2test.lib;box2d.lib;Shell32.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -124,6 +225,9 @@
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)dependencies/Box2d/include/box2d;$(SolutionDir)dependencies/SDL2/include;$(SolutionDir)dependencies/TinyXML</AdditionalIncludeDirectories>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <ForcedIncludeFiles>%(ForcedIncludeFiles)</ForcedIncludeFiles>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -131,7 +235,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(SolutionDir)dependencies/Box2D/lib;$(SolutionDir)dependencies/SDL2/lib/x64</AdditionalLibraryDirectories>
-      <AdditionalDependencies>SDL2.lib;SDL2_image.lib;SDL2main.lib;SDL2test.lib;box2d.lib;Shell32.lib</AdditionalDependencies>
+      <AdditionalDependencies>SDL2_mixer.lib;SDL2.lib;SDL2_image.lib;SDL2main.lib;SDL2test.lib;box2d.lib;Shell32.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -141,12 +245,15 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)dependencies/Box2d/include/box2d;$(SolutionDir)dependencies/SDL2/include;$(SolutionDir)dependencies/TinyXML</AdditionalIncludeDirectories>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <ForcedIncludeFiles>pch.h</ForcedIncludeFiles>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(SolutionDir)dependencies/Box2D/lib;$(SolutionDir)dependencies/SDL2/lib/x64</AdditionalLibraryDirectories>
-      <AdditionalDependencies>SDL2.lib;SDL2_image.lib;SDL2main.lib;SDL2test.lib;box2d.lib;Shell32.lib</AdditionalDependencies>
+      <AdditionalDependencies>SDL2_mixer.lib;SDL2.lib;SDL2_image.lib;SDL2main.lib;SDL2test.lib;box2d.lib;Shell32.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -158,6 +265,9 @@
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)dependencies/Box2d/include/box2d;$(SolutionDir)dependencies/SDL2/include;$(SolutionDir)dependencies/TinyXML</AdditionalIncludeDirectories>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <ForcedIncludeFiles>pch.h</ForcedIncludeFiles>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -165,7 +275,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(SolutionDir)dependencies/Box2D/lib;$(SolutionDir)dependencies/SDL2/lib/x64</AdditionalLibraryDirectories>
-      <AdditionalDependencies>SDL2.lib;SDL2_image.lib;SDL2main.lib;SDL2test.lib;box2d.lib;Shell32.lib</AdditionalDependencies>
+      <AdditionalDependencies>SDL2_mixer.lib;SDL2.lib;SDL2_image.lib;SDL2main.lib;SDL2test.lib;box2d.lib;Shell32.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
