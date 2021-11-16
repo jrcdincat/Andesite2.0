@@ -4,19 +4,19 @@
 #include "../Physics/Physics.h"
 #include "../Objects/Player.h"
 
-class Golem : public Actor {
+class Bat : public Actor {
 public:
-	Golem() = default;
-	Golem(Properties* properties);
-	~Golem();
+	Bat() = default;
+	Bat(Properties* properties);
+	~Bat();
 
 	virtual void Draw();
 	virtual void Update(float dt);
 	virtual void Clean();
 
-	inline void SetMovementBoundaries(float leftXBoundary, float rightXBoundary) { 
-		movementBoundaryLeft = leftXBoundary; 
-		movementBoundaryRight = rightXBoundary; 
+	inline void SetMovementBoundaries(float leftXBoundary, float rightXBoundary) {
+		movementBoundaryLeft = leftXBoundary;
+		movementBoundaryRight = rightXBoundary;
 	}
 
 	void Idle();
@@ -28,7 +28,7 @@ private:
 	void MoveRight();
 	void MoveLeft();
 	void FollowPlayerWhenInRange();
-	
+
 	Player* playerInstance;
 	b2Body* playerBody;
 	float movementBoundaryLeft;

@@ -48,4 +48,5 @@ private:
 	std::vector<BackgroundLayer*> parallaxBackground;
 	std::vector<Golem*> golems;
 	std::vector<Rock*> rocks;
+	std::vector<Bat*> bats;
 };

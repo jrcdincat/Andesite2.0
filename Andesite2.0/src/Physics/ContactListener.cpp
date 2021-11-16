@@ -77,18 +77,65 @@ void ContactListener::BeginContact(b2Contact* contact) {
 		case PLAYER_FEET | ENEMY_HEAD:
 			if (fixtureA->GetFilterData().categoryBits == ENEMY_HEAD)
 			{
-				Golem* golem = (Golem*)reinterpret_cast<Physics::FixtureUserData*>(fixtureA->GetUserData().pointer)->object;
-				if (golem != nullptr)
+				Physics::FixtureUserData* userData = reinterpret_cast<Physics::FixtureUserData*>(fixtureA->GetUserData().pointer);
+				if (userData == nullptr)
 				{
-					golem->Die();
+					break;
 				}
+
+				switch (userData->type)
+				{
+					case USER_TYPE_GOLEM:
+					{
+						Golem* golem = (Golem*)reinterpret_cast<Physics::FixtureUserData*>(fixtureA->GetUserData().pointer)->object;
+						if (golem != nullptr)
+						{
+							golem->Die();
+						}
+						break;
+					}
+
+					case USER_TYPE_BAT:
+					{
+						Bat* bat = (Bat*)reinterpret_cast<Physics::FixtureUserData*>(fixtureA->GetUserData().pointer)->object;
+						if (bat != nullptr)
+						{
+							bat->Die();
+						}
+						break;
+					}
+				}
+
 			}
 			else
 			{
-				Golem* golem = (Golem*)reinterpret_cast<Physics::FixtureUserData*>(fixtureB->GetUserData().pointer)->object;
-				if (golem != nullptr)
+				Physics::FixtureUserData* userData = reinterpret_cast<Physics::FixtureUserData*>(fixtureB->GetUserData().pointer);
+				if (userData == nullptr)
 				{
-					golem->Die();
+					break;
+				}
+				
+				switch (userData->type)
+				{
+					case USER_TYPE_GOLEM:
+					{
+						Golem* golem = (Golem*)reinterpret_cast<Physics::FixtureUserData*>(fixtureB->GetUserData().pointer)->object;
+						if (golem != nullptr)
+						{
+							golem->Die();
+						}
+						break;
+					}
+
+					case USER_TYPE_BAT:
+					{
+						Bat* bat = (Bat*)reinterpret_cast<Physics::FixtureUserData*>(fixtureB->GetUserData().pointer)->object;
+						if (bat != nullptr)
+						{
+							bat->Die();
+						}
+						break;
+					}
 				}
 			}
 			break;

@@ -19,7 +19,7 @@ public:
 	void Render();
 
 	b2Body* AddBoundaryRect(int x, int y, int w, int h, bool isDynamic, bool isPlayer);
-	b2Body* AddEnemyRect(int x, int y, int w, int h, void* object);
+	b2Body* AddEnemyRect(int x, int y, int w, int h, int type, void* object);
 	b2Body* AddPlayerRect(int x, int y, int w, int h, void* object);
 	b2Body* AddRockRect(int x, int y, int w, int h, void* object);
 

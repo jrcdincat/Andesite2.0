@@ -17,13 +17,22 @@ namespace constants {
 	constexpr float LAVA_Y_AXIS = 30.0f;
 	constexpr float X_AXIS_WIN_LOCATION = 214.0f;
 	constexpr float X_AXIS_END_OF_LEVEL_LOCATION = 227.0f;
+	constexpr float GOLEM_DEFAULT_SPEED = 0.3f;
+	constexpr float GOLEM_CHARGE_SPEED = 0.6f;
+	constexpr float GOLEM_DETECT_RANGE = 10.0f;
+	constexpr float BAT_X_OFFSET_ANIMATION = 60.0f;
+	constexpr float BAT_Y_OFFSET_ANIMATION = 18.0f;
+	constexpr float BAT_DEFAULT_SPEED = 0.5f;
+	constexpr float BAT_CHARGE_SPEED = 0.8f;
+	constexpr float BAT_DETECT_RANGE = 12.0f;
 
 	enum userDataTypes {
-		USER_TYPE_PLAYER_FEET = 1,
-		USER_TYPE_BOUDNARY = 2,
-		USER_TYPE_PLAYER = 3,
-		USER_TYPE_ENEMY = 4,
-		USER_TYPE_ROCK = 5
+		USER_TYPE_PLAYER_FEET,
+		USER_TYPE_BOUDNARY,
+		USER_TYPE_PLAYER,
+		USER_TYPE_GOLEM,
+		USER_TYPE_BAT,
+		USER_TYPE_ROCK 
 	};
 
 	enum categoryBits {
@@ -56,7 +65,7 @@ namespace constants {
 	{
 		enum EnemyState {
 			Idle,
-			Walk,
+			Move,
 			Die
 		};
 	}

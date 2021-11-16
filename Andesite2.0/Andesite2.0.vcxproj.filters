@@ -105,6 +105,9 @@
     <ClCompile Include="src\Audio\AudioManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Objects\Bat.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="src\Assets\images\Background.png">
@@ -311,6 +314,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Audio\AudioManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Objects\Bat.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

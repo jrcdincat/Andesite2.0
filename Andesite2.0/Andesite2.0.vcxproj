@@ -39,6 +39,7 @@
     <ClCompile Include="src\Menu\Button.cpp" />
     <ClCompile Include="src\Menu\MainMenu.cpp" />
     <ClCompile Include="src\Objects\Actor.cpp" />
+    <ClCompile Include="src\Objects\Bat.cpp" />
     <ClCompile Include="src\Objects\Golem.cpp" />
     <ClCompile Include="src\Objects\Entity.cpp" />
     <ClCompile Include="src\Objects\GameObject.cpp" />
@@ -115,6 +116,7 @@
     <ClInclude Include="src\Menu\Button.h" />
     <ClInclude Include="src\Menu\MainMenu.h" />
     <ClInclude Include="src\Objects\Actor.h" />
+    <ClInclude Include="src\Objects\Bat.h" />
     <ClInclude Include="src\Objects\Golem.h" />
     <ClInclude Include="src\Objects\Entity.h" />
     <ClInclude Include="src\Objects\GameObject.h" />

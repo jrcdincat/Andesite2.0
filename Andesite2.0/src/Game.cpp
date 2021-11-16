@@ -137,6 +137,11 @@ void Game::Update() {
 			rock->Update(deltaTime);
 		}
 
+		for (Bat* bat : bats)
+		{
+			bat->Update(deltaTime);
+		}
+
 		gameMap->Update();
 		Camera::GetInstance()->Update(deltaTime);
 		break;
@@ -173,9 +178,15 @@ void Game::Render() {
 		{
 			golem->Draw();
 		}
+
 		for (Rock* rock : rocks)
 		{
 			rock->Draw();
+		}
+
+		for (Bat* bat : bats)
+		{
+			bat->Draw();
 		}
 
 		TextureManager::GetInstance()->DrawFrame("cave_foreground", 7120, 397, 1000, 450, 0, 0);
@@ -210,6 +221,13 @@ void Game::CleanGameMap()
 		rock = nullptr;
 	}
 	rocks.clear();
+
+	for (Bat* bat : bats)
+	{
+		delete bat;
+		bat = nullptr;
+	}
+	bats.clear();
 }
 
 void Game::Clean() {
@@ -240,11 +258,14 @@ void Game::CreateEnemies()
 {
 	std::ifstream inGolemFile("src/assets/spawn_locations/golem_locations.txt");
 	std::ifstream inRockFile("src/assets/spawn_locations/rock_locations.txt");
+	std::ifstream inBatFile("src/assets/spawn_locations/bat_locations.txt");
 	float x, y, leftXBoundary, rightXBoundary, range;
 	Golem* golem = nullptr;
 	Rock* rock = nullptr;
+	Bat* bat = nullptr;
 	Properties* enemyProperties = nullptr;
 	Properties* rockProperties = nullptr;
+	Properties* batProperties = nullptr;
 
 	// Try and read first line of file
 	if (!(inGolemFile >> x >> y >> leftXBoundary >> rightXBoundary))
@@ -275,6 +296,21 @@ void Game::CreateEnemies()
 		rock->SetDetectRange(range);
 		rocks.push_back(rock);
 	}
+
+	// Try and read first line of file
+	if (!(inBatFile >> x >> y >> leftXBoundary >> rightXBoundary))
+	{
+		SDL_Log("ERROR: Failed to parse bat_locations.txt");
+	}
+
+	// Pare other lines to create bats
+	while (inBatFile >> x >> y >> leftXBoundary >> rightXBoundary)
+	{
+		batProperties = new Properties("bat_idle", x * PIXEL_PER_METER, y * PIXEL_PER_METER, 102, 80);
+		bat = new Bat(batProperties);
+		bat->SetMovementBoundaries(leftXBoundary, rightXBoundary);
+		bats.push_back(bat);
+	}
 }
 
 void Game::LoadTextures()
@@ -286,6 +322,9 @@ void Game::LoadTextures()
 	TextureManager::GetInstance()->LoadTexture("golem_idle", "src/assets/images/golem/Golem_Idle.png");
 	TextureManager::GetInstance()->LoadTexture("golem_walking", "src/assets/images/golem/Golem_Walking.png");
 	TextureManager::GetInstance()->LoadTexture("golem_dying", "src/assets/images/golem/Golem_Dying.png");
+	TextureManager::GetInstance()->LoadTexture("bat_idle", "src/assets/images/bat/Bat_Idle.png");
+	TextureManager::GetInstance()->LoadTexture("bat_flying", "src/assets/images/bat/Bat_Fly.png");
+	TextureManager::GetInstance()->LoadTexture("bat_dying", "src/assets/images/bat/Bat_Die.png");
 
 	// Load Rock Textures
 	TextureManager::GetInstance()->LoadTexture("rock1", "src/assets/images/rocks/Rock1.png");
@@ -314,7 +353,7 @@ void Game::LoadTextures()
 void Game::CreateGameMap()
 {
 	// Initialize Player
-	playerProperties = new Properties("player_idle", 1 * PIXEL_PER_METER, 21.5 * PIXEL_PER_METER, 300, 300);
+	playerProperties = new Properties("player_idle", 5 * PIXEL_PER_METER, 21.5 * PIXEL_PER_METER, 300, 300);
 	player = new Player(playerProperties);
 
 	CreateEnemies();
