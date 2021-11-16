@@ -307,8 +307,8 @@ void Game::LoadTextures()
 	TextureManager::GetInstance()->LoadTexture("menu_background", "src/assets/images/buttons/menu_background.png");
 
 	// Load Other UI Textures
-	TextureManager::GetInstance()->LoadTexture("win", "src/assets/images/ui/win.png");
-	TextureManager::GetInstance()->LoadTexture("controls", "src/assets/images/ui/controls.png");
+	TextureManager::GetInstance()->LoadTexture("win", "src/assets/images/text/win.png");
+	TextureManager::GetInstance()->LoadTexture("controls", "src/assets/images/text/controls.png");
 }
 
 void Game::CreateGameMap()
