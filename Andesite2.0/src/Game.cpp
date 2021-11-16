@@ -194,6 +194,7 @@ void Game::Render()
 
 			TextureManager::GetInstance()->DrawFrame("cave_background", 7120, 397, 1000, 450, 0, 0);
 			TextureManager::GetInstance()->DrawFrame("controls", 50, 620, 200, 100, 0, 0);
+			TextureManager::GetInstance()->DrawFrame("instructions", 400, 620, 200, 100, 0, 0);
 
 			player->Draw();
 
@@ -362,4 +363,5 @@ void Game::LoadTextures()
 	// Load Text Textures
 	TextureManager::GetInstance()->LoadTexture("win", "src/assets/images/text/win.png");
 	TextureManager::GetInstance()->LoadTexture("controls", "src/assets/images/text/controls.png");
+	TextureManager::GetInstance()->LoadTexture("instructions", "src/assets/images/text/instructions.png");
 }
