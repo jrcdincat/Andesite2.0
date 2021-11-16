@@ -36,9 +36,6 @@
     <ClCompile Include="src\Objects\GameObject.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Objects\IObject.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\Objects\Player.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

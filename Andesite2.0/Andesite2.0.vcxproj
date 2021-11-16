@@ -43,7 +43,6 @@
     <ClCompile Include="src\Objects\Golem.cpp" />
     <ClCompile Include="src\Objects\Entity.cpp" />
     <ClCompile Include="src\Objects\GameObject.cpp" />
-    <ClCompile Include="src\Objects\IObject.cpp" />
     <ClCompile Include="src\Objects\Player.cpp" />
     <ClCompile Include="src\Objects\Rock.cpp" />
     <ClCompile Include="src\pch.cpp">
