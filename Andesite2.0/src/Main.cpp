@@ -2,7 +2,6 @@
 #include "pch.h"
 #include <vector>
 #include <box2d.h>
-
 #include <map>
 #include "Time/Timer.h"
 #include "Game.h"
@@ -15,7 +14,7 @@ const int YPOS = SDL_WINDOWPOS_UNDEFINED;
 int main(int argc, char*args[])
 {
 	bool fullscreen = false;
-
+	
 	// Create and Initialize Game
 	Game::GetInstance()->Init("Andesite", XPOS, YPOS, SCREEN_WIDTH, SCREEN_HEIGHT, fullscreen);
 
