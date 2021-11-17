@@ -28,7 +28,7 @@ Rock::Rock(Properties* properties) : Actor(properties)
 		collisionHeight,
 		this
 	);
-	physicsBody->SetGravityScale(0.1f);
+	physicsBody->SetGravityScale(0.8f);
 	physicsBody->SetLinearDamping(1.3f);
 
 	// Get player physics body for detection

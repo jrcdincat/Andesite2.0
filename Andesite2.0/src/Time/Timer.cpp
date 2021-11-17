@@ -5,11 +5,12 @@ Timer* Timer::instance = nullptr;
 
 void Timer::Tick() 
 {
-	deltaTime = (SDL_GetTicks() - prevTime) * (TARGET_FPS / 1000.0f);
+	deltaTime = (SDL_GetTicks() - prevTime);
 	
-	if (deltaTime > TARGET_DELTATIME) {
-		deltaTime = TARGET_DELTATIME;
+	if (deltaTime < TARGET_DELTATIME)
+	{
+		SDL_Delay((int)floor(16.666f - deltaTime));
 	}
-	
+
 	prevTime = (float)SDL_GetTicks();
 }

@@ -75,7 +75,7 @@ void Bat::UpdateAnimationState()
 
 		case EnemyState::DIE:
 			animation->SetProperties("bat_dying", false, 0, 8, 2, flipSprite);
-			physicsBody->SetGravityScale(0.1f);
+			physicsBody->SetGravityScale(3.1f);
 			break;
 	}
 }

@@ -27,7 +27,7 @@ Golem::Golem(Properties* properties): Actor(properties)
 		USER_TYPE_GOLEM,
 		this
 	);
-	physicsBody->SetGravityScale(0.1f);
+	physicsBody->SetGravityScale(1.0f);
 	physicsBody->SetLinearDamping(1.3f);
 	movementBoundaryLeft = 0.0f;
 	movementBoundaryRight = 0.0f;
