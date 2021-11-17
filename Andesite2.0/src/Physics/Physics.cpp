@@ -33,8 +33,6 @@ Physics::~Physics()
 
 void Physics::Render()
 {
-	float dt = Timer::GetInstance()->GetDeltaTime();
-
 	physicsWorld->Step(1.0f / 60.0f, VELOCITY_ITERATIONS, POSITION_ITERATIONS);
 }
 
