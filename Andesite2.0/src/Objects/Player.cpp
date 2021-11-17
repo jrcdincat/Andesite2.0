@@ -28,8 +28,8 @@ Player::Player(Properties* properties): Actor(properties)
 		collisionHeight, 
 		this
 	);
-	physicsBody->SetGravityScale(0.1f);
-	physicsBody->SetLinearDamping(1.3f);
+	physicsBody->SetGravityScale(3.0f);
+	physicsBody->SetLinearDamping(2.3f);
 }
 
 Player::~Player() 
@@ -220,7 +220,7 @@ void Player::Jump()
 	{
 		currentState = PlayerState::JUMP;
 		AudioManager::GetInstance()->PlaySfx("jump");
-		float impulse = INT_MAX * Timer::GetInstance()->GetDeltaTime();
+		float impulse = 11.0f;
 		physicsBody->ApplyLinearImpulseToCenter(b2Vec2(physicsBody->GetLinearVelocity().x, -impulse), true);
 	}
 }

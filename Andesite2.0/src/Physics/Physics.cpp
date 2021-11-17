@@ -33,9 +33,7 @@ Physics::~Physics()
 
 void Physics::Render()
 {
-	float dt = Timer::GetInstance()->GetDeltaTime();
-
-	physicsWorld->Step(dt, VELOCITY_ITERATIONS, POSITION_ITERATIONS);
+	physicsWorld->Step(1.0f / 60.0f, VELOCITY_ITERATIONS, POSITION_ITERATIONS);
 }
 
 b2Body* Physics::AddBoundaryRect(int x, int y, int w, int h)
