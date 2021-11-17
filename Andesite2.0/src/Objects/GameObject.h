@@ -8,8 +8,8 @@ struct Properties {
 	Properties(std::string texID, int x, int y, int w, int h, SDL_RendererFlip flip = SDL_FLIP_NONE)
 		:textureID(texID), width(w), height(h), renderFlip(flip) 
 	{
-		position.x = x;
-		position.y = y;
+		position.x = (float)x;
+		position.y = (float)y;
 	};
 
 	Vector2D position; 

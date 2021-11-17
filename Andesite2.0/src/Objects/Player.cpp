@@ -22,8 +22,8 @@ Player::Player(Properties* properties): Actor(properties)
 	collisionWidth = 45;
 	collisionHeight = 80;
 	physicsBody = Physics::GetInstance()->AddPlayerRect(
-		properties->position.x, 
-		properties->position.y, 
+		(int)properties->position.x, 
+		(int)properties->position.y, 
 		collisionWidth, 
 		collisionHeight, 
 		this

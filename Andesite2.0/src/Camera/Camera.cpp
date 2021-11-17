@@ -17,8 +17,8 @@ void Camera::Update(float deltaTime) {
 	}
 	
 	// Camera moves after player moves half way across screen
-	viewBox.x = pointTarget->x - SCREEN_WIDTH / 2;
-	viewBox.y = pointTarget->y - SCREEN_HEIGHT / 2;
+	viewBox.x = (int)pointTarget->x - SCREEN_WIDTH / 2;
+	viewBox.y = (int)pointTarget->y - SCREEN_HEIGHT / 2;
 
 	// Ensure minimum value x and y is 0
 	if (viewBox.x < 0)
@@ -40,5 +40,5 @@ void Camera::Update(float deltaTime) {
 		viewBox.y = (MAP_HEIGHT - viewBox.h);
 	}
 
-	position = Vector2D(viewBox.x, viewBox.y);
+	position = Vector2D((float)viewBox.x, (float)viewBox.y);
 }

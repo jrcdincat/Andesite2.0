@@ -113,8 +113,8 @@ bool Game::Init(const char* TITLE, int xPos, int yPos, int w, int h, bool fullsc
 	LoadTextures();
 
 	// Set Map Background Layers
-	parallaxBackground.push_back(new BackgroundLayer("background", 0, -200, 0.3, 0.75, 0.75));
-	parallaxBackground.push_back(new BackgroundLayer("background", 2550, -200, 0.3, 0.75, 0.75));
+	parallaxBackground.push_back(new BackgroundLayer("background", 0, -200, 0.3f, 0.75f, 0.75f));
+	parallaxBackground.push_back(new BackgroundLayer("background", 2550, -200, 0.3f, 0.75f, 0.75f));
 	
 	// Initialize game camera and set map size
 	Camera::GetInstance()->SetMapSize(gameMap->GetMapWidth(), gameMap->GetMapHeight());
@@ -232,8 +232,8 @@ void Game::CreateGameMap()
 	// Initialize Player
 	playerProperties = new Properties(
 		"player_idle", 
-		PLAYER_X_START_POS * PIXEL_PER_METER,
-		PLAYER_Y_START_POS * PIXEL_PER_METER,
+		(int)(PLAYER_X_START_POS * PIXEL_PER_METER),
+		(int)(PLAYER_Y_START_POS * PIXEL_PER_METER),
 		300,
 		300
 	);
@@ -287,7 +287,7 @@ void Game::CreateEnemies()
 	// Parse other lines to create golem enemies
 	while (inGolemFile >> x >> y >> leftXBoundary >> rightXBoundary)
 	{
-		golemProperties = new Properties("golem_idle", x * PIXEL_PER_METER, y * PIXEL_PER_METER, 75, 75);
+		golemProperties = new Properties("golem_idle", (int)(x * PIXEL_PER_METER),(int)(y * PIXEL_PER_METER), 75, 75);
 		golem = new Golem(golemProperties);
 		golem->SetMovementBoundaries(leftXBoundary, rightXBoundary);
 		golems.push_back(golem);
@@ -304,7 +304,7 @@ void Game::CreateEnemies()
 	// Parse other lines to create rocks
 	while (inRockFile >> x >> y >> range)
 	{
-		rockProperties = new Properties("rock1", x * PIXEL_PER_METER, y, 60, 50);	
+		rockProperties = new Properties("rock1", (int)(x * PIXEL_PER_METER), (int)y, 60, 50);	
 		rock = new Rock(rockProperties);
 		rock->SetDetectRange(range);
 		rocks.push_back(rock);
@@ -321,7 +321,7 @@ void Game::CreateEnemies()
 	// Parse other lines to create bats
 	while (inBatFile >> x >> y >> leftXBoundary >> rightXBoundary)
 	{
-		batProperties = new Properties("bat_idle", x * PIXEL_PER_METER, y * PIXEL_PER_METER, 102, 80);
+		batProperties = new Properties("bat_idle", (int)(x * PIXEL_PER_METER),(int)(y * PIXEL_PER_METER), 102, 80);
 		bat = new Bat(batProperties);
 		bat->SetMovementBoundaries(leftXBoundary, rightXBoundary);
 		bats.push_back(bat);

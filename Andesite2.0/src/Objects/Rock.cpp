@@ -22,8 +22,8 @@ Rock::Rock(Properties* properties) : Actor(properties)
 	collisionWidth = 40;
 	collisionHeight = 37;
 	physicsBody = Physics::GetInstance()->AddRockRect(
-		properties->position.x,
-		properties->position.y,
+		(int)properties->position.x,
+		(int)properties->position.y,
 		collisionWidth,
 		collisionHeight,
 		this

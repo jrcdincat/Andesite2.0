@@ -22,8 +22,8 @@ void BackgroundLayer::QueryImage(std::string id)
 
 void BackgroundLayer::Render()
 {
-	long playerPosition = Camera::GetInstance()->GetPointTarget().x * scrollRatio;
-	long scaledImageXSize = imageWidth* xScale;
+	long playerPosition = (long)(Camera::GetInstance()->GetPointTarget().x * scrollRatio);
+	long scaledImageXSize = (long)(imageWidth* xScale);
 	long endOfBackgroundXPosition = xOffset + scaledImageXSize;
 
 	// Reposition background based on player position

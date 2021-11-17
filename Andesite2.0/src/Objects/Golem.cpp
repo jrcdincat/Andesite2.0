@@ -20,8 +20,8 @@ Golem::Golem(Properties* properties): Actor(properties)
 	collisionWidth = 25;
 	collisionHeight = 40;
 	physicsBody = Physics::GetInstance()->AddEnemyRect(
-		properties->position.x, 
-		properties->position.y, 
+		(int)properties->position.x, 
+		(int)properties->position.y, 
 		collisionWidth, 
 		collisionHeight, 
 		USER_TYPE_GOLEM,
@@ -141,7 +141,7 @@ void Golem::FollowPlayerWhenInRange()
 	float xAxisDistance = physicsBody->GetPosition().x - playerBody->GetPosition().x;
 	float yAxisDistance = physicsBody->GetPosition().y - playerBody->GetPosition().y;
 	float distance = sqrt(xAxisDistance * xAxisDistance + yAxisDistance * yAxisDistance);
-	int currentX = physicsBody->GetPosition().x;
+	int currentX = (int)physicsBody->GetPosition().x;
 
 	if (distance < GOLEM_DETECT_RANGE && 
 		currentState != EnemyState::DIE && 

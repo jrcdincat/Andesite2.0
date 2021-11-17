@@ -20,8 +20,8 @@ Bat::Bat(Properties* properties) : Actor(properties)
 	collisionWidth = 80;
 	collisionHeight = 30;
 	physicsBody = Physics::GetInstance()->AddEnemyRect(
-		properties->position.x,
-		properties->position.y,
+		(int)properties->position.x,
+		(int)properties->position.y,
 		collisionWidth,
 		collisionHeight,
 		USER_TYPE_BAT,
@@ -142,7 +142,7 @@ void Bat::FollowPlayerWhenInRange()
 	float xAxisDistance = physicsBody->GetPosition().x - playerBody->GetPosition().x;
 	float yAxisDistance = physicsBody->GetPosition().y - playerBody->GetPosition().y;
 	float distance = sqrt(xAxisDistance * xAxisDistance + yAxisDistance * yAxisDistance);
-	int currentX = physicsBody->GetPosition().x;
+	int currentX = (int)physicsBody->GetPosition().x;
 
 	if (distance < BAT_DETECT_RANGE &&
 		currentState != EnemyState::DIE &&

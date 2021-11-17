@@ -29,7 +29,7 @@ void Animation::Update() {
 }
 
 void Animation::Draw(float x, float y, int spriteWidth, int spriteHeight) {
-	TextureManager::GetInstance()->DrawFrame(textureID, x, y, spriteWidth, spriteHeight, spriteRow, currentFrame, rendererFlip );
+	TextureManager::GetInstance()->DrawFrame(textureID, (int)x, (int)y, spriteWidth, spriteHeight, spriteRow, currentFrame, rendererFlip );
 }
 
 void Animation::SetProperties(std::string id, bool repeat, int row, int frameCnt, int animateSpeed, SDL_RendererFlip flip) {

@@ -47,8 +47,7 @@ void TextureManager::Draw(std::string id, int x, int y, int width, int height, f
 {
 	SDL_Rect srcRect = { 0,0, width, height };
 	Vector2D cam = Camera::GetInstance()->GetPosition() * scrollRatio;
-	SDL_Rect dstRect = { x - cam.x, y - cam.y, width * scaleX, height * scaleY };
-
+	SDL_Rect dstRect = { x - (int)cam.x, y - (int)cam.y, (int)(width * scaleX), (int)(height * scaleY) };
 	SDL_RenderCopyEx(
 		Game::GetInstance()->GetRenderer(),
 		TextureManager::GetInstance()->textureMap[id],
@@ -64,7 +63,7 @@ void TextureManager::DrawFrame(std::string id, int x, int y, int width, int heig
 {
 	SDL_Rect srcRect = { width * frame, height * row, width, height };
 	Vector2D cam = Camera::GetInstance()->GetPosition();
-	SDL_Rect dstRect = { x - cam.x, y - cam.y, width, height };
+	SDL_Rect dstRect = { x - (int)cam.x, y - (int)cam.y, width, height };
 
 	SDL_RenderCopyEx(
 		Game::GetInstance()->GetRenderer(), 
@@ -81,7 +80,7 @@ void TextureManager::DrawTile(std::string tileSetID, int tileSize, int x, int y,
 {
 	SDL_Rect srcRect = { tileSize * frame, tileSize * row, tileSize, tileSize };
 	Vector2D cam = Camera::GetInstance()->GetPosition();
-	SDL_Rect dstRect = { x - cam.x, y - cam.y, tileSize, tileSize };
+	SDL_Rect dstRect = { x - (int)cam.x, y - (int)cam.y, tileSize, tileSize };
 
 	SDL_RenderCopyEx(Game::GetInstance()->GetRenderer(),
 		textureMap[tileSetID], 
@@ -97,7 +96,7 @@ void TextureManager::DrawStaticTileObject(int imgWidth, int imgHeight, int x, in
 {
 	SDL_Rect srcRect = { 0, 0, imgWidth, imgHeight };
 	Vector2D cam = Camera::GetInstance()->GetPosition();
-	SDL_Rect dstRect = { x - cam.x, y - cam.y, imgWidth, imgHeight};
+	SDL_Rect dstRect = { x - (int)cam.x, y - (int)cam.y, imgWidth, imgHeight};
 
 	SDL_RenderCopyEx(
 		Game::GetInstance()->GetRenderer(),

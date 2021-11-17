@@ -33,7 +33,7 @@ Physics::~Physics()
 
 void Physics::Render()
 {
-	int dt = Timer::GetInstance()->GetDeltaTime();
+	float dt = Timer::GetInstance()->GetDeltaTime();
 
 	physicsWorld->Step(dt, VELOCITY_ITERATIONS, POSITION_ITERATIONS);
 }
@@ -151,7 +151,7 @@ b2Body* Physics::AddEnemyRect(int x, int y, int w, int h, int type, void* object
 	body->CreateFixture(&fixtureDef);
 
 	// Set enemy head fixture definition and user data
-	shape.SetAsBox(0.3, 0.3, b2Vec2(0.0f, -0.5f), 0);
+	shape.SetAsBox(0.3f, 0.3f, b2Vec2(0.0f, -0.5f), 0);
 	fixtureDef.filter.categoryBits = ENEMY_HEAD;
 	fixtureDef.userData.pointer = reinterpret_cast<uintptr_t>(userData);
 

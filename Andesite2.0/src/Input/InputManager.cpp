@@ -116,9 +116,7 @@ bool InputManager::HandleButtonEvent(SDL_Rect rect)
 					}
 				}
 				break;
-
-			default:
-				break;
 		}
 	}
+	return false;
 }

@@ -11,5 +11,5 @@ void Timer::Tick()
 		deltaTime = TARGET_DELTATIME;
 	}
 	
-	prevTime = SDL_GetTicks();
+	prevTime = (float)SDL_GetTicks();
 }
